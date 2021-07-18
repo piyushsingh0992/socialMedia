@@ -11,9 +11,9 @@ import Avatar from "@material-ui/core/Avatar";
 import logo from "../../assets/logo.png";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import FollowerModal from "../followerModal";
 
+import FollowerModal from "../followerModal";
+import EditModal from "../editModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +41,7 @@ export default function ProfileHeader() {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea style={{cursor: "default"}}>
+      <CardActionArea style={{ cursor: "default" }}>
         <CardMedia
           className={classes.media}
           image="https://pbs.twimg.com/profile_banners/52322389/1625485383/600x200"
@@ -60,14 +60,21 @@ export default function ProfileHeader() {
             <Grid item xs={8}>
               <Grid container justifyContent="space-between">
                 <Grid item xs={6}>
-                  <Typography
-                    variant="h4"
-                    color="textPrimary"
-                    component="p"
-                    style={{ marginBottom: "1rem" }}
-                  >
-                    Tanay <EditOutlinedIcon />
-                  </Typography>
+                  <Grid container alignItems="flex-start">
+                    <Grid>
+                      <Typography
+                        variant="h4"
+                        color="textPrimary"
+                        component="p"
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        Tanay
+                      </Typography>
+                    </Grid>
+                    <Grid>
+                      <EditModal />
+                    </Grid>
+                  </Grid>
 
                   <Grid container justifyContent="space-between">
                     <Grid item xs={3}>
@@ -80,16 +87,6 @@ export default function ProfileHeader() {
                         1
                       </Typography>
                     </Grid>
-                    {/* <Grid item xs={3}>
-                      Follower
-                      <Typography
-                        variant="h6"
-                        color="textPrimary"
-                        component="p"
-                      >
-                        1
-                      </Typography>
-                    </Grid> */}
                     <FollowerModal title="Follower's" numbers={2} />
                     <FollowerModal title="Following" numbers={4} />
                   </Grid>

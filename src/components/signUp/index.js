@@ -85,7 +85,7 @@ export default function SignUp({
         </Typography>
 
         <form className={classes.form} noValidate>
-          <TextField
+        <TextField
             variant="outlined"
             margin="normal"
             required
