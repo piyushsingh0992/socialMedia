@@ -14,16 +14,14 @@ import logo from "../../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor:"white",
-    padding:theme.spacing(3),
-    borderRadius:"5px",
-    border:"2px solid red",
+    backgroundColor: "white",
+    padding: theme.spacing(3),
+    borderRadius: "5px",
   },
-  
+
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -37,8 +35,7 @@ export default function SignIn() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs" >
-   
+    <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <img src={logo} />
         <Typography component="h1" variant="h5">
@@ -46,6 +43,7 @@ export default function SignIn() {
         </Typography>
 
         <form className={classes.form} noValidate>
+          
           <TextField
             variant="outlined"
             margin="normal"
@@ -68,10 +66,7 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
