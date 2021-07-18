@@ -12,14 +12,14 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        {/* <Route path="/" element={<NewsFeedScreen />} />  */}
-        <Route path="/" element={<LoginScreen />} />
-        {/* <Route path="/post/:postId" element={<PostScreen />} /> */}
-        {/* <Route path="/login" element={<LoginScreen />} /> */}
-        {/* <Route path="/profile/:profileId" element={<ProfileScreen />} /> */}
-        {/* <Route path="/notifications" element={<NotificationScreen />} /> */}
-        {/* <Route path="/search/:searchText" element={<SearchScreen />} /> */}
-        {/* <Route path="/*" element={<Error404Page />} />  */}
+        <Route path="/" element={<NewsFeedScreen />} /> 
+    
+        <Route path="/post/:postId" element={<PostScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/profile/:profileId" element={<ProfileScreen />} />
+        <Route path="/notifications" element={<NotificationScreen />} />
+        <Route path="/search/:searchText" element={<SearchScreen />} />
+        <Route path="/*" element={<Error404Page />} /> 
       </Routes>
     </div>
   );
