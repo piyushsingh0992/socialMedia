@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import SignIn from "../../components/signIn";
+import SignUp from "../../components/signUp";
 
 export default function LoginScreen() {
+  const [currentUser, currentUserSetter] = useState(true);
+
   return (
     <div className="screen-container">
-      <h1>Login</h1>
-      <Footer />
+      {currentUser ? <SignIn /> : <SignUp />}
+  
     </div>
   );
 }
