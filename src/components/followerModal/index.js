@@ -35,19 +35,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleModal({title,numbers}) {
+export default function SimpleModal({ title, numbers }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
-    debugger;
     setOpen(true);
   };
 
   const handleClose = () => {
-    debugger;
     setOpen(false);
   };
 
@@ -153,7 +151,7 @@ export default function SimpleModal({title,numbers}) {
 
   return (
     <div>
-      <Grid item xs={3} onClick={handleOpen} style={{cursor: "pointer"}}>
+      <Grid item xs={3} onClick={handleOpen} style={{ cursor: "pointer" }}>
         {title}
         <Typography variant="h6" color="textPrimary" component="p">
           {numbers}

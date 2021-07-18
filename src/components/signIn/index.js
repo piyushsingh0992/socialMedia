@@ -27,8 +27,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ currentUserSetter }) {
+export default function SignIn({
+  currentUserSetter,
+  signInDetails,
+  signInDetailsSetter,
+}) {
   const classes = useStyles();
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    signInDetailsSetter((state) => {
+      return {
+        ...state,
+        [name]: event.target.value,
+      };
+    });
+
+    console.log(signInDetails);
+    
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -47,8 +64,9 @@ export default function SignIn({ currentUserSetter }) {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
             autoFocus
+            value={signInDetails.email}
+            onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -59,7 +77,8 @@ export default function SignIn({ currentUserSetter }) {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            value={signInDetails.password}
+            onChange={handleChange}
           />
 
           <Button
@@ -76,6 +95,10 @@ export default function SignIn({ currentUserSetter }) {
               xs={8}
               onClick={() => {
                 currentUserSetter((value) => !value);
+                signInDetailsSetter({
+                  password: "",
+                  email: "",
+                });
               }}
             >
               <Typography
@@ -83,9 +106,8 @@ export default function SignIn({ currentUserSetter }) {
                 color="primary"
                 variant="p"
                 style={{
-                  cursor:"pointer"
+                  cursor: "pointer"
                 }}
-
               >
                 Don't have an account? Sign Up
               </Typography>

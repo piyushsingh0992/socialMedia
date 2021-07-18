@@ -5,10 +5,35 @@ import SignUp from "../../components/signUp";
 
 export default function LoginScreen() {
   const [currentUser, currentUserSetter] = useState(false);
+  const [signInDetails, signInDetailsSetter] = useState({
+    password: "",
+    email: "",
+  });
+
+  const [signUpDetails, signUpDetailsSetter] = useState({
+    userName: "",
+    password: "",
+    email: "",
+    pronouns: "",
+    sex: null,
+  });
 
   return (
     <div className="screen-container login-screen">
-      {currentUser ? <SignIn currentUserSetter={currentUserSetter}/> : <SignUp currentUserSetter={currentUserSetter} />}
+      {currentUser ? (
+        <SignIn
+          currentUserSetter={currentUserSetter}
+          signInDetails={signInDetails}
+          signInDetailsSetter={signInDetailsSetter}
+        />
+      ) : (
+        <SignUp
+          currentUserSetter={currentUserSetter}
+          signUpDetails={signUpDetails}
+          signUpDetailsSetter={signUpDetailsSetter}
+          signInDetailsSetter={signInDetailsSetter}
+        />
+      )}
     </div>
   );
 }

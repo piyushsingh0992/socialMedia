@@ -39,19 +39,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({ currentUserSetter }) {
+export default function SignUp({
+  currentUserSetter,
+  signUpDetails,
+  signUpDetailsSetter,
+  signInDetailsSetter,
+}) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    age: "",
-    name: "hai",
-  });
 
   const handleChange = (event) => {
     const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
+    signUpDetailsSetter((state) => {
+      return {
+        ...state,
+        [name]: event.target.value,
+      };
     });
+
+    console.log(signUpDetails);
+    
   };
 
   return (
@@ -70,38 +76,46 @@ export default function SignUp({ currentUserSetter }) {
             fullWidth
             id="name"
             label="Name"
-            name="Name"
-            autoComplete="Name"
+            value={signUpDetails.name}
+            name="userName"
             autoFocus
+            onChange={handleChange}
           />
-          <FormControl variant="outlined" className={classes.formControl}>
+          <FormControl
+            required
+            variant="outlined"
+            className={classes.formControl}
+          >
             <InputLabel margin="normal">Pronouns</InputLabel>
             <Select
               native
-              value={state.age}
               onChange={handleChange}
               label="Pronouns"
+              value={signUpDetails.pronouns}
               inputProps={{
-                name: "age",
-                id: "outlined-age-native-simple",
+                name: "pronouns",
               }}
             >
               <option aria-label="None" value="" />
-              <option value={10}>Ten</option>
-              <option value={20}>Twenty</option>
-              <option value={30}>Thirty</option>
+              <option value="He/Him">He/Him</option>
+              <option value="She/Her">She/Her</option>
+              <option value="They/Them">They/Them</option>
+              <option value="Ze/Zir">Ze/Zir</option>
             </Select>
           </FormControl>
-          <FormControl variant="outlined" className={classes.formControl}>
+          <FormControl
+            required
+            variant="outlined"
+            className={classes.formControl}
+          >
             <InputLabel margin="normal">Sex</InputLabel>
             <Select
               native
-              value={state.age}
               onChange={handleChange}
-              label="Age"
+              label="sex"
+              value={signUpDetails.sex}
               inputProps={{
-                name: "age",
-                id: "outlined-age-native-simple",
+                name: "sex",
               }}
             >
               <option aria-label="None" value="" />
@@ -118,8 +132,9 @@ export default function SignUp({ currentUserSetter }) {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
             autoFocus
+            value={signUpDetails.email}
+            onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -130,7 +145,8 @@ export default function SignUp({ currentUserSetter }) {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            value={signUpDetails.password}
+            onChange={handleChange}
           />
 
           <Button
@@ -147,6 +163,13 @@ export default function SignUp({ currentUserSetter }) {
               xs={8}
               onClick={() => {
                 currentUserSetter((value) => !value);
+                signUpDetailsSetter({
+                  userName: "",
+                  password: "",
+                  email: "",
+                  pronouns: "",
+                  sex: null,
+                });
               }}
             >
               <Typography
@@ -154,7 +177,7 @@ export default function SignUp({ currentUserSetter }) {
                 color="primary"
                 variant="p"
                 style={{
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
               >
                 Already have an account? Sign In
