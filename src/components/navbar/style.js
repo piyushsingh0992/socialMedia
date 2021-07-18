@@ -2,6 +2,9 @@ import { alpha, makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
   },
 
   toolBox:{

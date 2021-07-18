@@ -153,8 +153,10 @@ export default function PrimarySearchAppBar() {
                 navigate("/");
               }}
             />
-            <Search />
-            <div className={classes.grow} />
+
+            <div className={classes.grow}>
+              <Search />
+            </div>
             <div className={classes.sectionDesktop}>
               <IconButton
                 onClick={() => {
