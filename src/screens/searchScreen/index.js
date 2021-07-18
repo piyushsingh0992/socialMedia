@@ -7,7 +7,7 @@ export default function SearchScreen() {
     <div className="screen-container">
       <Navbar />
       <Container maxWidth="sm">
-        <h1>SearchScreen</h1>
+        <h3>SearchScreen</h3>
         <SearchResult />
         <SearchResult />
         <SearchResult />
