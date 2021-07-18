@@ -4,8 +4,6 @@ import Modal from "@material-ui/core/Modal";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
-import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
@@ -193,6 +191,7 @@ export default function SimpleModal({ title, numbers }) {
             size="large"
             className={classes.button}
             startIcon={<SaveIcon />}
+            onClick={handleClose}
           >
             Save
           </Button>
