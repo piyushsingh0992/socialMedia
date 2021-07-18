@@ -25,7 +25,7 @@ export default function Post() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
-    console.log({ expanded });
+   
 
     setExpanded((value) => !value);
   };

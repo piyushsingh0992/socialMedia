@@ -42,9 +42,6 @@ export default function SignIn({
         [name]: event.target.value,
       };
     });
-
-    console.log(signInDetails);
-    
   };
 
   return (
@@ -106,7 +103,7 @@ export default function SignIn({
                 color="primary"
                 variant="p"
                 style={{
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 Don't have an account? Sign Up

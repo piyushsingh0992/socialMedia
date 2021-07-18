@@ -55,9 +55,25 @@ export default function SignUp({
         [name]: event.target.value,
       };
     });
+  };
 
-    console.log(signUpDetails);
-    
+  const settingSignupObject = () => {
+    signInDetailsSetter({
+      password: signUpDetails.password,
+      email: signUpDetails.email,
+    });
+  };
+
+  const successSignUp = () => {
+    settingSignupObject();
+    currentUserSetter((value) => !value);
+    signUpDetailsSetter({
+      userName: "",
+      password: "",
+      email: "",
+      pronouns: "",
+      sex: null,
+    });
   };
 
   return (
@@ -154,6 +170,7 @@ export default function SignUp({
             variant="contained"
             color="primary"
             className={classes.submit}
+            
           >
             Sign Up
           </Button>
@@ -177,7 +194,7 @@ export default function SignUp({
                 color="primary"
                 variant="p"
                 style={{
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 Already have an account? Sign In
