@@ -4,9 +4,9 @@ import ProfileHeader from "../../components/profileheader";
 import Container from "@material-ui/core/Container";
 import ImageGrid from "../../components/imageGrid";
 import FollowerModal from "../../components/followerModal";
-export default function profileScreen() {
+export default function profileContainer() {
   return (
-    <div className="screen-container">
+    <div className="main-container">
       <Navbar />
       {/* <FollowerModal/> */}
       <Container maxWidth="sm">

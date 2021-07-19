@@ -3,9 +3,9 @@ import Navbar from "../../components/navbar";
 import Container from "@material-ui/core/Container";
 import Notification from "../../components/notification";
 import Typography from "@material-ui/core/Typography";
-export default function NotificationScreen() {
+export default function NotificationContainer() {
   return (
-    <div className="screen-container">
+    <div className="main-container">
       <Navbar />
       <Container maxWidth="sm">
     

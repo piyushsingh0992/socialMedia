@@ -3,7 +3,7 @@ import "./style.css";
 import SignIn from "../../components/signIn";
 import SignUp from "../../components/signUp";
 
-export default function LoginScreen() {
+export default function LoginContainer() {
   const [currentUser, currentUserSetter] = useState(false);
   const [signInDetails, signInDetailsSetter] = useState({
     password: "",
@@ -19,7 +19,7 @@ export default function LoginScreen() {
   });
 
   return (
-    <div className="screen-container login-screen">
+    <div className="main-container login-screen">
       {currentUser ? (
         <SignIn
           currentUserSetter={currentUserSetter}

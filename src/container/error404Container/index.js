@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
 
-export default function PostScreen() {
+
+export default function Error404Container() {
   return (
-    <div className="screen-container">
+    <div className="main-container">
       <Navbar />
-      <h1>postscreen</h1>
+      <h1>error404Container</h1>
+     
     </div>
   );
 }
+

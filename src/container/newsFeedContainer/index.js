@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewsFeed() {
+export default function NewsFeedContainer() {
   const classes = useStyles();
   return (
-    <div className="screen-container">
+    <div className="main-container">
       <Navbar />
 
       <Container maxWidth="sm">
