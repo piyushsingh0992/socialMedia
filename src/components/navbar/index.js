@@ -16,6 +16,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Search from "../search";
 import { useStyles } from "./style.js";
 import { useNavigate } from "react-router-dom";
+import UploadButton from "../uploadButton";
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
@@ -124,6 +125,8 @@ export default function PrimarySearchAppBar() {
         Notifications
       </MenuItem>
 
+      <UploadButton menuItem />
+
       <MenuItem
         onClick={() => {
           alert("logout");
@@ -178,6 +181,7 @@ export default function PrimarySearchAppBar() {
                   }}
                 />
               </IconButton>
+              <UploadButton />
 
               <IconButton
                 edge="end"
