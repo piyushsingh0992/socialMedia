@@ -4,6 +4,7 @@ import "./style.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Post from "../../components/post";
+import CreatePost from "../../components/createPost";
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(3, 2),
@@ -18,6 +19,7 @@ export default function NewsFeedContainer() {
       <Navbar />
 
       <Container maxWidth="sm">
+        <CreatePost />
         <Post />
         <Post />
         <Post />
