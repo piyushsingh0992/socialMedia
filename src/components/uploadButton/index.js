@@ -19,6 +19,7 @@ export default function UploadButton({ menuItem }) {
   const [open, setOpen] = useState(false);
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const [caption, captionSetter] = useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -27,6 +28,7 @@ export default function UploadButton({ menuItem }) {
     setOpen(false);
     setPreviewSource("");
     setFileInputState("");
+    captionSetter("");
   };
 
   const previewFile = (file) => {
@@ -66,11 +68,11 @@ export default function UploadButton({ menuItem }) {
             <IconButton>
               <PhotoCamera style={{ color: "black" }} />
             </IconButton>
-            Notifications
+            Notificaptions
           </MenuItem>
         ) : (
           <IconButton aria-label="upload picture" component="span">
-            <PhotoCamera />
+            <PhotoCamera style={{ color: "black" }} />
           </IconButton>
         )}
       </label>
@@ -95,9 +97,10 @@ export default function UploadButton({ menuItem }) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              value={caption}
               inputProps={{ "aria-label": "search" }}
               onChange={(e) => {
-                console.log(e.target.value);
+                captionSetter(e.target.value);
               }}
             />
           </Card>
@@ -106,7 +109,6 @@ export default function UploadButton({ menuItem }) {
               variant="contained"
               color="primary"
               className={classes.button}
-              endIcon={<Icon>send</Icon>}
               onClick={handleClose}
             >
               Post
