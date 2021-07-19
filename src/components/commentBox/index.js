@@ -24,6 +24,7 @@ const CommentBox = () => {
     <CardContent
       style={{
         borderTop: "0.1px solid grey",
+        background:"white"
       }}
     >
       <Grid container wrap="nowrap" spacing={2}>

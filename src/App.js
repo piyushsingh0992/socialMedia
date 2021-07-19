@@ -12,8 +12,8 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        {/* <Route path="/" element={<NewsFeedContainer />} />  */}
-        <Route path="/" element={<PostContainer />} /> 
+        <Route path="/" element={<NewsFeedContainer />} /> 
+        {/* <Route path="/" element={<PostContainer />} />  */}
         <Route path="/post/:postId" element={<PostContainer />} />
         <Route path="/login" element={<LoginContainer />} />
         <Route path="/profile/:profileId" element={<ProfileContainer />} />

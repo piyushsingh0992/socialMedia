@@ -17,6 +17,7 @@ const PostHeader = ({ handleClick, handleClose, anchorEl }) => {
       }
       style={{
         borderBottom: "0.1px solid grey",
+        
       }}
       action={
         <div>

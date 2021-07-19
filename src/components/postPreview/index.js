@@ -7,27 +7,33 @@ import Typography from "@material-ui/core/Typography";
 
 import CommentBox from "../commentBox";
 import PostHeader from "../postHeader";
+import Comment from "../comment";
+import Grid from "@material-ui/core/Grid";
+
 import CommentList from "../commentList";
 import PostActionButtons from "../postActionButtons";
-import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     margin: "1.5rem",
-    width:"100%",
+    width: "100%",
   },
   details: {
-    background:"red",
-    width:"50%",
+    width: "50%",
+    height: "85vh",
   },
   content: {
-    flex: "1 0 auto",
+
+    padding: "0px",
+    margin: "0px",
+    minHeight: "100%",
+    position: "relative",
   },
   cover: {
     width: "50%",
     height: "85vh",
-    width:"50%"
+    width: "50%",
   },
   //   playIcon: {
   //     height: 38,
@@ -66,6 +72,40 @@ export default function MediaControlCard() {
             handleClose={handleClose}
             anchorEl={anchorEl}
           />
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            style={{ padding: "1rem" }}
+          >
+            This impressive paella is a perfect party dish and a fun meal to
+            cook together with your guests. Add 1 cup of frozen peas along with
+            the mussels, if you like.
+          </Typography>
+          <Grid container style={{ overflowY: "scroll", maxHeight: "50vh" ,padding:"2.5vh 0" }}>
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+            <Comment />
+            
+            <Comment />
+            
+
+          </Grid>
+          <div
+            style={{
+
+              position: "absolute",
+              bottom: "0",
+              width: "100%",
+              paddingBottom: " 0.5rem ",
+            }}
+          >
+            <CommentBox />
+          </div>
         </CardContent>
       </div>
     </Card>
