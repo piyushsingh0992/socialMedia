@@ -3,12 +3,11 @@ import Navbar from "../../components/navbar";
 import ProfileHeader from "../../components/profileheader";
 import Container from "@material-ui/core/Container";
 import ImageGrid from "../../components/imageGrid";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import FollowerModal from "../../components/followerModal";
-import { useParams, NavLink } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+
+import { useParams } from "react-router-dom";
 export default function ProfileContainer() {
-  const dispatch = useDispatch();
   const [userDetails, userDetailsSetter] = useState(null);
   const [userProfile, userProfileSetter] = useState(false);
   let user = useSelector((state) => state.user.userDetails);
@@ -18,16 +17,15 @@ export default function ProfileContainer() {
     if (userId === user._id) {
       userDetailsSetter(user);
       userProfileSetter(true);
-      debugger;
     } else {
       userProfile(false);
     }
-  }, [userId]);
+  }, [userId, user]);
   return userDetails ? (
     <div className="main-container">
       <Navbar />
       <Container maxWidth="sm">
-        <ProfileHeader userDetails={userDetails} userProfile={userProfile} userDetailsSetter={userDetailsSetter} />
+        <ProfileHeader userDetails={userDetails} userProfile={userProfile} />
         <ImageGrid />
       </Container>
     </div>

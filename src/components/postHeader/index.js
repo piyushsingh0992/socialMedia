@@ -3,21 +3,18 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import logo from "../../assets/logo.png";
 import DeletePost from "../deletePost";
+import { useSelector } from "react-redux";
 
 const PostHeader = ({ handleClick, handleClose, anchorEl }) => {
-  
+  const user = useSelector((state) => state.user.userDetails);
   return (
     <CardHeader
       title="user Name"
       subheader="September 14, 2016"
-      avatar={
-        <Avatar aria-label="recipe"  src={logo} />
-      }
+      avatar={<Avatar aria-label="recipe" src={user.profileImage} />}
       style={{
         borderBottom: "0.1px solid grey",
-        
       }}
       action={
         <div>

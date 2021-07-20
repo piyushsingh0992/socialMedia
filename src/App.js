@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-
 import "./app.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import LoginContainer from "./container/loginContainer";
 import NewsFeedContainer from "./container/newsFeedContainer";
 import PostContainer from "./container/postContainer";
@@ -11,18 +10,25 @@ import NotificationContainer from "./container/notificationContainer";
 import SearchContainer from "./container/searchContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector, useDispatch, createDispatchHook } from "react-redux";
-import { signInfromLocalStorage } from "./container/loginContainer/userSlice";
+import {  useDispatch, } from "react-redux";
+import {
+  signInfromLocalStorage,
+  resetInitialState,
+} from "./container/loginContainer/userSlice";
 import PrivateRoute from "./components/privateRoute";
+import { setupAuthHeader, setupAuthExceptionHandler } from "./utils/common.js";
 function App() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
   useEffect(() => {
-    let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  
     if (userDetails) {
+      setupAuthHeader(userDetails.token);
+      setupAuthExceptionHandler(resetInitialState, navigate, dispatch);
       dispatch(signInfromLocalStorage(userDetails));
     }
-  }, []);
+  }, [userDetails]);
 
   return (
     <div className="app">
@@ -31,10 +37,7 @@ function App() {
         <PrivateRoute path="/" element={<NewsFeedContainer />} />
         <PrivateRoute path="/post/:postId" element={<PostContainer />} />
 
-        <PrivateRoute
-          path="/profile/:userId"
-          element={<ProfileContainer />}
-        />
+        <PrivateRoute path="/profile/:userId" element={<ProfileContainer />} />
         <PrivateRoute
           path="/notifications"
           element={<NotificationContainer />}

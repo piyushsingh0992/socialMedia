@@ -3,16 +3,15 @@ import "./style.css";
 import SignIn from "../../components/signIn";
 import SignUp from "../../components/signUp";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 export default function LoginContainer() {
   const [currentUser, currentUserSetter] = useState(true);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (user.status === "fullfilled") {
+    if (user.token) {
       navigate(state && state.from ? state.from : "/");
     }
   }, [user]);

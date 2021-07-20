@@ -7,10 +7,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Modal from "@material-ui/core/Modal";
 import { useStyles, getModalStyle } from "./style.js";
 import InputBase from "@material-ui/core/InputBase";
-import PostHeader from "../postHeader";
-import CommentBox from "../commentBox";
 import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 export default function UploadButton({ menuItem }) {
@@ -44,14 +41,13 @@ export default function UploadButton({ menuItem }) {
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
-    
+
     if (file) {
-      
       previewFile(file);
       setFileInputState(e.target.value);
     }
   };
-  let x = true;
+
   return (
     <div className={classes.root}>
       <input
@@ -68,7 +64,7 @@ export default function UploadButton({ menuItem }) {
             <IconButton>
               <PhotoCamera style={{ color: "black" }} />
             </IconButton>
-            Notificaptions
+            Upload
           </MenuItem>
         ) : (
           <IconButton aria-label="upload picture" component="span">

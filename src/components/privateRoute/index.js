@@ -14,14 +14,12 @@ function getNewPath(path, paramsArray) {
 }
 
 const PrivateRoute = ({ path, ...props }) => {
-  const loginStatus = useSelector((state) => state.user.status);
+  const token = useSelector((state) => state.user.token);
 
   let paramsArray = useParams();
 
   let newPath = getNewPath(path, paramsArray);
-
-
-  return loginStatus === "fullfilled" ? (
+  return token ? (
     <Route to={path} {...props} />
   ) : (
     <Navigate state={{ from: newPath }} replace to="/login" />

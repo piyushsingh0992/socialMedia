@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
+import { getModalStyle, useStyles } from "./style.js";
 import Modal from "@material-ui/core/Modal";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -11,47 +11,27 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import SaveIcon from "@material-ui/icons/Save";
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `20%`,
-    left: `25%`,
-    // transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-  paper: {
-    position: "absolute",
-    maxWidth: 600,
-    backgroundColor: theme.palette.background.paper,
-    border: `2px solid ${theme.palette.primary.main}`,
-    boxShadow: theme.shadows[5],
-    borderRadius: "5px",
-    padding: theme.spacing(4, 4, 4),
-    maxHeight: "50vh",
-  },
-  formControl: {
-    minWidth: 120,
-    width: "100%",
-    padding: 0,
-    margin: 0,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateFunction,
+} from "../../container/loginContainer/userSlice";
 
 export default function SettingModal({ editDetails }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  let user = useSelector((state) => state.user);
+  useEffect(() => {
+    if (user.updateStatus === "fullfilled") {
+      toast.success(user.message);
+      setOpen(false);
+    } else if (user.updateStatus === "rejected") {
+      toast.error(user.message);
+    }
+  }, [user]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -71,6 +51,12 @@ export default function SettingModal({ editDetails }) {
       };
     });
   };
+
+  useEffect(() => {
+    if (user.status === "fullfilled") {
+    }
+  }, [user]);
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <Typography variant="h5" color="primary">
@@ -181,9 +167,11 @@ export default function SettingModal({ editDetails }) {
             size="large"
             className={classes.button}
             startIcon={<SaveIcon />}
-            onClick={handleClose}
+            onClick={() => {
+              dispatch(updateFunction(userDetails));
+            }}
           >
-            Save
+            {user.updateStatus === "loading" ? "loading..." : "Save"}
           </Button>
         </Grid>
       </Grid>

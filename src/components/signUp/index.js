@@ -57,7 +57,7 @@ export default function SignUp({
   }, [signUp.status]);
 
   async function submitHandler() {
-    if (!check(signUpDetails)) {
+    if (check(signUpDetails)) {
       toast.error("please fill in all the details");
       return;
     }

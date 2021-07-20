@@ -6,7 +6,10 @@ export function check(signUpDetails) {
       return state + 0;
     }
   }, 0);
-  return check === 5;
+  console.log("check ->", check);
+  console.log("signUpDetails.length ->", Object.keys(signUpDetails).length);
+
+  return check !== Object.keys(signUpDetails).length;
 }
 
 export const successSignUp = (

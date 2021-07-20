@@ -101,9 +101,8 @@ export default function PrimarySearchAppBar() {
             objectFit: "contain",
           }}
           className={classes.avatar}
-        >
-          <img src={logo} />
-        </Avatar>
+          src={user.profileImage}
+        />
         Profile
       </MenuItem>
       <MenuItem
@@ -199,9 +198,8 @@ export default function PrimarySearchAppBar() {
                     objectFit: "contain",
                   }}
                   className={classes.avatar}
-                >
-                  <img src={logo} />
-                </Avatar>
+                  src={user.profileImage}
+                />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
