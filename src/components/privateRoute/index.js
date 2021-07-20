@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, Navigate, Route } from "react-router-dom";
-import { useSelector, } from "react-redux";
+import { useSelector } from "react-redux";
 
 function getNewPath(path, paramsArray) {
   let pathArray = path.split(":");
@@ -19,6 +19,7 @@ const PrivateRoute = ({ path, ...props }) => {
   let paramsArray = useParams();
 
   let newPath = getNewPath(path, paramsArray);
+
 
   return loginStatus === "fullfilled" ? (
     <Route to={path} {...props} />

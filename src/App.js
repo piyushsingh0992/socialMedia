@@ -13,7 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch, createDispatchHook } from "react-redux";
 import { signInfromLocalStorage } from "./container/loginContainer/userSlice";
-
+import PrivateRoute from "./components/privateRoute";
 function App() {
   const dispatch = useDispatch();
 
@@ -28,12 +28,22 @@ function App() {
     <div className="app">
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<NewsFeedContainer />} />
-        <Route path="/post/:postId" element={<PostContainer />} />
+        <PrivateRoute path="/" element={<NewsFeedContainer />} />
+        <PrivateRoute path="/post/:postId" element={<PostContainer />} />
+
+        <PrivateRoute
+          path="/profile/:profileId"
+          element={<ProfileContainer />}
+        />
+        <PrivateRoute
+          path="/notifications"
+          element={<NotificationContainer />}
+        />
+        <PrivateRoute
+          path="/search/:searchText"
+          element={<SearchContainer />}
+        />
         <Route path="/login" element={<LoginContainer />} />
-        <Route path="/profile/:profileId" element={<ProfileContainer />} />
-        <Route path="/notifications" element={<NotificationContainer />} />
-        <Route path="/search/:searchText" element={<SearchContainer />} />
         <Route path="/*" element={<Error404Page />} />
       </Routes>
     </div>
