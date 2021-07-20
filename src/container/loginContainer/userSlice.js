@@ -15,6 +15,19 @@ export let signUpFunction = createAsyncThunk(
   }
 );
 
+export let signInFunction = createAsyncThunk(
+  "posts/signInFunction",
+  async (signInDetails, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", "auth/", signInDetails);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "posts",
   initialState: {
@@ -29,8 +42,21 @@ export const userSlice = createSlice({
     },
   },
   reducers: {
+    resetInitialState: (state) => {
+      return {
+        userDetails: {},
+        status: "idle",
+        error: null,
+        message: null,
+        token: null,
+        signUp: {
+          status: "idle",
+          message: null,
+        },
+      };
+    },
+
     resetSignUpState: (state) => {
-      debugger;
       state.signUp = {
         status: "null",
         message: null,
@@ -49,9 +75,24 @@ export const userSlice = createSlice({
       state.signUp.status = "rejected";
       state.signUp.message = action.payload.message;
     },
+
+    [signInFunction.pending]: (state) => {
+      
+      state.status = "loading";
+    },
+    [signInFunction.fulfilled]: (state, action) => {
+      
+      state.status = "fullfilled";
+      state.message = action.payload.message;
+    },
+    [signInFunction.rejected]: (state, action) => {
+      
+      state.status = "rejected";
+      state.message = action.payload.message;
+    },
   },
 });
 
-export const { resetSignUpState } = userSlice.actions;
+export const { resetSignUpState ,resetInitialState} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,31 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./style.js";
 import Container from "@material-ui/core/Container";
 import logo from "../../assets/logo.png";
+import { useSelector, useDispatch, createDispatchHook } from "react-redux";
+import { toast } from "react-toastify";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "white",
-    padding: theme.spacing(3),
-    borderRadius: "5px",
-  },
-
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import {
+  signInFunction,
+  resetInitialState,
+} from "../../container/loginContainer/userSlice";
 
 export default function SignIn({
   currentUserSetter,
@@ -33,6 +20,8 @@ export default function SignIn({
   signInDetailsSetter,
 }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -43,6 +32,14 @@ export default function SignIn({
       };
     });
   };
+
+  useEffect(() => {
+    if (user.status === "rejected") {
+      toast.error(user.message);
+
+      dispatch(resetInitialState());
+    }
+  }, [user]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -83,8 +80,11 @@ export default function SignIn({
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => {
+              dispatch(signInFunction(signInDetails));
+            }}
           >
-            Sign In
+            {user.status === "loading" ? "loading..." : "Sign In"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid
@@ -92,7 +92,6 @@ export default function SignIn({
               xs={8}
               onClick={() => {
                 currentUserSetter((value) => {
-                  console.log("value ->", value);
                   return !value;
                 });
 

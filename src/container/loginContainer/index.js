@@ -5,16 +5,15 @@ import SignUp from "../../components/signUp";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 export default function LoginContainer() {
-  const [currentUser, currentUserSetter] = useState(false);
+  const [currentUser, currentUserSetter] = useState(true);
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    debugger;
     if (user.status === "fullfilled") {
-      navigate(state && state.from ? state.from : "/");
+      navigate(state && state.from ? state.from : "/profile/try");
     }
   }, [user]);
 
