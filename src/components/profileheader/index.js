@@ -72,7 +72,7 @@ export default function ProfileHeader({
                         variant="h4"
                         color="textPrimary"
                         component="p"
-                        style={{ marginBottom: "1rem" }}
+                        // style={{ marginBottom: "1rem" }}
                       >
                         {userDetails.userName.length > 5
                           ? `${userDetails.userName}.`
@@ -88,6 +88,15 @@ export default function ProfileHeader({
                       )}
                     </Grid>
                   </Grid>
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    component="p"
+                        style={{ marginBottom: "1rem" }}
+                  >
+                    ({userDetails.pronouns})
+
+                  </Typography>
 
                   <Grid container justifyContent="space-between">
                     <Grid item xs={3}>
@@ -109,14 +118,6 @@ export default function ProfileHeader({
                       numbers={userDetails.following.length}
                     />
                   </Grid>
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    component="p"
-                    style={{ margin: "1rem 0" }}
-                  >
-                    ChatBubbleOutlineOutlined
-                  </Typography>
                 </Grid>
                 <Grid item xs={4}>
                   <Grid
