@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleModal({ title, numbers }) {
+export default function SettingModal({ editDetails }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
@@ -61,16 +61,7 @@ export default function SimpleModal({ title, numbers }) {
     setOpen(false);
   };
 
-  const [userDetails, userDetailsSetter] = useState({
-    userName: "",
-    password: "",
-    email: "",
-    pronouns: "",
-    sex: null,
-    profileImage: "",
-    coverImage: "",
-  });
-
+  const [userDetails, userDetailsSetter] = useState(editDetails);
   const handleChange = (event) => {
     const name = event.target.name;
     userDetailsSetter((state) => {
@@ -95,7 +86,7 @@ export default function SimpleModal({ title, numbers }) {
             fullWidth
             id="name"
             label="Name"
-            value={userDetails.name}
+            value={userDetails.userName}
             name="userName"
             autoFocus
             onChange={handleChange}

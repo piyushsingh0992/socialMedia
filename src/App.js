@@ -32,7 +32,7 @@ function App() {
         <PrivateRoute path="/post/:postId" element={<PostContainer />} />
 
         <PrivateRoute
-          path="/profile/:profileId"
+          path="/profile/:userId"
           element={<ProfileContainer />}
         />
         <PrivateRoute

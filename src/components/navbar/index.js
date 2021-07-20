@@ -28,7 +28,7 @@ export default function PrimarySearchAppBar() {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const dispatch = useDispatch();
-
+  let user = useSelector((state) => state.user.userDetails);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,7 +43,7 @@ export default function PrimarySearchAppBar() {
   };
 
   const handleProfileMenuClose = () => {
-    navigate("/profile/try");
+    navigate(`/profile/${user._id}`);
     handleMenuClose();
   };
 
@@ -90,7 +90,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem
         onClick={() => {
-          navigate("/profile/try");
+          navigate(`/profile/${user._id}`);
         }}
       >
         <Avatar

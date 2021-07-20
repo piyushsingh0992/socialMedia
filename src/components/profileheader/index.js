@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 import FollowerModal from "../followerModal";
-import EditModal from "../editModal";
+import SettingModal from "../settingModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,15 +36,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileHeader() {
+export default function ProfileHeader({
+  userDetails,
+  userProfile,
+  userDetailsSetter,
+}) {
   const classes = useStyles();
+  console.log("userDetails ->", userDetails);
+  debugger;
 
   return (
     <Card className={classes.root}>
       <CardActionArea style={{ cursor: "default" }}>
         <CardMedia
           className={classes.media}
-          image="https://pbs.twimg.com/profile_banners/52322389/1625485383/600x200"
+          image={userDetails.coverImage}
           title="Contemplative Reptile"
         />
 
@@ -54,7 +60,7 @@ export default function ProfileHeader() {
               <Avatar
                 aria-label="recipe"
                 className={classes.avatar}
-                src={logo}
+                src={userDetails.profileImage}
               />
             </Grid>
             <Grid item xs={8}>
@@ -68,11 +74,18 @@ export default function ProfileHeader() {
                         component="p"
                         style={{ marginBottom: "1rem" }}
                       >
-                        Tanay
+                        {userDetails.userName.length > 5
+                          ? `${userDetails.userName}.`
+                          : `${userDetails.userName}`}
                       </Typography>
                     </Grid>
                     <Grid>
-                      <EditModal />
+                      {userProfile && (
+                        <SettingModal
+                          editDetails={userDetails}
+                          userDetailsSetter={userDetailsSetter}
+                        />
+                      )}
                     </Grid>
                   </Grid>
 
@@ -84,11 +97,17 @@ export default function ProfileHeader() {
                         color="textPrimary"
                         component="p"
                       >
-                        1
+                        {userDetails.posts.length}
                       </Typography>
                     </Grid>
-                    <FollowerModal title="Follower's" numbers={2} />
-                    <FollowerModal title="Following" numbers={4} />
+                    <FollowerModal
+                      title="Follower's"
+                      numbers={userDetails.followers.length}
+                    />
+                    <FollowerModal
+                      title="Following"
+                      numbers={userDetails.following.length}
+                    />
                   </Grid>
                   <Typography
                     variant="h6"
@@ -105,13 +124,15 @@ export default function ProfileHeader() {
                     alignItems="center"
                     justifyContent="space-between"
                   >
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      className={classes.button}
-                    >
-                      Follow
-                    </Button>
+                    {!userProfile && (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                      >
+                        Follow
+                      </Button>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>
