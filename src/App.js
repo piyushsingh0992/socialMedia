@@ -7,7 +7,7 @@ import ProfileContainer from "./container/profileContainer";
 import Error404Page from "./container/error404Container";
 import NotificationContainer from "./container/notificationContainer";
 import SearchContainer from "./container/searchContainer";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {

@@ -1,44 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { toast } from "react-toastify";
+
 import Container from "@material-ui/core/Container";
 import logo from "../../assets/logo.png";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { useStyles } from "./style.js";
+import { check, successSignUp } from "./common.js";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    minWidth: 120,
-    width: "100%",
-    margin: "0.5rem 0",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  paper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "white",
-    padding: "0.5rem 1.5rem",
-    borderRadius: "5px",
-    margin: "2rem 0",
-  },
+import { useSelector, useDispatch } from "react-redux";
 
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    margin: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
+import {
+  signUpFunction,
+  resetSignUpState,
+} from "../../container/loginContainer/userSlice";
 export default function SignUp({
   currentUserSetter,
   signUpDetails,
@@ -46,6 +26,8 @@ export default function SignUp({
   signInDetailsSetter,
 }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const signUp = useSelector((state) => state.user.signUp);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -57,24 +39,30 @@ export default function SignUp({
     });
   };
 
-  const settingSignupObject = () => {
-    signInDetailsSetter({
-      password: signUpDetails.password,
-      email: signUpDetails.email,
-    });
+  const successSignUpProps = {
+    signUpDetails,
+    signUpDetailsSetter,
+    signInDetailsSetter,
+    currentUserSetter,
+    toast,
   };
+  useEffect(() => {
+    if (signUp.status === "fullfilled") {
+      successSignUp(successSignUpProps, signUp.message);
+      dispatch(resetSignUpState());
+    } else if (signUp.status === "rejected") {
+      toast.error(signUp.message);
+      dispatch(resetSignUpState());
+    }
+  }, [signUp.status]);
 
-  const successSignUp = () => {
-    settingSignupObject();
-    currentUserSetter((value) => !value);
-    signUpDetailsSetter({
-      userName: "",
-      password: "",
-      email: "",
-      pronouns: "",
-      sex: null,
-    });
-  };
+  async function submitHandler() {
+    if (!check(signUpDetails)) {
+      toast.error("please fill in all the details");
+      return;
+    }
+    dispatch(signUpFunction(signUpDetails));
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -85,7 +73,7 @@ export default function SignUp({
         </Typography>
 
         <form className={classes.form} noValidate>
-        <TextField
+          <TextField
             variant="outlined"
             margin="normal"
             required
@@ -170,9 +158,11 @@ export default function SignUp({
             variant="contained"
             color="primary"
             className={classes.submit}
-            
+            onClick={() => {
+              submitHandler();
+            }}
           >
-            Sign Up
+            {signUp.status === "loading" ? "loading..." : "Sign Up"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid
@@ -185,7 +175,7 @@ export default function SignUp({
                   password: "",
                   email: "",
                   pronouns: "",
-                  sex: null,
+                  sex: "",
                 });
               }}
             >

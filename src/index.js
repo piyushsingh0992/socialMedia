@@ -23,9 +23,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ThemeProvider theme={theme}>
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
       <App />
-      {/* </Provider> */}
+      </Provider>
       </ThemeProvider>
     </Router>
   </React.StrictMode>,

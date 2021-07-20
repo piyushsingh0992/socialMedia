@@ -44,9 +44,9 @@ export default function UploadButton({ menuItem }) {
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
-    debugger;
+    
     if (file) {
-      debugger;
+      
       previewFile(file);
       setFileInputState(e.target.value);
     }

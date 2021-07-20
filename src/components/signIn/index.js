@@ -91,7 +91,11 @@ export default function SignIn({
               item
               xs={8}
               onClick={() => {
-                currentUserSetter((value) => !value);
+                currentUserSetter((value) => {
+                  console.log("value ->", value);
+                  return !value;
+                });
+
                 signInDetailsSetter({
                   password: "",
                   email: "",
