@@ -43,6 +43,7 @@ export const userSlice = createSlice({
   },
   reducers: {
     resetInitialState: (state) => {
+      localStorage.removeItem("userDetails");
       return {
         userDetails: {},
         status: "idle",
@@ -92,8 +93,6 @@ export const userSlice = createSlice({
       state.userDetails = action.payload.data.userDetails;
 
       localStorage.setItem("userDetails", JSON.stringify(action.payload));
-
-
     },
     [signInFunction.rejected]: (state, action) => {
       state.status = "rejected";
@@ -102,6 +101,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetSignUpState, resetInitialState ,signInfromLocalStorage} = userSlice.actions;
+export const { resetSignUpState, resetInitialState, signInfromLocalStorage } =
+  userSlice.actions;
 
 export default userSlice.reducer;

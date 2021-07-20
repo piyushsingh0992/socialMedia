@@ -17,6 +17,8 @@ import Search from "../search";
 import { useStyles } from "./style.js";
 import { useNavigate } from "react-router-dom";
 import UploadButton from "../uploadButton";
+import { useSelector, useDispatch } from "react-redux";
+import { resetInitialState } from "../../container/loginContainer/userSlice";
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
@@ -25,6 +27,7 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const dispatch = useDispatch();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,7 +48,8 @@ export default function PrimarySearchAppBar() {
   };
 
   const handleLogoutMenuClose = () => {
-    alert("logout");
+    dispatch(resetInitialState());
+
     handleMenuClose();
   };
 
@@ -129,7 +133,7 @@ export default function PrimarySearchAppBar() {
 
       <MenuItem
         onClick={() => {
-          alert("logout");
+          dispatch(resetInitialState());
         }}
       >
         <IconButton>

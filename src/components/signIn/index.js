@@ -8,7 +8,7 @@ import Container from "@material-ui/core/Container";
 import logo from "../../assets/logo.png";
 
 import { toast } from "react-toastify";
-import { useSelector, useDispatch, createDispatchHook } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   signInFunction,
   resetInitialState,
