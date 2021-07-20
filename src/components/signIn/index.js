@@ -6,9 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./style.js";
 import Container from "@material-ui/core/Container";
 import logo from "../../assets/logo.png";
-import { useSelector, useDispatch, createDispatchHook } from "react-redux";
-import { toast } from "react-toastify";
 
+import { toast } from "react-toastify";
+import { useSelector, useDispatch, createDispatchHook } from "react-redux";
 import {
   signInFunction,
   resetInitialState,

@@ -13,7 +13,7 @@ export default function LoginContainer() {
 
   useEffect(() => {
     if (user.status === "fullfilled") {
-      navigate(state && state.from ? state.from : "/profile/try");
+      navigate(state && state.from ? state.from : "/");
     }
   }, [user]);
 

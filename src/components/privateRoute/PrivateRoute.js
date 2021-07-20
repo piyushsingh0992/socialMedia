@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, Navigate, Route } from "react-router-dom";
-import { useAuth } from "../../contexts/authContext/authContext.js";
+import { useSelector, } from "react-redux";
 
 function getNewPath(path, paramsArray) {
   let pathArray = path.split(":");
@@ -14,15 +14,13 @@ function getNewPath(path, paramsArray) {
 }
 
 const PrivateRoute = ({ path, ...props }) => {
-  const {
-    login: { loginStatus },
-  } = useAuth();
+  const loginStatus = useSelector((state) => state.user.status);
 
   let paramsArray = useParams();
 
   let newPath = getNewPath(path, paramsArray);
 
-  return loginStatus ? (
+  return loginStatus === "fullfilled" ? (
     <Route to={path} {...props} />
   ) : (
     <Navigate state={{ from: newPath }} replace to="/login" />
