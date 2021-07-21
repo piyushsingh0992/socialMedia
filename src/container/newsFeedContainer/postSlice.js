@@ -35,6 +35,9 @@ export const postSlice = createSlice({
     posts: [],
     createPostStatus: "idle",
     currentPost: null,
+    userPosts:[],
+    userPostsStatus:"idle",
+
     status: "idle",
     message: "",
   },
@@ -75,6 +78,7 @@ export const postSlice = createSlice({
 
       state.currentPost = action.payload.data.post;
       state.posts.unshift(action.payload.data.post);
+      state.userPosts.unshift(action.payload.data.post);
       state.message = action.payload.data.message;
     },
     [createPost.rejected]: (state, action) => {

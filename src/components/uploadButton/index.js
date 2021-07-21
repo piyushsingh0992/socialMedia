@@ -16,7 +16,6 @@ import {
   createPost,
   resetcreatePostStatus,
 } from "../../container/newsFeedContainer/postSlice";
-import { addUserPost } from "../../container/loginContainer/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 export default function UploadButton({ menuItem }) {
   const classes = useStyles();
@@ -29,11 +28,6 @@ export default function UploadButton({ menuItem }) {
   const post = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (post.createPostStatus === "fullfilled") {
-      dispatch(addUserPost(post.currentPost));
-    }
-  }, [post]);
 
   useEffect(() => {
     if (post.createPostStatus === "fullfilled") {

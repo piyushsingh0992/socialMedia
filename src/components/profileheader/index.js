@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfileHeader({ userDetails, userProfile }) {
   const classes = useStyles();
 
-
   return (
     <Card className={classes.root}>
       <CardActionArea style={{ cursor: "default" }}>
@@ -64,8 +63,12 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                         color="textPrimary"
                         component="p"
                       >
-                        {userDetails.userName.length > 10
-                          ? `${userDetails.userName.slice(0, 10)}...`
+                        {userProfile
+                          ? userDetails.userName.length > 10
+                            ? `${userDetails.userName.slice(0, 10)}...`
+                            : `${userDetails.userName}`
+                          : userDetails.userName.length > 15
+                          ? `${userDetails.userName.slice(0, 15)}...`
                           : `${userDetails.userName}`}
                       </Typography>
                     </Grid>
@@ -92,16 +95,20 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                         color="textPrimary"
                         component="p"
                       >
-                        {userDetails.posts.length}
+                        {userDetails.posts ? userDetails.posts.length : 0}
                       </Typography>
                     </Grid>
                     <FollowerModal
                       title="Follower's"
-                      numbers={userDetails.followers.length}
+                      numbers={
+                        userDetails.followers ? userDetails.followers.length : 0
+                      }
                     />
                     <FollowerModal
                       title="Following"
-                      numbers={userDetails.following.length}
+                      numbers={
+                        userDetails.following ? userDetails.following.length : 0
+                      }
                     />
                   </Grid>
                 </Grid>

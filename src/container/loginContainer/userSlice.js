@@ -59,10 +59,7 @@ export const userSlice = createSlice({
     },
   },
   reducers: {
-    addUserPost:(state,action)=>{
-   
-      state.userDetails.posts.unshift(action.payload)
-    },
+    
 
     resetInitialState: (state) => {
       localStorage.removeItem("userDetails");
