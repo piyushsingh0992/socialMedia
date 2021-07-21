@@ -1,18 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
 
-
 export let updateFunction = createAsyncThunk(
   "posts/updateFunction",
   async (updateDetails, { fulfillWithValue, rejectWithValue }) => {
-    
     let response = await apiCall("POST", "update", { update: updateDetails });
-    
+
     if (response.success) {
-      
       return fulfillWithValue(response);
     } else {
-      
       return rejectWithValue(response);
     }
   }
@@ -59,11 +55,17 @@ export const userSlice = createSlice({
     },
   },
   reducers: {
-    
+    addPostUserPostArray: (state, payload) => {
+      
+      state.userDetails.posts.push(payload.postId);
+      let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+      userDetails.userDetails.posts.push(payload.postId);
+      localStorage.setItem("userDetails",JSON.stringify(userDetails));
+    },
 
     resetInitialState: (state) => {
       localStorage.removeItem("userDetails");
-    
+
       return {
         userDetails: {},
         status: "idle",
@@ -130,11 +132,9 @@ export const userSlice = createSlice({
     },
 
     [updateFunction.pending]: (state) => {
-      
       state.updateStatus = "loading";
     },
     [updateFunction.fulfilled]: (state, action) => {
-      
       state.updateStatus = "fullfilled";
       state.message = action.payload.message;
       state.token = action.payload.data.token;
@@ -149,14 +149,19 @@ export const userSlice = createSlice({
       );
     },
     [updateFunction.rejected]: (state, action) => {
-      
       state.updateStatus = "rejected";
       state.message = action.payload.message;
     },
   },
 });
 
-export const { resetSignUpState, resetInitialState, signInfromLocalStorage ,resetingupdateStatus,addUserPost} =
-  userSlice.actions;
+export const {
+  addPostUserPostArray,
+  resetSignUpState,
+  resetInitialState,
+  signInfromLocalStorage,
+  resetingupdateStatus,
+  addUserPost,
+} = userSlice.actions;
 
 export default userSlice.reducer;
