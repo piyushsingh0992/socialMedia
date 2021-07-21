@@ -9,7 +9,7 @@ import CommentBox from "../commentBox";
 import PostHeader from "../postHeader";
 import Comment from "../comment";
 import Grid from "@material-ui/core/Grid";
-
+import moment from 'moment';
 import CommentList from "../commentList";
 import PostActionButtons from "../postActionButtons";
 
@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     height: "85vh",
   },
   content: {
-
     padding: "0px",
     margin: "0px",
     minHeight: "100%",
@@ -41,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
   //   },
 }));
 
-export default function MediaControlCard() {
+export default function PostPreview({ currentPost }) {
+ 
   const classes = useStyles();
   const theme = useTheme();
 
@@ -62,15 +62,18 @@ export default function MediaControlCard() {
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image="https://pbs.twimg.com/profile_banners/52322389/1625485383/600x200"
+        image={currentPost.img.url}
         title="Live from space album cover"
       />
+
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <PostHeader
             handleClick={handleClick}
             handleClose={handleClose}
             anchorEl={anchorEl}
+            userDetails={currentPost.user}
+            time={moment(currentPost.createdAt).format("LL")}
           />
           <Typography
             variant="body2"
@@ -78,11 +81,16 @@ export default function MediaControlCard() {
             component="p"
             style={{ padding: "1rem" }}
           >
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+            {currentPost.caption}
           </Typography>
-          <Grid container style={{ overflowY: "scroll", maxHeight: "50vh" ,padding:"2.5vh 0" }}>
+          <Grid
+            container
+            style={{
+              overflowY: "scroll",
+              maxHeight: "60vh",
+              padding: "2.5vh 0",
+            }}
+          >
             <Comment />
             <Comment />
             <Comment />
@@ -90,14 +98,11 @@ export default function MediaControlCard() {
             <Comment />
             <Comment />
             <Comment />
-            
-            <Comment />
-            
 
+            <Comment />
           </Grid>
           <div
             style={{
-
               position: "absolute",
               bottom: "0",
               width: "100%",

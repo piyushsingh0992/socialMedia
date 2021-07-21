@@ -8,7 +8,7 @@ import CommentBox from "../commentBox";
 import PostHeader from "../postHeader";
 import CommentList from "../commentList";
 import PostActionButtons from "../postActionButtons";
-import moment from 'moment'
+import moment from 'moment';
 
 
 export default function Post({ postDetails }) {
