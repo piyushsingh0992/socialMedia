@@ -1,0 +1,2 @@
+// Hey, I have 2 slices one is for user Info and one for all posts whenever I am creating a new post I am making a call through post slice and updating the post array on success. I also want to update the post Id in the user Info 
+// Right now I am importing user reducer in the  post slice and updating the user post array in the async thunk 

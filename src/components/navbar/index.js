@@ -19,6 +19,11 @@ import { useNavigate } from "react-router-dom";
 import UploadButton from "../uploadButton";
 import { useSelector, useDispatch } from "react-redux";
 import { resetInitialState } from "../../container/loginContainer/userSlice";
+import { resetPostSlice } from "../../container/newsFeedContainer/postSlice";
+import { setupAuthHeader } from "../../utils/common";
+
+
+
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
@@ -49,6 +54,8 @@ export default function PrimarySearchAppBar() {
 
   const handleLogoutMenuClose = () => {
     dispatch(resetInitialState());
+    dispatch(resetPostSlice());
+    setupAuthHeader();
 
     handleMenuClose();
   };
@@ -133,6 +140,8 @@ export default function PrimarySearchAppBar() {
       <MenuItem
         onClick={() => {
           dispatch(resetInitialState());
+          dispatch(resetPostSlice());
+          setupAuthHeader();
         }}
       >
         <IconButton>

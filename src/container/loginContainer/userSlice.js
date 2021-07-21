@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
 
+
 export let updateFunction = createAsyncThunk(
   "posts/updateFunction",
   async (updateDetails, { fulfillWithValue, rejectWithValue }) => {
@@ -58,6 +59,11 @@ export const userSlice = createSlice({
     },
   },
   reducers: {
+    addUserPost:(state,action)=>{
+   
+      state.userDetails.posts.unshift(action.payload)
+    },
+
     resetInitialState: (state) => {
       localStorage.removeItem("userDetails");
     
@@ -153,7 +159,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetSignUpState, resetInitialState, signInfromLocalStorage ,resetingupdateStatus} =
+export const { resetSignUpState, resetInitialState, signInfromLocalStorage ,resetingupdateStatus,addUserPost} =
   userSlice.actions;
 
 export default userSlice.reducer;

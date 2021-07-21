@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -10,6 +10,14 @@ import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
+import { toast } from "react-toastify";
+
+import {
+  createPost,
+  resetcreatePostStatus,
+} from "../../container/newsFeedContainer/postSlice";
+import { addUserPost } from "../../container/loginContainer/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 export default function UploadButton({ menuItem }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -17,6 +25,25 @@ export default function UploadButton({ menuItem }) {
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const [caption, captionSetter] = useState("");
+  const user = useSelector((state) => state.user.userDetails);
+  const post = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (post.createPostStatus === "fullfilled") {
+      dispatch(addUserPost(post.currentPost));
+    }
+  }, [post]);
+
+  useEffect(() => {
+    if (post.createPostStatus === "fullfilled") {
+      toast.success(post.message);
+      dispatch(resetcreatePostStatus());
+      setOpen(false);
+    } else if (post.createPostStatus === "rejected") {
+      toast.error(post.message);
+    }
+  }, [post]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -105,9 +132,19 @@ export default function UploadButton({ menuItem }) {
               variant="contained"
               color="primary"
               className={classes.button}
-              onClick={handleClose}
+              onClick={() => {
+                dispatch(
+                  createPost({
+                    userId: user._id,
+                    postDetails: {
+                      caption,
+                      img: previewSource,
+                    },
+                  })
+                );
+              }}
             >
-              Post
+              {post.createPostStatus === "loading" ? "Uploading..." : "Post"}
             </Button>
           </Grid>
         </div>

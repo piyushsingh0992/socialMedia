@@ -6,8 +6,7 @@ export function check(signUpDetails) {
       return state + 0;
     }
   }, 0);
-  console.log("check ->", check);
-  console.log("signUpDetails.length ->", Object.keys(signUpDetails).length);
+
 
   return check !== Object.keys(signUpDetails).length;
 }

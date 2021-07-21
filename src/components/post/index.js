@@ -8,8 +8,11 @@ import CommentBox from "../commentBox";
 import PostHeader from "../postHeader";
 import CommentList from "../commentList";
 import PostActionButtons from "../postActionButtons";
+import moment from 'moment'
 
-export default function Post() {
+
+export default function Post({ postDetails }) {
+  
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
@@ -30,20 +33,24 @@ export default function Post() {
         handleClick={handleClick}
         handleClose={handleClose}
         anchorEl={anchorEl}
+        userDetails={postDetails.user}
+        time={moment(postDetails.createdAt).format('LL')}
       />
       <CardMedia
         className={classes.media}
-        image="https://pbs.twimg.com/profile_banners/52322389/1625485383/600x200"
+        image={postDetails.img.url}
         title="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {postDetails.caption}
         </Typography>
       </CardContent>
-      <PostActionButtons handleExpandClick={handleExpandClick} />
+      <PostActionButtons
+        handleExpandClick={handleExpandClick}
+        likes={postDetails.likes.length}
+        comment={postDetails.comments.length}
+      />
       <CommentList expanded={expanded} />
       <CommentBox />
     </Card>

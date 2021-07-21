@@ -22,11 +22,12 @@ function App() {
   const navigate = useNavigate();
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
   useEffect(() => {
-  
+    
+
     if (userDetails) {
       setupAuthHeader(userDetails.token);
-      setupAuthExceptionHandler(resetInitialState, navigate, dispatch);
       dispatch(signInfromLocalStorage(userDetails));
+      setupAuthExceptionHandler(resetInitialState, navigate, dispatch);
     }
   }, [userDetails]);
 

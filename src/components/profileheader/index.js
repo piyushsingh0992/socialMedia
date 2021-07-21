@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProfileHeader({ userDetails, userProfile }) {
   const classes = useStyles();
-  console.log("userDetails ->", userDetails);
+
 
   return (
     <Card className={classes.root}>
