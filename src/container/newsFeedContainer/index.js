@@ -7,12 +7,17 @@ import Post from "../../components/post";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPosts } from "./postSlice";
 import { toast } from "react-toastify";
+
+import Suggestions from "../../components/suggestions";
+
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(3, 2),
-    backgroundColor: theme.palette.secondary.main,
+    background: "red",
   },
 }));
+
+
 
 export default function NewsFeedContainer() {
   const classes = useStyles();
@@ -32,15 +37,21 @@ export default function NewsFeedContainer() {
   return (
     <div className="main-container">
       <Navbar />
-      {post.status === "loading" && <h1>loading</h1>}
-      {post.status === "rejected" && <h1>Cann't load news feed </h1>}
-      {post.status === "fullfilled" && (
-        <Container maxWidth="sm">
-          {post.posts.map((item) => {
-            return <Post postDetails={item} />;
-          })}
+
+      <Container
+        style={{ display: "flex", justifyContent: "center" }}
+        maxWidth="md"
+      >
+        <Container fixed maxWidth="sm">
+          {post.status === "loading" && <h1>loading</h1>}
+          {post.status === "rejected" && <h1>Cann't load news feed </h1>}
+          {post.status === "fullfilled" &&
+            post.posts.map((item) => {
+              return <Post postDetails={item} />;
+            })}
         </Container>
-      )}
+        <Suggestions />
+      </Container>
     </div>
   );
 }
