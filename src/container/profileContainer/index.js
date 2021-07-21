@@ -39,42 +39,32 @@ export default function ProfileContainer() {
   }, [userId, user]);
 
   async function getOtherUserPosts(userId, postArraySetter) {
-    let { data, message, success } = await apiCall("GET", `${userId}/all`);
-    debugger;
+    let { data, message, success } = await apiCall("GET", `post/${userId}/all`);
+
     if (success === true) {
       postArraySetter(data.posts);
-      debugger;
     } else {
-      debugger;
       toast.error(message);
     }
   }
 
   useEffect(() => {
-    debugger;
-
     if (userId === user._id) {
-      debugger;
       switch (post.userPostsStatus) {
         case "idle":
-          debugger;
           dispatch(getUserPosts(userId));
           return;
 
         case "fullfilled":
-          debugger;
           postArraySetter(post.userPosts);
           return;
         case "rejected":
-          debugger;
           toast.error(post.message);
           return;
         default:
-          debugger;
           return;
       }
     } else {
-      debugger;
       getOtherUserPosts(userId, postArraySetter);
     }
   }, [post]);
