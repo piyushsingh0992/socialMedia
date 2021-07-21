@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
-
+import { logInLocal,logOutLocal ,addPostLocal} from "../../localStorage";
 export let updateFunction = createAsyncThunk(
   "posts/updateFunction",
   async (updateDetails, { fulfillWithValue, rejectWithValue }) => {
@@ -31,7 +31,6 @@ export let signInFunction = createAsyncThunk(
   "posts/signInFunction",
   async (signInDetails, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", "auth/", signInDetails);
-    
 
     if (response.success) {
       return fulfillWithValue(response);
@@ -56,16 +55,15 @@ export const userSlice = createSlice({
     },
   },
   reducers: {
-    addPostUserPostArray: (state, payload) => {
-      
-      state.userDetails.posts.push(payload.postId);
-      let userDetails = JSON.parse(localStorage.getItem("userDetails"));
-      userDetails.userDetails.posts.push(payload.postId);
-      localStorage.setItem("userDetails",JSON.stringify(userDetails));
+    addPostUserPostArray: (state, action) => {
+      state.userDetails.posts.push(action.payload.postId);
+      addPostLocal(action.payload.postId)
+
     },
 
     resetUserSlice: (state) => {
-      localStorage.removeItem("userDetails");
+      logOutLocal();
+
 
       return {
         userDetails: {},
@@ -111,26 +109,20 @@ export const userSlice = createSlice({
     },
 
     [signInFunction.pending]: (state) => {
-      
       state.status = "loading";
     },
     [signInFunction.fulfilled]: (state, action) => {
-      
       state.status = "fullfilled";
       state.message = action.payload.message;
       state.token = action.payload.data.token;
       state.userDetails = action.payload.data.userDetails;
 
-      localStorage.setItem(
-        "userDetails",
-        JSON.stringify({
-          token: action.payload.data.token,
-          userDetails: action.payload.data.userDetails,
-        })
-      );
+      logInLocal({
+        token: action.payload.data.token,
+        userDetails: action.payload.data.userDetails,
+      });
     },
     [signInFunction.rejected]: (state, action) => {
-      
       state.status = "rejected";
       state.message = action.payload.message;
     },

@@ -6,14 +6,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {} from "../../container/loginContainer/userSlice";
 const FollowButton = ({ userId }) => {
-  const [follower, followerSetter] = useState(true);
+  const [follower, followerSetter] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userDetails);
   useEffect(() => {
-
-    
-
-  }, [userId,user]);
+    let present = user.following.find((item) => item === userId);
+    if (present) {
+      followerSetter(true);
+    }
+  }, [userId, user]);
 
   const classes = useStyles();
   return follower ? (

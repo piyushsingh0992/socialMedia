@@ -31,9 +31,15 @@ export default function UploadButton({ menuItem }) {
 
   useEffect(() => {
     if (post.createPostStatus === "fullfilled") {
+
+      console.log(post);
       toast.success(post.message);
-      dispatch(addPostUserPostArray({ postId: post.currentPost._id }));
+
+      let postId= post.currentPost._id;
+      
       dispatch(resetcreatePostStatus());
+
+      dispatch(addPostUserPostArray({ postId }));
 
       handleClose();
     } else if (post.createPostStatus === "rejected") {
