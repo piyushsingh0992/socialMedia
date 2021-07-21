@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import FollowerModal from "../followerModal";
 import SettingModal from "../settingModal";
-
+import FollowButton from "../followButton";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1rem 0",
@@ -119,13 +119,7 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                     justifyContent="space-between"
                   >
                     {!userProfile && (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                      >
-                        Follow
-                      </Button>
+                      <FollowButton/>
                     )}
                   </Grid>
                 </Grid>

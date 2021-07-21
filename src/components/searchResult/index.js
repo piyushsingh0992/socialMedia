@@ -13,11 +13,12 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import FollowerModal from "../followerModal";
+import FollowButton from "../followButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1rem 0",
-    padding:"0.5rem"
+    padding: "0.5rem",
   },
   media: {
     height: 140,
@@ -54,34 +55,18 @@ export default function SearchResult() {
             <Grid item xs={6}>
               <Grid container justifyContent="space-between">
                 <Grid item xs={6}>
-                  <Typography
-                    variant="h5"
-                    color="textPrimary"
-                    component="p"
-
-                  >
+                  <Typography variant="h5" color="textPrimary" component="p">
                     Tanay
                   </Typography>
 
-                  <Typography
-                    variant="h6"
-                    color="textSecondary"
-                    component="p"
-
-                  >
+                  <Typography variant="h6" color="textSecondary" component="p">
                     ChatBubbleOutlineOutlined
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-              >
-                Follow
-              </Button>
+              <FollowButton />
             </Grid>
           </Grid>
         </CardContent>

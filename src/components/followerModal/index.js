@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
+import FollowButton from "../followButton";
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
@@ -67,13 +68,7 @@ export default function SimpleModal({ title, numbers }) {
           <Typography>Heat 1/2 cup of</Typography>
         </Grid>
         <Grid item xs={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Follow
-          </Button>
+          <FollowButton />
         </Grid>
       </Grid>
 
@@ -90,13 +85,7 @@ export default function SimpleModal({ title, numbers }) {
           <Typography>Heat 1/2 cup of</Typography>
         </Grid>
         <Grid item xs={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Follow
-          </Button>
+          <FollowButton />
         </Grid>
       </Grid>
 
@@ -113,13 +102,7 @@ export default function SimpleModal({ title, numbers }) {
           <Typography>Heat 1/2 cup of</Typography>
         </Grid>
         <Grid item xs={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Follow
-          </Button>
+          <FollowButton />
         </Grid>
       </Grid>
 
@@ -136,16 +119,9 @@ export default function SimpleModal({ title, numbers }) {
           <Typography>Heat 1/2 cup of</Typography>
         </Grid>
         <Grid item xs={2}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Follow
-          </Button>
+          <FollowButton />
         </Grid>
       </Grid>
-      {/* <SimpleModal /> */}
     </div>
   );
 
