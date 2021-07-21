@@ -21,7 +21,6 @@ export default function ProfileContainer() {
     if (userId === user._id) {
       userProfileSetter(true);
       userDetailsSetter(user);
-     
     } else {
       userProfileSetter(false);
       (async function () {
@@ -39,25 +38,44 @@ export default function ProfileContainer() {
     }
   }, [userId, user]);
 
-  useEffect(() => {
-
-
-    if (userId === user._id && post.userPostsStatus === "idle") {
-      dispatch(getUserPosts(userId));
-    } else if (userId === user._id && post.userPostsStatus === "fullfilled") {
-      postArraySetter(post.userPosts);
-    } else if (userId === user._id && post.userPostsStatus === "rejected") {
-      toast.error(post.message);
+  async function getOtherUserPosts(userId, postArraySetter) {
+    let { data, message, success } = await apiCall("GET", `${userId}/all`);
+    debugger;
+    if (success === true) {
+      postArraySetter(data.posts);
+      debugger;
     } else {
-      (async function () {
-        let { data, message, success } = await apiCall("GET", `${userId}/all`);
+      debugger;
+      toast.error(message);
+    }
+  }
 
-        if (success === true) {
-          postArraySetter(data.posts);
-        } else {
-          toast.error(message);
-        }
-      })();
+  useEffect(() => {
+    debugger;
+
+    if (userId === user._id) {
+      debugger;
+      switch (post.userPostsStatus) {
+        case "idle":
+          debugger;
+          dispatch(getUserPosts(userId));
+          return;
+
+        case "fullfilled":
+          debugger;
+          postArraySetter(post.userPosts);
+          return;
+        case "rejected":
+          debugger;
+          toast.error(post.message);
+          return;
+        default:
+          debugger;
+          return;
+      }
+    } else {
+      debugger;
+      getOtherUserPosts(userId, postArraySetter);
     }
   }, [post]);
 
@@ -73,7 +91,7 @@ export default function ProfileContainer() {
         )}
         {postArray ? (
           postArray.length > 0 ? (
-            <ImageGrid />
+            <ImageGrid postArray={postArray} />
           ) : (
             <h1>No Posts</h1>
           )
