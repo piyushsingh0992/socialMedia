@@ -13,6 +13,7 @@ export default function ProfileContainer() {
   const [userProfile, userProfileSetter] = useState(false);
   const [postArray, postArraySetter] = useState(null);
   let user = useSelector((state) => state.user.userDetails);
+
   let post = useSelector((state) => state.post);
   const dispatch = useDispatch();
   let { userId } = useParams();
@@ -32,6 +33,7 @@ export default function ProfileContainer() {
           userDetailsSetter({
             userName: "User Not found",
           });
+
           toast.error(message);
         }
       })();

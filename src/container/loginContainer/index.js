@@ -11,7 +11,7 @@ import {
 import {  useDispatch, } from "react-redux";
 
 import {
-  resetInitialState,
+  resetUserSlice,
 } from "./userSlice";
 export default function LoginContainer() {
   const [currentUser, currentUserSetter] = useState(true);
@@ -23,7 +23,7 @@ export default function LoginContainer() {
   useEffect(() => {
     if (user.token) {
       setupAuthHeader(user.token);
-      setupAuthExceptionHandler(resetInitialState, navigate, dispatch);
+      setupAuthExceptionHandler(resetUserSlice, navigate, dispatch);
       navigate(state && state.from ? state.from : "/");
     }
   }, [user]);

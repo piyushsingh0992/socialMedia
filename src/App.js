@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {  useDispatch, } from "react-redux";
 import {
   signInfromLocalStorage,
-  resetInitialState,
+  resetUserSlice,
 } from "./container/loginContainer/userSlice";
 import PrivateRoute from "./components/privateRoute";
 import { setupAuthHeader, setupAuthExceptionHandler } from "./utils/common.js";
@@ -27,7 +27,7 @@ function App() {
     if (userDetails) {
       setupAuthHeader(userDetails.token);
       dispatch(signInfromLocalStorage(userDetails));
-      setupAuthExceptionHandler(resetInitialState, navigate, dispatch);
+      setupAuthExceptionHandler(resetUserSlice, navigate, dispatch);
     }
   }, [userDetails]);
 

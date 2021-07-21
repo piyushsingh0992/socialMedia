@@ -31,6 +31,7 @@ export let signInFunction = createAsyncThunk(
   "posts/signInFunction",
   async (signInDetails, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", "auth/", signInDetails);
+    
 
     if (response.success) {
       return fulfillWithValue(response);
@@ -63,7 +64,7 @@ export const userSlice = createSlice({
       localStorage.setItem("userDetails",JSON.stringify(userDetails));
     },
 
-    resetInitialState: (state) => {
+    resetUserSlice: (state) => {
       localStorage.removeItem("userDetails");
 
       return {
@@ -110,9 +111,11 @@ export const userSlice = createSlice({
     },
 
     [signInFunction.pending]: (state) => {
+      
       state.status = "loading";
     },
     [signInFunction.fulfilled]: (state, action) => {
+      
       state.status = "fullfilled";
       state.message = action.payload.message;
       state.token = action.payload.data.token;
@@ -127,6 +130,7 @@ export const userSlice = createSlice({
       );
     },
     [signInFunction.rejected]: (state, action) => {
+      
       state.status = "rejected";
       state.message = action.payload.message;
     },
@@ -158,7 +162,7 @@ export const userSlice = createSlice({
 export const {
   addPostUserPostArray,
   resetSignUpState,
-  resetInitialState,
+  resetUserSlice,
   signInfromLocalStorage,
   resetingupdateStatus,
   addUserPost,

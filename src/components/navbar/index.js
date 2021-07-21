@@ -1,6 +1,6 @@
 import "./style.js";
 import "./style.css";
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -12,27 +12,20 @@ import Container from "@material-ui/core/Container";
 import logo from "../../assets/logo.png";
 import Avatar from "@material-ui/core/Avatar";
 import HomeIcon from "@material-ui/icons/Home";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Search from "../search";
 import { useStyles } from "./style.js";
 import { useNavigate } from "react-router-dom";
 import UploadButton from "../uploadButton";
 import { useSelector, useDispatch } from "react-redux";
-import { resetInitialState } from "../../container/loginContainer/userSlice";
-import { resetPostSlice } from "../../container/newsFeedContainer/postSlice";
-import { setupAuthHeader } from "../../utils/common";
-
-
-
+import LogoutButton from "../logoutButton";
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const dispatch = useDispatch();
   let user = useSelector((state) => state.user.userDetails);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,14 +42,6 @@ export default function PrimarySearchAppBar() {
 
   const handleProfileMenuClose = () => {
     navigate(`/profile/${user._id}`);
-    handleMenuClose();
-  };
-
-  const handleLogoutMenuClose = () => {
-    dispatch(resetInitialState());
-    dispatch(resetPostSlice());
-    setupAuthHeader();
-
     handleMenuClose();
   };
 
@@ -81,7 +66,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleLogoutMenuClose}>Logout</MenuItem>
+      <LogoutButton handleMenuClose={handleMenuClose} />
     </Menu>
   );
 
@@ -134,21 +119,8 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         Notifications
       </MenuItem>
-
       <UploadButton menuItem />
-
-      <MenuItem
-        onClick={() => {
-          dispatch(resetInitialState());
-          dispatch(resetPostSlice());
-          setupAuthHeader();
-        }}
-      >
-        <IconButton>
-          <ExitToAppIcon style={{ color: "black" }} />
-        </IconButton>
-        Logout
-      </MenuItem>
+      <LogoutButton mobileview handleMobileMenuClose={handleMobileMenuClose} />
     </Menu>
   );
 

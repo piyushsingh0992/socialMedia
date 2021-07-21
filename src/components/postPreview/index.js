@@ -34,10 +34,6 @@ const useStyles = makeStyles((theme) => ({
     height: "85vh",
     width: "50%",
   },
-  //   playIcon: {
-  //     height: 38,
-  //     width: 38,
-  //   },
 }));
 
 export default function PostPreview({ currentPost }) {
