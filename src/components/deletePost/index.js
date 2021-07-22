@@ -3,7 +3,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
-const DeletePost = ({ anchorEl, handleClose }) => {
+const DeletePost = ({ anchorEl, handleClose, postId, userId }) => {
+  
   return (
     <Menu
       id="simple-menu"

@@ -13,9 +13,12 @@ const PostHeader = ({
   anchorEl,
   userDetails,
   time,
-  postId
+  postId,
 }) => {
+  let user = useSelector((state) => state.user.userDetails);
   const navigate = useNavigate();
+
+
   return (
     <CardHeader
       title={`${userDetails.userName}`}
@@ -37,15 +40,23 @@ const PostHeader = ({
       }}
       action={
         <div>
-          <IconButton aria-label="settings" onClick={handleClick}>
-            <MoreVertIcon />
-          </IconButton>
-          <DeletePost
-            anchorEl={anchorEl}
-            handleClose={handleClose}
-            postId={postId}
-            userId={userDetails._id}
-          />
+          {userDetails._id === user._id && (
+            <IconButton aria-label="settings" onClick={handleClick}>
+              <MoreVertIcon />
+            </IconButton>
+          )}
+
+
+
+          {userDetails._id === user._id && (
+            <DeletePost
+              anchorEl={anchorEl}
+              handleClose={handleClose}
+              postId={postId}
+              userId={userDetails._id}
+              handleClick={handleClick}
+            />
+          )}
         </div>
       }
     />
