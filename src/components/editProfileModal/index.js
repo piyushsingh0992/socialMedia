@@ -22,7 +22,6 @@ export default function EditProfileModal() {
     coverImage: "upload Cover Image",
     profileImage: "Upload profileImage",
   });
-
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();

@@ -47,8 +47,9 @@ export default function Post({ postDetails }) {
         </Typography>
       </CardContent>
       <PostActionButtons
+      postId={postDetails._id}
         handleExpandClick={handleExpandClick}
-        likes={postDetails.likes.length}
+        likesArray={postDetails.likes}
         comment={postDetails.comments.length}
       />
       <CommentList expanded={expanded} />

@@ -105,6 +105,7 @@ export default function PostPreview({ currentPost }) {
               paddingBottom: " 0.5rem ",
             }}
           >
+            <PostActionButtons postId={currentPost._id} likesArray={currentPost.likes}/>
             <CommentBox />
           </div>
         </CardContent>
