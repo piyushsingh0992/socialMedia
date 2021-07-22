@@ -13,8 +13,8 @@ const PostHeader = ({
   anchorEl,
   userDetails,
   time,
+  postId
 }) => {
-  const user = useSelector((state) => state.user.userDetails);
   const navigate = useNavigate();
   return (
     <CardHeader
@@ -23,7 +23,7 @@ const PostHeader = ({
       avatar={
         <Avatar
           aria-label="recipe"
-          src={user.profileImage}
+          src={userDetails.profileImage}
           style={{
             cursor: "pointer",
           }}
@@ -40,7 +40,12 @@ const PostHeader = ({
           <IconButton aria-label="settings" onClick={handleClick}>
             <MoreVertIcon />
           </IconButton>
-          <DeletePost anchorEl={anchorEl} handleClose={handleClose} />
+          <DeletePost
+            anchorEl={anchorEl}
+            handleClose={handleClose}
+            postId={postId}
+            userId={userDetails._id}
+          />
         </div>
       }
     />

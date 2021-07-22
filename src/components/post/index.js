@@ -35,6 +35,7 @@ export default function Post({ postDetails }) {
         anchorEl={anchorEl}
         userDetails={postDetails.user}
         time={moment(postDetails.createdAt).format('LL')}
+        postId={postDetails._id}
       />
       <CardMedia
         className={classes.media}

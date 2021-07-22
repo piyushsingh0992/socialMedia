@@ -70,6 +70,7 @@ export default function PostPreview({ currentPost }) {
             anchorEl={anchorEl}
             userDetails={currentPost.user}
             time={moment(currentPost.createdAt).format("LL")}
+            postId={currentPost._id}
           />
           <Typography
             variant="body2"
