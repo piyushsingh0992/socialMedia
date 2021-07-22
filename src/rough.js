@@ -1,9 +1,0 @@
-<input
-        accept="image/*"
-        className={classes.input}
-        id={`${name}-file`}
-        type="file"
-        onChange={changeHanlder}
-        value={imgURL}
-        name={name}
-      />

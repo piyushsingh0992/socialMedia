@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const FollowerModalRow = ({ userDetails }) => {
   const navigate = useNavigate();
-  debugger;
+  
   return (
     <Grid
       container
@@ -82,7 +82,7 @@ export default function SimpleModal({
           userArraySetter([]);
         }
 
-        debugger;
+        
       })();
     }
     return () => {

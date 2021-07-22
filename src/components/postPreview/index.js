@@ -87,6 +87,8 @@ export default function PostPreview({ currentPost }) {
               padding: "2.5vh 0",
             }}
           >
+
+            {}
             <Comment />
             <Comment />
             <Comment />
@@ -106,9 +108,9 @@ export default function PostPreview({ currentPost }) {
             }}
           >
             <PostActionButtons postId={currentPost._id} likesArray={currentPost.likes}/>
-            <CommentBox />
+            <CommentBox postId={currentPost._id}/>
           </div>
-        </CardContent>
+        </CardContent >
       </div>
     </Card>
   );

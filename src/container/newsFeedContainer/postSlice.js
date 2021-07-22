@@ -68,6 +68,25 @@ export const unLikePostFunction = createAsyncThunk(
   }
 );
 
+export const addCommentFunction = createAsyncThunk(
+  "posts/addCommentFunction",
+
+  async ({ postId, text }, { fulfillWithValue, rejectWithValue }) => {
+    
+    let response = await apiCall("POST", `comment/${postId}`, {
+      text: text,
+    });
+    
+    if (response.success) {
+      
+      return fulfillWithValue(response);
+    } else {
+      
+      return rejectWithValue(response);
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "posts",
   initialState: {
@@ -79,16 +98,15 @@ export const postSlice = createSlice({
     status: "idle",
     message: "",
     postLikeStatus: "idle",
+    commentStatus: "idle",
   },
   reducers: {
     resetcreatePostStatus: (state) => {
-      
       state.createPostStatus = "idle";
       state.currentPost = null;
       state.message = "";
     },
     resetPostSlice: (state) => {
-      
       return {
         posts: [],
         createPostStatus: "idle",
@@ -144,29 +162,21 @@ export const postSlice = createSlice({
     },
 
     [likePostFunction.pending]: (state) => {
-      
       state.postLikeStatus = "loading";
     },
     [likePostFunction.fulfilled]: (state, action) => {
-      
       let updatedPost = action.payload.data.post;
       let updatedPostId = action.payload.data.post._id;
-      
 
       state.posts = state.posts.map((item) => {
-     
-
         if (item._id === updatedPostId) {
-          
           return updatedPost;
         }
         return item;
       });
 
       state.userPosts = state.posts.map((item) => {
-    
         if (item._id === updatedPostId) {
-          
           return updatedPost;
         }
         return item;
@@ -175,16 +185,13 @@ export const postSlice = createSlice({
       state.postLikeStatus = "fullfilled";
     },
     [likePostFunction.rejected]: (state, action) => {
-      
       state.postLikeStatus = "rejected";
     },
 
     [unLikePostFunction.pending]: (state) => {
       state.postLikeStatus = "loading";
-      
     },
     [unLikePostFunction.fulfilled]: (state, action) => {
-      
       let updatedPost = action.payload.data.post;
       let updatedPostId = action.payload.data.post._id;
 
@@ -205,8 +212,36 @@ export const postSlice = createSlice({
       state.postLikeStatus = "fullfilled";
     },
     [unLikePostFunction.rejected]: (state, action) => {
-      
       state.postLikeStatus = "rejected";
+    },
+
+    [addCommentFunction.pending]: (state) => {
+      
+      state.commentStatus = "loading";
+    },
+    [addCommentFunction.fulfilled]: (state, action) => {
+      let updatedPost = action.payload.data.post;
+      let updatedPostId = action.payload.data.post._id;
+      
+      state.posts = state.posts.map((item) => {
+        if (item._id === updatedPostId) {
+          return updatedPost;
+        }
+        return item;
+      });
+
+      state.userPosts = state.posts.map((item) => {
+        if (item._id === updatedPostId) {
+          return updatedPost;
+        }
+        return item;
+      });
+
+      state.commentStatus = "fullfilled";
+    },
+    [addCommentFunction.rejected]: (state, action) => {
+      
+      state.commentStatus = "rejected";
     },
   },
 });

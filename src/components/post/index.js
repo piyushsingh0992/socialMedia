@@ -52,8 +52,8 @@ export default function Post({ postDetails }) {
         likesArray={postDetails.likes}
         comment={postDetails.comments.length}
       />
-      <CommentList expanded={expanded} />
-      <CommentBox />
+      <CommentList expanded={expanded}  commentArray={postDetails.comments}/>
+      <CommentBox postId={postDetails._id}/>
     </Card>
   );
 }
