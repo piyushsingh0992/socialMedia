@@ -72,11 +72,7 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                           : `${userDetails.userName}`}
                       </Typography>
                     </Grid>
-                    <Grid>
-                      {userProfile && (
-                        <EditProfileModal editDetails={userDetails} />
-                      )}
-                    </Grid>
+                    <Grid>{userProfile && <EditProfileModal />}</Grid>
                   </Grid>
                   <Typography
                     variant="h6"

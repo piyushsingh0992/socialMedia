@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateFunction } from "../../container/loginContainer/userSlice";
 import UploadImage from "../uploadImage";
 
-export default function EditProfileModal({ editDetails }) {
+export default function EditProfileModal() {
   const classes = useStyles();
   const [imgUploadText, imgUploadTextSetter] = useState({
     coverImage: "upload Cover Image",
@@ -36,6 +36,13 @@ export default function EditProfileModal({ editDetails }) {
     }
   }, [user]);
 
+  useEffect(() => {
+    userDetailsSetter(user.userDetails);
+    return () => {
+      userDetailsSetter(null);
+    };
+  }, []);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -43,10 +50,6 @@ export default function EditProfileModal({ editDetails }) {
   const handleClose = () => {
     setOpen(false);
   };
-
-  useEffect(() => {
-    userDetailsSetter(editDetails);
-  }, [editDetails]);
 
   const [userDetails, userDetailsSetter] = useState(null);
 
