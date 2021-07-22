@@ -88,16 +88,10 @@ export default function PostPreview({ currentPost }) {
             }}
           >
 
-            {}
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
-            <Comment />
+            {currentPost.comments.map(item =>{
+                          return <Comment commentDetails={item} />;
+            })}
 
-            <Comment />
           </Grid>
           <div
             style={{

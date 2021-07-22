@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import FollowerModal from "../followerModal";
-
+import { useNavigate } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1rem 0",
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 70,
-    width:70,
+    width: 70,
   },
   button: {
     "&:hover": {
@@ -32,24 +32,88 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Notification() {
-  const classes = useStyles();
+function notificationText(type, details) {
+  switch (type) {
+    case "FOLLOW":
+      return `${details.userId.userName} started Following you`;
 
+    case "COMMENT":
+      return `${details.userId.userName} commented on your Post`;
+
+    case "LIKE":
+      return `${details.userId.userName} liked on your Post`;
+    default:
+      return "";
+  }
+}
+
+function mediaType(type, details, classes) {
+  switch (type) {
+    case "FOLLOW":
+      return (
+        <Avatar
+          src={details.userId.profileImage}
+          style={{ height: "70px", width: "70px" }}
+        />
+      );
+
+    case "COMMENT":
+      return (
+        <CardMedia
+          className={classes.media}
+          image={details.post.img.url}
+          title="Post"
+        />
+      );
+
+    case "LIKE":
+      return (
+        <CardMedia
+          className={classes.media}
+          image={details.post.img.url}
+          title="Post"
+        />
+      );
+    default:
+      return <Avatar />;
+  }
+}
+
+function redirectLink(type, details) {
+  switch (type) {
+    case "FOLLOW":
+      return `/profile/${details.userId._id}`;
+
+    case "COMMENT":
+      return `/post/${details.post._id}`;
+
+    case "LIKE":
+      return `/post/${details.post._id}`;
+    default:
+      return "/";
+  }
+}
+export default function Notification({ notificationDetails }) {
+  const classes = useStyles();
+  const navigate = useNavigate();
+
+  const type = notificationDetails.notificationType;
   return (
-    <Card className={classes.root}>
-      <CardActionArea >
+    <Card
+      className={classes.root}
+      onClick={() => {
+        navigate(`${redirectLink(type, notificationDetails)}`);
+      }}
+    >
+      <CardActionArea>
         <CardContent>
           <Grid container alignItems="center" justifyContent="flex-start">
             <Grid item xs={2}>
-              <CardMedia
-                className={classes.media}
-                image="https://pbs.twimg.com/profile_banners/52322389/1625485383/600x200"
-                title="Contemplative Reptile"
-              />
+              {mediaType(type, notificationDetails, classes)}
             </Grid>
             <Grid item xs={9}>
               <Typography variant="h6" color="textPrimary" component="p">
-                Tanay commented your Post
+                {notificationText(type, notificationDetails)}
               </Typography>
             </Grid>
           </Grid>
