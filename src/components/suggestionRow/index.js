@@ -22,12 +22,12 @@ export const SuggestionRow = ({ userDetails }) => {
     <Grid
       container
       alignItems="center"
-      justifyContent="space-around"
+      justifyContent="flex-start"
       style={{ cursor: "pointer" }}
     >
       <Grid
         item
-        xs={2}
+        xs={4}
         onClick={() => {
           navigate(`profile/${userDetails._id}`);
         }}
@@ -40,7 +40,7 @@ export const SuggestionRow = ({ userDetails }) => {
       </Grid>
       <Grid
         item
-        xs={3}
+        xs={4}
         onClick={() => {
           navigate(`profile/${userDetails._id}`);
         }}
@@ -54,7 +54,7 @@ export const SuggestionRow = ({ userDetails }) => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={1}>
         <FollowButton suggestion userId={userDetails._id} />
       </Grid>
     </Grid>

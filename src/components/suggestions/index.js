@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -24,10 +24,9 @@ export const Suggestion = () => {
   useEffect(() => {
     (async function () {
       let { success, data, message } = await apiCall("GET", "suggestion");
-      debugger;
+
       if (success) {
         suggestionSetter(data.suggestions);
-        debugger;
       } else {
         suggestionSetter([]);
       }

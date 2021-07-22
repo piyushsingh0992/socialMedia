@@ -1,6 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
-import { logInLocal,logOutLocal ,addPostLocal} from "../../localStorage";
+import {
+  logInLocal,
+  logOutLocal,
+  addPostLocal,
+  addFollowingLocal,
+  removeFollowingLocal,
+} from "../../localStorage";
+import { current } from "immer";
 export let updateFunction = createAsyncThunk(
   "posts/updateFunction",
   async (updateDetails, { fulfillWithValue, rejectWithValue }) => {
@@ -40,6 +47,32 @@ export let signInFunction = createAsyncThunk(
   }
 );
 
+export let followFunction = createAsyncThunk(
+  "posts/followFunction",
+  async (followerId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", `follow/${followerId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export let unFollowFunction = createAsyncThunk(
+  "posts/unFollowFunction",
+  async (followerId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("DELETE", `follow/${followerId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "posts",
   initialState: {
@@ -57,13 +90,11 @@ export const userSlice = createSlice({
   reducers: {
     addPostUserPostArray: (state, action) => {
       state.userDetails.posts.push(action.payload.postId);
-      addPostLocal(action.payload.postId)
-
+      addPostLocal(action.payload.postId);
     },
 
     resetUserSlice: (state) => {
       logOutLocal();
-
 
       return {
         userDetails: {},
@@ -147,6 +178,37 @@ export const userSlice = createSlice({
     [updateFunction.rejected]: (state, action) => {
       state.updateStatus = "rejected";
       state.message = action.payload.message;
+    },
+
+    [followFunction.pending]: (state) => {
+      state.status = "loading";
+    },
+    [followFunction.fulfilled]: (state, action) => {
+      state.userDetails.following.unshift(action.payload.data.followerId);
+      addFollowingLocal(action.payload.data.followerId);
+      state.status = "fullfilled";
+    },
+    [followFunction.rejected]: (state, action) => {
+      state.status = "rejected";
+    },
+
+    [unFollowFunction.pending]: (state) => {
+      state.status = "loading";
+    },
+    [unFollowFunction.fulfilled]: (state, action) => {
+      let followerId = action.payload.data.followerId;
+
+      state.userDetails.following = state.userDetails.following.filter(
+        (item) => {
+          return item != followerId;
+        }
+      );
+      removeFollowingLocal(action.payload.data.followerId);
+
+      state.status = "fullfilled";
+    },
+    [unFollowFunction.rejected]: (state, action) => {
+      state.status = "rejected";
     },
   },
 });

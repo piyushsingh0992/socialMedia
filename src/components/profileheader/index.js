@@ -118,9 +118,7 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                     alignItems="center"
                     justifyContent="space-between"
                   >
-                    {!userProfile && (
-                      <FollowButton/>
-                    )}
+                    {!userProfile && <FollowButton userId={userDetails._id} />}
                   </Grid>
                 </Grid>
               </Grid>

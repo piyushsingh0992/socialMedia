@@ -1,27 +1,65 @@
 import React, { useState, useEffect } from "react";
 import { useStyles } from "./style.js";
 import Button from "@material-ui/core/Button";
-import { toast } from "react-toastify";
+
 import { useSelector, useDispatch } from "react-redux";
 
-import {} from "../../container/loginContainer/userSlice";
+import {
+  followFunction,
+  unFollowFunction,
+} from "../../container/loginContainer/userSlice";
 const FollowButton = ({ userId, suggestion }) => {
   const [follower, followerSetter] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.userDetails);
+  const user = useSelector((state) => state.user);
+  const [loader, loaderSetter] = useState(false);
   useEffect(() => {
-    let present = user.following.find((item) => item === userId);
+    let present = user.userDetails.following.find((item) => item === userId);
     if (present) {
       followerSetter(true);
+    } else {
+      followerSetter(false);
+    }
+
+    if (user.status === "fullfilled" || user.status === "rejected") {
+      loaderSetter(false);
     }
   }, [userId, user]);
 
+  function activateLoader() {
+    loaderSetter(true);
+  }
+
   const classes = useStyles();
+  function follow(userId) {
+    dispatch(followFunction(userId));
+  }
+
+  function unFollow(userId) {
+    dispatch(unFollowFunction(userId));
+  }
+
   if (suggestion) {
     return follower ? (
-      <h3 style={{ color: "black" }}>UnFollow</h3>
+      <h3
+        style={{ color: "black" }}
+        onClick={() => {
+          activateLoader();
+          unFollow(userId);
+        }}
+      >
+        {loader ? "loading..." : "unFollow"}
+      </h3>
     ) : (
-      <h3 style={{ color: "blue" }}>Follow</h3>
+      <h3
+        style={{ color: "blue" }}
+        onClick={() => {
+          activateLoader();
+          follow(userId);
+        }}
+      >
+        {loader ? "loading..." : "Follow"}
+      </h3>
     );
   }
 
@@ -30,16 +68,24 @@ const FollowButton = ({ userId, suggestion }) => {
       variant="contained"
       color="primary"
       className={classes.unFollowButton}
+      onClick={() => {
+        activateLoader();
+        unFollow(userId);
+      }}
     >
-      UnFollow
+      {loader ? "loading..." : "unFollow"}
     </Button>
   ) : (
     <Button
       variant="contained"
       color="primary"
       className={classes.followButton}
+      onClick={() => {
+        activateLoader();
+        follow(userId);
+      }}
     >
-      Follow
+      {loader ? "loading..." : "Follow"}
     </Button>
   );
 };
