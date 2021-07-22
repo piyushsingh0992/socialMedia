@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeletePost from "../deletePost";
-import { useSelector } from "react-redux";
+import { resetDeletePostStatus } from "../../container/newsFeedContainer/postSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
 const PostHeader = ({
   handleClick,
   handleClose,
@@ -17,6 +18,20 @@ const PostHeader = ({
 }) => {
   let user = useSelector((state) => state.user.userDetails);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const post = useSelector((state) => state.post);
+
+  useEffect(() => {
+   
+    post.deletePostStatus === "fullfilled" && 
+    dispatch(resetDeletePostStatus());
+
+    post.deletePostStatus === "rejected" &&
+      toast.error("Sorry Couldn't delete your post");
+
+
+  }, [post]);
+
 
 
   return (
@@ -45,8 +60,6 @@ const PostHeader = ({
               <MoreVertIcon />
             </IconButton>
           )}
-
-
 
           {userDetails._id === user._id && (
             <DeletePost

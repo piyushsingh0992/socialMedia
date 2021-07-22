@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
 import { current } from "immer";
+import {removePostLocal} from "../../localStorage";
 export let createPost = createAsyncThunk(
   "posts/createPost",
   async ({ userId, postDetails }, { fulfillWithValue, rejectWithValue }) => {
@@ -72,10 +73,25 @@ export const addCommentFunction = createAsyncThunk(
   "posts/addCommentFunction",
 
   async ({ postId, text }, { fulfillWithValue, rejectWithValue }) => {
-    
     let response = await apiCall("POST", `comment/${postId}`, {
       text: text,
     });
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export const deletePostFunction = createAsyncThunk(
+  "posts/deletePostFunction",
+ 
+
+  async (postId, { fulfillWithValue, rejectWithValue }) => {
+    
+    let response = await apiCall("DELETE", `post/${postId}`);
     
     if (response.success) {
       
@@ -99,8 +115,13 @@ export const postSlice = createSlice({
     message: "",
     postLikeStatus: "idle",
     commentStatus: "idle",
+    deletePostStatus: "idle",
   },
   reducers: {
+    resetDeletePostStatus: (state) => {
+    
+      state.deletePostStatus= "idle";
+    },
     resetcreatePostStatus: (state) => {
       state.createPostStatus = "idle";
       state.currentPost = null;
@@ -115,6 +136,7 @@ export const postSlice = createSlice({
         userPostsStatus: "idle",
         status: "idle",
         message: "",
+        deletePostStatus: "idle",
       };
     },
   },
@@ -216,13 +238,14 @@ export const postSlice = createSlice({
     },
 
     [addCommentFunction.pending]: (state) => {
-      
       state.commentStatus = "loading";
+      
     },
     [addCommentFunction.fulfilled]: (state, action) => {
+      
       let updatedPost = action.payload.data.post;
       let updatedPostId = action.payload.data.post._id;
-      
+
       state.posts = state.posts.map((item) => {
         if (item._id === updatedPostId) {
           return updatedPost;
@@ -238,14 +261,46 @@ export const postSlice = createSlice({
       });
 
       state.commentStatus = "fullfilled";
+            
     },
     [addCommentFunction.rejected]: (state, action) => {
-      
       state.commentStatus = "rejected";
+      
+    },
+
+    [deletePostFunction.pending]: (state) => {
+      
+      state.deletePostStatus = "loading";
+      
+    },
+    [deletePostFunction.fulfilled]: (state, action) => {
+      
+      let deletedPostId = action.payload.data.deletedPostId;
+      
+      state.posts = state.posts.filter((item) => {
+        if (item._id === deletedPostId) {
+          return false;
+        }
+        return true;
+      });
+
+      state.userPosts = state.posts.filter((item) => {
+        if (item._id === deletedPostId) {
+          return false;
+        }
+        return true;
+      });
+      removePostLocal(deletedPostId)
+      state.deletePostStatus = "fullfilled";
+    },
+    [deletePostFunction.rejected]: (state, action) => {
+      
+      state.deletePostStatus = "rejected";
     },
   },
 });
 
-export const { resetcreatePostStatus, resetPostSlice } = postSlice.actions;
+export const { resetcreatePostStatus, resetPostSlice, resetDeletePostStatus } =
+  postSlice.actions;
 
 export default postSlice.reducer;

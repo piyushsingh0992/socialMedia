@@ -27,3 +27,11 @@ export function addPostLocal(postId) {
   userDetails.userDetails.posts.push(postId);
   localStorage.setItem("userDetails", JSON.stringify(userDetails));
 }
+
+export function removePostLocal(postId) {
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  userDetails.userDetails.posts = userDetails.userDetails.posts.filter(
+    (item) => item != postId
+  );
+  localStorage.setItem("userDetails", JSON.stringify(userDetails));
+}
