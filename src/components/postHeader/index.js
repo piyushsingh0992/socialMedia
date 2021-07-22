@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeletePost from "../deletePost";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const PostHeader = ({
   handleClick,
@@ -14,12 +15,23 @@ const PostHeader = ({
   time,
 }) => {
   const user = useSelector((state) => state.user.userDetails);
-  
+  const navigate = useNavigate();
   return (
     <CardHeader
       title={`${userDetails.userName}`}
       subheader={time}
-      avatar={<Avatar aria-label="recipe" src={user.profileImage} />}
+      avatar={
+        <Avatar
+          aria-label="recipe"
+          src={user.profileImage}
+          style={{
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate(`/profile/${userDetails._id}`);
+          }}
+        />
+      }
       style={{
         borderBottom: "0.1px solid grey",
       }}
