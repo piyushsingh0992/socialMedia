@@ -5,11 +5,11 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 
 import Avatar from "@material-ui/core/Avatar";
-import logo from "../../assets/logo.png";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 import FollowButton from "../followButton";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,36 +33,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchResult() {
+export default function SearchResult({ userDetails }) {
   const classes = useStyles();
-
+  const navigate = useNavigate();
   return (
     <Card className={classes.root}>
-      <CardActionArea style={{ cursor: "default" }}>
+      <CardActionArea >
         <CardContent>
-          <Grid container alignItems="center" justifyContent="space-between">
-            <Grid item xs={2}>
+          <Grid container alignItems="center" justifyContent="flex-start">
+            <Grid
+              item
+              xs={3}
+              onClick={() => {
+                navigate(`/profile/${userDetails._id}`);
+              }}
+            >
               <Avatar
                 aria-label="recipe"
                 className={classes.avatar}
-                src={logo}
+                src={userDetails.profileImage}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid
+              item
+              xs={6}
+              onClick={() => {
+                navigate(`/profile/${userDetails._id}`);
+              }}
+            >
               <Grid container justifyContent="space-between">
-                <Grid item xs={6}>
+                <Grid item xs={5}>
                   <Typography variant="h5" color="textPrimary" component="p">
-                    Tanay
+                    {userDetails.userName}
                   </Typography>
 
                   <Typography variant="h6" color="textSecondary" component="p">
-                    ChatBubbleOutlineOutlined
+                    {userDetails.pronouns}
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={2}>
-              <FollowButton />
+              <FollowButton userId={userDetails._id} />
             </Grid>
           </Grid>
         </CardContent>

@@ -1,47 +1,26 @@
-import React from "react";
-import { alpha, makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
-import ClearIcon from "@material-ui/icons/Clear";
-export const useStyles = makeStyles((theme) => ({
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: "#CACCCE",
-
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-
+import { useStyles } from "./style.js";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 const Search = () => {
+  const { searchText } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchTerm, searchTermSetter] = useState("");
+  function keyListener(e) {
+    if (e.keyCode === 13 && searchTerm.length > 0) {
+      navigate(`/search/${searchTerm}`);
+    }
+  }
+  useEffect(() => {
+    if (searchText) {
+      searchTermSetter(searchText);
+    } else {
+      searchTermSetter("");
+    }
+  }, [location.pathname]);
+
   const classes = useStyles();
   return (
     <div className="search">
@@ -56,9 +35,11 @@ const Search = () => {
             input: classes.inputInput,
           }}
           inputProps={{ "aria-label": "search" }}
+          value={searchTerm}
           onChange={(e) => {
-            console.log(e.target.value);
+            searchTermSetter(e.target.value);
           }}
+          onKeyDown={keyListener}
         />
       </div>
     </div>
