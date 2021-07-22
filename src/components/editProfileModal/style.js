@@ -22,7 +22,7 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     borderRadius: "5px",
     padding: theme.spacing(4, 4, 4),
-    maxHeight: "50vh",
+    Height: "50vh",
   },
   formControl: {
     minWidth: 120,
