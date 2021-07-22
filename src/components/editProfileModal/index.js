@@ -13,11 +13,10 @@ import Select from "@material-ui/core/Select";
 import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateFunction,
-} from "../../container/loginContainer/userSlice";
+import { updateFunction } from "../../container/loginContainer/userSlice";
+import UploadImage from "../uploadImage";
 
-export default function SettingModal({ editDetails }) {
+export default function EditProfileModal({ editDetails }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = useState(getModalStyle);
@@ -60,7 +59,7 @@ export default function SettingModal({ editDetails }) {
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <Typography variant="h5" color="primary">
-        Setting
+        Edit Profile
       </Typography>
 
       <Grid container spacing={2}>
@@ -140,24 +139,10 @@ export default function SettingModal({ editDetails }) {
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Button
-            variant="contained"
-            color="Primary"
-            // className={classes.button}
-            startIcon={<CloudUploadIcon />}
-          >
-            Upload Cover Picture
-          </Button>
+          <UploadImage text="Change Profile Picture" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Button
-            variant="contained"
-            color="Primary"
-            // className={classes.button}
-            startIcon={<CloudUploadIcon />}
-          >
-            Upload Profile Picture
-          </Button>
+          <UploadImage text="Change Cover Picture" />
         </Grid>
 
         <Grid xs={12} sm={6} style={{ margin: "2rem 0" }}>

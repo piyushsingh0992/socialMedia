@@ -9,7 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import FollowerModal from "../followerModal";
-import SettingModal from "../settingModal";
+import EditProfileModal from "../editProfileModal";
 import FollowButton from "../followButton";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,7 +74,7 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                     </Grid>
                     <Grid>
                       {userProfile && (
-                        <SettingModal editDetails={userDetails} />
+                        <EditProfileModal editDetails={userDetails} />
                       )}
                     </Grid>
                   </Grid>
