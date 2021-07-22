@@ -94,14 +94,15 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                         {userDetails.posts ? userDetails.posts.length : 0}
                       </Typography>
                     </Grid>
+
                     <FollowerModal
-                      title="Follower's"
+                      type="followers"
                       numbers={
                         userDetails.followers ? userDetails.followers.length : 0
                       }
                     />
                     <FollowerModal
-                      title="Following"
+                      type="following"
                       numbers={
                         userDetails.following ? userDetails.following.length : 0
                       }
