@@ -16,7 +16,7 @@ import {
   createPost,
   resetcreatePostStatus,
 } from "../../container/newsFeedContainer/postSlice";
-import { addPostUserPostArray } from "../../container/loginContainer/userSlice";
+import { addPostToUserPostArray } from "../../container/loginContainer/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 export default function UploadButton({ menuItem }) {
   const classes = useStyles();
@@ -32,18 +32,17 @@ export default function UploadButton({ menuItem }) {
   useEffect(() => {
     if (post.createPostStatus === "fullfilled") {
       toast.success(post.message);
-
       let postId = post.currentPost._id;
-
-      dispatch(resetcreatePostStatus());
-
-      dispatch(addPostUserPostArray({ postId }));
-
+      dispatch(addPostToUserPostArray({ postId }));
       handleClose();
     } else if (post.createPostStatus === "rejected") {
       toast.error(post.message);
     }
-  }, [post]);
+
+    return () => {
+      dispatch(resetcreatePostStatus());
+    };
+  }, [post.posts]);
 
   const handleOpen = () => {
     setOpen(true);

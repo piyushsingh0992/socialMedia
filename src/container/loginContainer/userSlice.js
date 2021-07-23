@@ -88,7 +88,7 @@ export const userSlice = createSlice({
     },
   },
   reducers: {
-    addPostUserPostArray: (state, action) => {
+    addPostToUserPostArray: (state, action) => {
       state.userDetails.posts.push(action.payload.postId);
       addPostLocal(action.payload.postId);
     },
@@ -214,7 +214,7 @@ export const userSlice = createSlice({
 });
 
 export const {
-  addPostUserPostArray,
+  addPostToUserPostArray,
   resetSignUpState,
   resetUserSlice,
   signInfromLocalStorage,
