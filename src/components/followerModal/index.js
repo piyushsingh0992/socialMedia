@@ -6,12 +6,13 @@ import Avatar from "@material-ui/core/Avatar";
 import FollowButton from "../followButton";
 import { getModalStyle, useStyles } from "./style.js";
 import { apiCall } from "../../services/apiCall";
-import { exportDefaultSpecifier } from "@babel/types";
+
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const FollowerModalRow = ({ userDetails }) => {
   const navigate = useNavigate();
-  
+  const user = useSelector((state) => state.user.userDetails);
   return (
     <Grid
       container
@@ -45,7 +46,10 @@ const FollowerModalRow = ({ userDetails }) => {
         <Typography>{userDetails.pronouns}</Typography>
       </Grid>
       <Grid item xs={2}>
-        <FollowButton userId={userDetails._id} />
+        {userDetails._id !=user._id &&
+                  <FollowButton userId={userDetails._id} />
+        }
+
       </Grid>
     </Grid>
   );
