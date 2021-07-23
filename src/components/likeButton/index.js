@@ -29,20 +29,17 @@ const LikeButton = ({ likesArray, postId }) => {
     } else if (post.postLikeStatus === "rejected") {
       toast.error("Cann't like this post right now");
     }
-  }, [user, post]);
+  }, [user, post, likesArray, postId]);
 
   function like() {
-    
     loaderSetter(true);
     dispatch(likePostFunction(postId));
   }
 
   function unLike() {
-    
     loaderSetter(true);
     dispatch(unLikePostFunction(postId));
   }
-
 
   return liked ? (
     <IconButton aria-label="add to favorites" onClick={unLike}>
