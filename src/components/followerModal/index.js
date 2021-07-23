@@ -51,12 +51,13 @@ const FollowerModalRow = ({ userDetails }) => {
   );
 };
 
-export default function SimpleModal({
+export default function FollowerModal({
   title,
   numbers,
   following,
   follower,
   type,
+  userId
 }) {
   const classes = useStyles();
 
@@ -75,7 +76,7 @@ export default function SimpleModal({
   useEffect(() => {
     if (open) {
       (async function () {
-        let { data, success, message } = await apiCall("GET", `follow/${type}`);
+        let { data, success, message } = await apiCall("GET", `follow/${type}/${userId}`);
         if (success) {
           userArraySetter(data.list);
         } else {

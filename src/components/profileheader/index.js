@@ -100,12 +100,14 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                       numbers={
                         userDetails.followers ? userDetails.followers.length : 0
                       }
+                      userId={userDetails._id}
                     />
                     <FollowerModal
                       type="following"
                       numbers={
                         userDetails.following ? userDetails.following.length : 0
                       }
+                      userId={userDetails._id}
                     />
                   </Grid>
                 </Grid>
