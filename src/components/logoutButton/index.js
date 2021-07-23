@@ -6,6 +6,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useDispatch } from "react-redux";
 import { resetUserSlice } from "../../container/loginContainer/userSlice";
 import { resetPostSlice } from "../../container/newsFeedContainer/postSlice";
+import { resetNotificationSlice } from "../../container/notificationContainer/notificationSlice";
 import { setupAuthHeader } from "../../utils/common";
 
 const LogoutButton = ({
@@ -18,6 +19,7 @@ const LogoutButton = ({
   function logout() {
     dispatch(resetUserSlice());
     dispatch(resetPostSlice());
+    dispatch(resetNotificationSlice());
     setupAuthHeader();
     handleMenuClose && handleMenuClose();
     handleMobileMenuClose && handleMobileMenuClose();

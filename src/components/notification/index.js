@@ -48,6 +48,7 @@ function notificationText(type, details) {
 }
 
 function mediaType(type, details, classes) {
+  
   switch (type) {
     case "FOLLOW":
       return (

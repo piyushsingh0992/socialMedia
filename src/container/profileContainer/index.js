@@ -19,6 +19,7 @@ export default function ProfileContainer() {
   let { userId } = useParams();
 
   useEffect(() => {
+    
     if (userId === user._id) {
       userProfileSetter(true);
       userDetailsSetter(user);
@@ -69,7 +70,7 @@ export default function ProfileContainer() {
     } else {
       getOtherUserPosts(userId, postArraySetter);
     }
-  }, [post]);
+  }, [userId,post]);
 
   return (
     <div className="main-container">

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
 import { current } from "immer";
-import {removePostLocal} from "../../localStorage";
+import { removePostLocal } from "../../localStorage";
 export let createPost = createAsyncThunk(
   "posts/createPost",
   async ({ userId, postDetails }, { fulfillWithValue, rejectWithValue }) => {
@@ -87,17 +87,27 @@ export const addCommentFunction = createAsyncThunk(
 
 export const deletePostFunction = createAsyncThunk(
   "posts/deletePostFunction",
- 
 
   async (postId, { fulfillWithValue, rejectWithValue }) => {
-    
     let response = await apiCall("DELETE", `post/${postId}`);
-    
+
     if (response.success) {
-      
       return fulfillWithValue(response);
     } else {
-      
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export const addPostToNewsFeed = createAsyncThunk(
+  "posts/addPostToNewsFeed",
+  async (postId, { fulfillWithValue, rejectWithValue }) => {
+    
+    let response = await apiCall("GET", `post/${postId}`);
+    
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
       return rejectWithValue(response);
     }
   }
@@ -116,11 +126,14 @@ export const postSlice = createSlice({
     postLikeStatus: "idle",
     commentStatus: "idle",
     deletePostStatus: "idle",
+    addPosttoNewsFeedStatus:"idle",
   },
   reducers: {
+    resetAddPostToNewsFeedStatus: (state) =>{
+      state.addPosttoNewsFeedStatus="idle";
+    },
     resetDeletePostStatus: (state) => {
-    
-      state.deletePostStatus= "idle";
+      state.deletePostStatus = "idle";
     },
     resetcreatePostStatus: (state) => {
       state.createPostStatus = "idle";
@@ -197,7 +210,7 @@ export const postSlice = createSlice({
         return item;
       });
 
-      state.userPosts = state.posts.map((item) => {
+      state.userPosts = state.userPosts.map((item) => {
         if (item._id === updatedPostId) {
           return updatedPost;
         }
@@ -224,7 +237,7 @@ export const postSlice = createSlice({
         return item;
       });
 
-      state.userPosts = state.posts.map((item) => {
+      state.userPosts = state.userPosts.map((item) => {
         if (item._id === updatedPostId) {
           return updatedPost;
         }
@@ -239,10 +252,8 @@ export const postSlice = createSlice({
 
     [addCommentFunction.pending]: (state) => {
       state.commentStatus = "loading";
-      
     },
     [addCommentFunction.fulfilled]: (state, action) => {
-      
       let updatedPost = action.payload.data.post;
       let updatedPostId = action.payload.data.post._id;
 
@@ -253,7 +264,7 @@ export const postSlice = createSlice({
         return item;
       });
 
-      state.userPosts = state.posts.map((item) => {
+      state.userPosts = state.userPosts.map((item) => {
         if (item._id === updatedPostId) {
           return updatedPost;
         }
@@ -261,22 +272,17 @@ export const postSlice = createSlice({
       });
 
       state.commentStatus = "fullfilled";
-            
     },
     [addCommentFunction.rejected]: (state, action) => {
       state.commentStatus = "rejected";
-      
     },
 
     [deletePostFunction.pending]: (state) => {
-      
       state.deletePostStatus = "loading";
-      
     },
     [deletePostFunction.fulfilled]: (state, action) => {
-      
       let deletedPostId = action.payload.data.deletedPostId;
-      
+
       state.posts = state.posts.filter((item) => {
         if (item._id === deletedPostId) {
           return false;
@@ -284,23 +290,38 @@ export const postSlice = createSlice({
         return true;
       });
 
-      state.userPosts = state.posts.filter((item) => {
+      state.userPosts = state.userPosts.filter((item) => {
         if (item._id === deletedPostId) {
           return false;
         }
         return true;
       });
-      removePostLocal(deletedPostId)
+      removePostLocal(deletedPostId);
       state.deletePostStatus = "fullfilled";
     },
     [deletePostFunction.rejected]: (state, action) => {
-      
       state.deletePostStatus = "rejected";
+    },
+
+    [addPostToNewsFeed.pending]: (state) => {
+      state.addPosttoNewsFeedStatus="loading";
+      
+    },
+    [addPostToNewsFeed.fulfilled]: (state, action) => {
+      state.addPosttoNewsFeedStatus="fullfilled";
+      state.posts.unshift(action.payload.data.post);
+      state.message = action.payload.data.message;
+      
+    },
+    [addPostToNewsFeed.rejected]: (state, action) => {
+      state.addPosttoNewsFeedStatus="rejected";
+      state.message = action.payload.message;
+      
     },
   },
 });
 
-export const { resetcreatePostStatus, resetPostSlice, resetDeletePostStatus } =
+export const { resetcreatePostStatus, resetPostSlice, resetDeletePostStatus,resetAddPostToNewsFeedStatus } =
   postSlice.actions;
 
 export default postSlice.reducer;
