@@ -8,6 +8,7 @@ import { resetDeletePostStatus } from "../../container/newsFeedContainer/postSli
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
 const PostHeader = ({
   handleClick,
   handleClose,
@@ -22,17 +23,17 @@ const PostHeader = ({
   const post = useSelector((state) => state.post);
 
   useEffect(() => {
-   
-    post.deletePostStatus === "fullfilled" && 
-    dispatch(resetDeletePostStatus());
+    post.deletePostStatus === "fullfilled" && dispatch(resetDeletePostStatus());
 
     post.deletePostStatus === "rejected" &&
       toast.error("Sorry Couldn't delete your post");
-
-
+    return () => {
+      if (post.deletePostStatus === "fullfilled") {
+        toast.success("post deleted");
+        navigate("/");
+      }
+    };
   }, [post]);
-
-
 
   return (
     <CardHeader
@@ -55,11 +56,14 @@ const PostHeader = ({
       }}
       action={
         <div>
-          {userDetails._id === user._id && (
-            <IconButton aria-label="settings" onClick={handleClick}>
-              <MoreVertIcon />
-            </IconButton>
-          )}
+          {userDetails._id === user._id &&
+            (post.deletePostStatus === "loading" ? (
+              <CircularProgress />
+            ) : (
+              <IconButton aria-label="settings" onClick={handleClick}>
+                <MoreVertIcon />
+              </IconButton>
+            ))}
 
           {userDetails._id === user._id && (
             <DeletePost
