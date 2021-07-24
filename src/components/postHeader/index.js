@@ -38,7 +38,7 @@ const PostHeader = ({
   return (
     <CardHeader
       title={`${userDetails.userName}`}
-      subheader={time}
+      subheader={time ? time : ""}
       avatar={
         <Avatar
           aria-label="recipe"
