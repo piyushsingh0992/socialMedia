@@ -1,3 +1,5 @@
+@include "./theme.css";
+
 body {
   margin: 0;
   padding: 0;
@@ -5,3 +7,30 @@ body {
 }
 
 
+
+
+.clickable{
+  cursor: pointer;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: hidden; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:grey; 
+    border-radius:10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:grey; 
+    border-radius:10px;
+}

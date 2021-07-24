@@ -9,7 +9,9 @@ const PostActionButtons = ({ handleExpandClick, likesArray, comment ,postId}) =>
       disableSpacing
       style={{
         borderTop: "0.1px solid grey",
-        background:"white"
+        background:"white",
+        margin:"0",
+        padding:"0"
       }}
     >
       <LikeButton postId={postId} likesArray={likesArray} />

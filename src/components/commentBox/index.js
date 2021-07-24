@@ -46,6 +46,10 @@ const CommentBox = ({ postId }) => {
       style={{
         borderTop: "0.1px solid grey",
         background: "white",
+        paddingTop:"0.8rem",
+        paddingBottom:"0.8rem",
+        marginTop:"0",
+        marginBottom:"0",
       }}
     >
       <Grid container wrap="nowrap" spacing={2}>

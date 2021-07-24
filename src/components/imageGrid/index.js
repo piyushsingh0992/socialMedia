@@ -14,10 +14,14 @@ export default function ImageGrid({ postArray }) {
             navigate(`/post/${post._id}`);
           }}
         >
-          <img src={post.img.url} alt={post.caption} loading="lazy" />
+          <img
+            className="clickable"
+            src={post.img.url}
+            alt={post.caption}
+            loading="lazy"
+          />
         </ImageListItem>
       ))}
     </ImageList>
   );
 }
-

@@ -6,14 +6,26 @@ import { useNavigate } from "react-router-dom";
 const Comment = ({ commentDetails }) => {
   const navigate = useNavigate();
   return (
-    <Grid container wrap="nowrap" spacing={2} style={{ margin: "0.5rem 0",alignItems:"center" }}>
+    <Grid
+      container
+      wrap="nowrap"
+      spacing={2}
+      style={{
+        // margin: "0.5rem 0",
+        alignItems: "center",
+        paddingTop: "0.5rem",
+        paddingBottom: "0.5rem",
+        marginTop: "0",
+        marginBottom: "0",
+      }}
+    >
       <Grid
         item
         onClick={() => {
           navigate(`/profile/${commentDetails.userId}`);
         }}
       >
-        <Avatar src={commentDetails.userImage} />
+        <Avatar src={commentDetails.userImage}  className="clickable"/>
         <span></span>
       </Grid>
 

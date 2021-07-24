@@ -5,6 +5,10 @@ export const useStyles = makeStyles((theme) => ({
     display:"flex",
     alignItems:"center",
     justifyContent:"center",
+    position:"sticky",
+    top:"0vh",
+    color:"white",
+    zIndex:"10"
   },
 
   toolBox:{

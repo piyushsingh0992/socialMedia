@@ -41,7 +41,7 @@ const FollowButton = ({ userId, suggestion }) => {
 
   if (suggestion) {
     return follower ? (
-      <h3
+      <h4
         style={{ color: "black" }}
         onClick={() => {
           activateLoader();
@@ -49,9 +49,9 @@ const FollowButton = ({ userId, suggestion }) => {
         }}
       >
         {loader ? "loading..." : "unFollow"}
-      </h3>
+      </h4>
     ) : (
-      <h3
+      <h4
         style={{ color: "blue" }}
         onClick={() => {
           activateLoader();
@@ -59,7 +59,7 @@ const FollowButton = ({ userId, suggestion }) => {
         }}
       >
         {loader ? "loading..." : "Follow"}
-      </h3>
+      </h4>
     );
   }
 

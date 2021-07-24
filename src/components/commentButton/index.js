@@ -7,9 +7,9 @@ const CommentButton = ({ handleExpandClick ,comment}) => {
   return (
     <IconButton aria-label="share" onClick={handleExpandClick}>
       <Typography color="textSecondary" variant="p">
-        {comment} &nbsp;
+        {comment} 
       </Typography>
-      <ChatBubbleOutlineOutlinedIcon />
+      <ChatBubbleOutlineOutlinedIcon style={{paddingLeft:"10px"}} />
     </IconButton>
   );
 };

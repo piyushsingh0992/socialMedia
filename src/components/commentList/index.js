@@ -7,7 +7,15 @@ import Comment from "../comment";
 const CommentList = ({ expanded, commentArray }) => {
   return (
     <Collapse in={expanded} timeout="auto" unmountOnExit>
-      <CardContent>
+      <CardContent
+        style={{
+          borderTop:"1px solid grey",
+          paddingTop: "0.5rem",
+          paddingBottom: "0.5rem",
+          marginTop: "0",
+          marginBottom: "0",
+        }}
+      >
         <Grid container>
           {commentArray.map((item) => {
             return <Comment commentDetails={item} />;

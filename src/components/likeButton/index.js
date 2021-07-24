@@ -9,7 +9,8 @@ import {
 } from "../../container/newsFeedContainer/postSlice";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { toast } from "react-toastify";
-
+import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
 const LikeButton = ({ likesArray, postId }) => {
   const [liked, likedSetter] = useState(true);
   const dispatch = useDispatch();
@@ -44,20 +45,20 @@ const LikeButton = ({ likesArray, postId }) => {
   return liked ? (
     <IconButton aria-label="add to favorites" onClick={unLike}>
       <Typography color="textSecondary" variant="p">
-        {likesArray.length} &nbsp;
+        {likesArray.length}
       </Typography>
       {loader ? (
         <CircularProgress />
       ) : (
-        <FavoriteIcon style={{ color: "red" }} />
+        <FavoriteOutlinedIcon style={{ color: "red",paddingLeft:"10px" }} />
       )}
     </IconButton>
   ) : (
     <IconButton aria-label="add to favorites" onClick={like}>
       <Typography color="textSecondary" variant="p">
-        {likesArray.length} &nbsp;
+        {likesArray.length}
       </Typography>
-      {loader ? <CircularProgress /> : <FavoriteIcon />}
+      {loader ? <CircularProgress /> : <FavoriteBorderOutlinedIcon style={{paddingLeft:"10px"}}/>}
     </IconButton>
   );
 };

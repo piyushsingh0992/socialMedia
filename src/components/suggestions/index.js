@@ -13,7 +13,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 270,
     margin: "1.5rem 0",
-    maxHeight: "55vh",
+    maxHeight: "18rem",
+    padding: "0 0.5rem",
+    position: "sticky",
+    top: "10vh",
   },
 }));
 
@@ -44,9 +47,8 @@ export const Suggestion = () => {
         ) : (
           <h1>loading</h1>
         )}
-        {/* <SuggestionRow />
-        <SuggestionRow />
-        <SuggestionRow /> */}
+
+
       </CardContent>
     </Card>
   );

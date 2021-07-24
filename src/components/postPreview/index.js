@@ -9,7 +9,7 @@ import CommentBox from "../commentBox";
 import PostHeader from "../postHeader";
 import Comment from "../comment";
 import Grid from "@material-ui/core/Grid";
-import moment from 'moment';
+import moment from "moment";
 import CommentList from "../commentList";
 import PostActionButtons from "../postActionButtons";
 
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PostPreview({ currentPost }) {
- 
   const classes = useStyles();
   const theme = useTheme();
 
@@ -72,40 +71,45 @@ export default function PostPreview({ currentPost }) {
             time={moment(currentPost.createdAt).format("LL")}
             postId={currentPost._id}
           />
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            style={{ padding: "1rem" }}
-          >
-            {currentPost.caption}
-          </Typography>
+          {currentPost.caption.length > 0 && (
+            <Typography
+              variant="body2"
+              color="textPrimary"
+              component="p"
+              style={{ padding: "1rem", borderBottom: "1px solid black" }}
+            >
+              {currentPost.caption}
+            </Typography>
+          )}
           <Grid
             container
             style={{
               overflowY: "scroll",
+              overflowX: "hidden",
               maxHeight: "60vh",
-              padding: "2.5vh 0",
+              padding: "2.5vh",
             }}
           >
-
-            {currentPost.comments.map(item =>{
-                          return <Comment commentDetails={item} />;
+            {currentPost.comments.map((item) => {
+              return <Comment commentDetails={item} />;
             })}
-
           </Grid>
           <div
             style={{
               position: "absolute",
-              bottom: "0",
+              bottom: "1rem",
               width: "100%",
               paddingBottom: " 0.5rem ",
+              backgroudn: "pink",
             }}
           >
-            <PostActionButtons postId={currentPost._id} likesArray={currentPost.likes}/>
-            <CommentBox postId={currentPost._id}/>
+            <PostActionButtons
+              postId={currentPost._id}
+              likesArray={currentPost.likes}
+            />
+            <CommentBox postId={currentPost._id} />
           </div>
-        </CardContent >
+        </CardContent>
       </div>
     </Card>
   );

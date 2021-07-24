@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem 0",
     padding: "0.5rem",
     cursor: "pointer",
+    height:"30px",
+    width:"30px"
   },
 }));
 
@@ -27,7 +29,7 @@ export const SuggestionRow = ({ userDetails }) => {
     >
       <Grid
         item
-        xs={4}
+        xs={3}
         onClick={() => {
           navigate(`profile/${userDetails._id}`);
         }}
@@ -40,17 +42,19 @@ export const SuggestionRow = ({ userDetails }) => {
       </Grid>
       <Grid
         item
-        xs={4}
+        xs={6}
         onClick={() => {
           navigate(`profile/${userDetails._id}`);
         }}
       >
         <Grid container justifyContent="space-between">
           <Grid item xs={6}>
-            <Typography variant="h6" color="textPrimary" component="p">
+            <Typography variant="h6" color="textPrimary" component="span">
               {userDetails.userName}
             </Typography>
-            <span>{userDetails.pronouns}</span>
+            <Typography variant="p" color="textSecondary" component="p">
+              {userDetails.pronouns}
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

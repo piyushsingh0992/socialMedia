@@ -8,11 +8,9 @@ import CommentBox from "../commentBox";
 import PostHeader from "../postHeader";
 import CommentList from "../commentList";
 import PostActionButtons from "../postActionButtons";
-import moment from 'moment';
-
+import moment from "moment";
 
 export default function Post({ postDetails }) {
-  
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false);
@@ -34,7 +32,7 @@ export default function Post({ postDetails }) {
         handleClose={handleClose}
         anchorEl={anchorEl}
         userDetails={postDetails.user}
-        time={moment(postDetails.createdAt).format('LL')}
+        time={moment(postDetails.createdAt).format("LL")}
         postId={postDetails._id}
       />
       <CardMedia
@@ -42,19 +40,23 @@ export default function Post({ postDetails }) {
         image={postDetails.img.url}
         title="Paella dish"
       />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {postDetails.caption}
-        </Typography>
-      </CardContent>
+
+      {postDetails.caption && (
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {postDetails.caption}
+          </Typography>
+        </CardContent>
+      )}
+
       <PostActionButtons
-      postId={postDetails._id}
+        postId={postDetails._id}
         handleExpandClick={handleExpandClick}
         likesArray={postDetails.likes}
         comment={postDetails.comments.length}
       />
-      <CommentList expanded={expanded}  commentArray={postDetails.comments}/>
-      <CommentBox postId={postDetails._id}/>
+      <CommentList expanded={expanded} commentArray={postDetails.comments} />
+      <CommentBox postId={postDetails._id} />
     </Card>
   );
 }
