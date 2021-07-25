@@ -117,13 +117,13 @@ export default function FollowerModal({
         <div style={modalStyle} className={classes.paper}>
           {type === "following" && (
             <Typography variant="h5" color="primary">
-              User's You Follow
+              Following
             </Typography>
           )}
 
           {type === "followers" && (
             <Typography variant="h5" color="primary">
-              User Follow you
+              Followers
             </Typography>
           )}
 
