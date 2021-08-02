@@ -32,16 +32,7 @@ const Search = () => {
 
   const changeHandler = (e) => {
     searchTermSetter(e.target.value);
-    searchFunction(e);
-    // if (e.target.value.length > 0) {
-    //   navigate(`/search?searchText=${e.target.value}`);
-    // } else {
-    //   navigate(
-    //     localStorage.getItem("lastRoute")
-    //       ? localStorage.getItem("lastRoute")
-    //       : "/"
-    //   );
-    // }
+    searchFunction(e.target.value);
   };
 
   const classes = useStyles();

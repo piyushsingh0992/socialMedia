@@ -9,21 +9,29 @@ export default function SearchContainer() {
   const searchText = query.get("searchText");
   const [searchResultArray, searchResultArraySetter] = useState(null);
   const [searchResultText, searchResultTextSetter] = useState(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     searchResultArraySetter(null);
-    (async function () {
-      let { data, success, message } = await apiCall(
-        "GET",
-        `search/${searchText}`
+    if (searchText) {
+      (async function () {
+        let { data, success, message } = await apiCall(
+          "GET",
+          `search/${searchText}`
+        );
+        searchResultTextSetter(message);
+        if (success) {
+          searchResultArraySetter(data.searchResult);
+        } else {
+          searchResultArraySetter([]);
+        }
+      })();
+    } else {
+      navigate(
+        localStorage.getItem("lastRoute")
+          ? localStorage.getItem("lastRoute")
+          : "/"
       );
-      searchResultTextSetter(message);
-      if (success) {
-        searchResultArraySetter(data.searchResult);
-      } else {
-        searchResultArraySetter([]);
-      }
-    })();
+    }
   }, [searchText]);
 
   return (
