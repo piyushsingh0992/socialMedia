@@ -6,9 +6,8 @@ export const getNotififcations = createAsyncThunk(
   "notification/getNotififcations",
 
   async (dummy, { fulfillWithValue, rejectWithValue }) => {
-    debugger;
     let response = await apiCall("GET", `notification`);
-    debugger;
+
     if (response.success) {
       return fulfillWithValue(response);
     } else {
@@ -26,7 +25,6 @@ export const notificationSlice = createSlice({
 
   reducers: {
     resetNotificationSlice: (state) => {
-      debugger;
       return {
         notifications: [],
         status: "idle",
@@ -40,7 +38,6 @@ export const notificationSlice = createSlice({
     [getNotififcations.fulfilled]: (state, action) => {
       state.notifications = action.payload.data.notification.notifications;
       state.status = "fullfilled";
-      debugger;
     },
     [getNotififcations.rejected]: (state, action) => {
       state.status = "rejected";

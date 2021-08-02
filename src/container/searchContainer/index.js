@@ -5,7 +5,8 @@ import Container from "@material-ui/core/Container";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { apiCall } from "../../services/apiCall";
 export default function SearchContainer() {
-  const { searchText } = useParams();
+  const query = new URLSearchParams(useLocation().search);
+  const searchText = query.get("searchText");
   const [searchResultArray, searchResultArraySetter] = useState(null);
   const [searchResultText, searchResultTextSetter] = useState(null);
 

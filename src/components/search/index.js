@@ -1,25 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import { useStyles } from "./style.js";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSearch } from "../../customHooks/search";
 const Search = () => {
-  const { searchText } = useParams();
+  const query = new URLSearchParams(useLocation().search);
+  const searchText = query.get("searchText");
   const navigate = useNavigate();
   const location = useLocation();
   const [searchTerm, searchTermSetter] = useState("");
-  function keyListener(e) {
-    if (e.keyCode === 13 && searchTerm.length > 0) {
-      navigate(`/search/${searchTerm}`);
+  const searchFunction = useSearch();
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (location.pathname === "/search") {
+      inputRef.current.children[0].focus();
+    } else {
+      localStorage.setItem("lastRoute", location.pathname);
     }
-  }
+  }, []);
+
   useEffect(() => {
     if (searchText) {
       searchTermSetter(searchText);
     } else {
       searchTermSetter("");
     }
-  }, [location.pathname]);
+  }, [searchText]);
+
+  const changeHandler = (e) => {
+    searchTermSetter(e.target.value);
+    searchFunction(e);
+    // if (e.target.value.length > 0) {
+    //   navigate(`/search?searchText=${e.target.value}`);
+    // } else {
+    //   navigate(
+    //     localStorage.getItem("lastRoute")
+    //       ? localStorage.getItem("lastRoute")
+    //       : "/"
+    //   );
+    // }
+  };
 
   const classes = useStyles();
   return (
@@ -29,6 +52,7 @@ const Search = () => {
           <SearchIcon />
         </div>
         <InputBase
+          ref={inputRef}
           placeholder="Search…"
           classes={{
             root: classes.inputRoot,
@@ -36,10 +60,7 @@ const Search = () => {
           }}
           inputProps={{ "aria-label": "search" }}
           value={searchTerm}
-          onChange={(e) => {
-            searchTermSetter(e.target.value);
-          }}
-          onKeyDown={keyListener}
+          onChange={changeHandler}
         />
       </div>
     </div>

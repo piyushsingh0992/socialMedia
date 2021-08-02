@@ -10,7 +10,7 @@ import NotificationContainer from "./container/notificationContainer";
 import SearchContainer from "./container/searchContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {  useDispatch, } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   signInfromLocalStorage,
   resetUserSlice,
@@ -22,8 +22,9 @@ function App() {
   const navigate = useNavigate();
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
   useEffect(() => {
-    
-
+    localStorage.removeItem("lastRoute");
+  }, []);
+  useEffect(() => {
     if (userDetails) {
       setupAuthHeader(userDetails.token);
       dispatch(signInfromLocalStorage(userDetails));
@@ -43,10 +44,7 @@ function App() {
           path="/notifications"
           element={<NotificationContainer />}
         />
-        <PrivateRoute
-          path="/search/:searchText"
-          element={<SearchContainer />}
-        />
+        <PrivateRoute path="/search" element={<SearchContainer />} />
         <Route path="/login" element={<LoginContainer />} />
         <Route path="/*" element={<Error404Page />} />
       </Routes>
