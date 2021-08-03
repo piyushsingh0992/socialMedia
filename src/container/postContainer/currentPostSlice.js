@@ -55,6 +55,22 @@ export const unLikePost = createAsyncThunk(
   }
 );
 
+export const addComment = createAsyncThunk(
+  "currentPost/addComment",
+
+  async ({ postId, text }, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", `comment/${postId}`, {
+      text: text,
+    });
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
 export const currentPostSlice = createSlice({
   name: "currentPost",
   initialState: {
@@ -115,6 +131,19 @@ export const currentPostSlice = createSlice({
       state.status = "fullfilled";
     },
     [unLikePost.rejected]: (state, action) => {
+      state.message = action.payload.message;
+      state.status = "rejected";
+    },
+
+    [addComment.pending]: (state) => {
+      state.commentStatus = "loading";
+    },
+    [addComment.fulfilled]: (state, action) => {
+      state.message = action.payload.message;
+      state.currentPost = action.payload.data.post;
+      state.status = "fullfilled";
+    },
+    [addComment.rejected]: (state, action) => {
       state.message = action.payload.message;
       state.status = "rejected";
     },

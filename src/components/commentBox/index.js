@@ -4,11 +4,13 @@ import InputBase from "@material-ui/core/InputBase";
 import Grid from "@material-ui/core/Grid";
 import { useStyles } from "./style.js";
 import CardContent from "@material-ui/core/CardContent";
-import { addCommentFunction } from "../../container/newsFeedContainer/newsFeedSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { addComment } from "../../container/postContainer/currentPostSlice";
+import { updateNewsFeed } from "../../container/newsFeedContainer/newsFeedSlice";
+import { updateUserPosts } from "../../container/profileContainer/userSlice";
 const CommentBox = ({ postId }) => {
   const classes = useStyles();
   const [text, textSetter] = useState("");
@@ -17,26 +19,28 @@ const CommentBox = ({ postId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loader, loaderSetter] = useState(false);
+  const currentPost = useSelector((state) => state.currentPost);
 
   useEffect(() => {
-  
-    if (
-      post.commentStatus === "fullfilled" 
-    ) {
-
-      loaderSetter(false);
-      textSetter("");
-    }else if( post.commentStatus === "rejected"){
-      toast.error(post.message);
-      loaderSetter(false);
+    if (loader) {
+      if (currentPost.status === "fullfilled") {
+        dispatch(updateNewsFeed({ post: currentPost.currentPost }));
+        dispatch(updateUserPosts({ post: currentPost.currentPost }));
+        loaderSetter(false);
+        textSetter("");
+        toast.success(currentPost.message);
+      } else if (currentPost.status === "rejected") {
+        toast.error(post.message);
+        loaderSetter(false);
+        toast.error(currentPost.message);
+      }
     }
-  }, [post]);
+  }, [currentPost]);
 
   function keyListener(e) {
     if (e.keyCode === 13 && text.length > 0) {
-      
       loaderSetter(true);
-      dispatch(addCommentFunction({ postId, text }));
+      dispatch(addComment({ postId, text }));
     } else if (e.keyCode === 13 && text.length <= 0) {
       toast.error("You cann't comment an empty String ");
     }
@@ -46,10 +50,10 @@ const CommentBox = ({ postId }) => {
       style={{
         borderTop: "0.1px solid grey",
         background: "white",
-        paddingTop:"0.8rem",
-        paddingBottom:"0.8rem",
-        marginTop:"0",
-        marginBottom:"0",
+        paddingTop: "0.8rem",
+        paddingBottom: "0.8rem",
+        marginTop: "0",
+        marginBottom: "0",
       }}
     >
       <Grid container wrap="nowrap" spacing={2}>
