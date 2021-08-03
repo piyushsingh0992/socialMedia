@@ -10,7 +10,7 @@ import { apiCall } from "../../services/apiCall";
 import { getUserPosts } from "../newsFeedContainer/postSlice.js";
 export default function ProfileContainer() {
   const [userDetails, userDetailsSetter] = useState(null);
-  const [userProfile, userProfileSetter] = useState(false);
+  const [isUserProfile, isUserProfileSetter] = useState(false);
   const [postArray, postArraySetter] = useState(null);
   let user = useSelector((state) => state.auth.userDetails);
 
@@ -21,10 +21,10 @@ export default function ProfileContainer() {
   useEffect(() => {
     
     if (userId === user._id) {
-      userProfileSetter(true);
+      isUserProfileSetter(true);
       userDetailsSetter(user);
     } else {
-      userProfileSetter(false);
+      isUserProfileSetter(false);
       (async function () {
         let { data, message, success } = await apiCall("GET", `user/${userId}`);
 
@@ -78,7 +78,7 @@ export default function ProfileContainer() {
 
       <Container maxWidth="sm">
         {userDetails ? (
-          <ProfileHeader userDetails={userDetails} userProfile={userProfile} />
+          <ProfileHeader userDetails={userDetails} isUserProfile={isUserProfile} />
         ) : (
           <h1>loading</h1>
         )}

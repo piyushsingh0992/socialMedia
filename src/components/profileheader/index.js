@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProfileHeader({ userDetails, userProfile }) {
+export default function ProfileHeader({ userDetails, isUserProfile }) {
   const classes = useStyles();
 
   return (
@@ -63,7 +63,7 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                         color="textPrimary"
                         component="p"
                       >
-                        {userProfile
+                        {isUserProfile
                           ? userDetails.userName.length > 10
                             ? `${userDetails.userName.slice(0, 10)}...`
                             : `${userDetails.userName}`
@@ -72,7 +72,7 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                           : `${userDetails.userName}`}
                       </Typography>
                     </Grid>
-                    <Grid>{userProfile && <EditProfileModal />}</Grid>
+                    <Grid>{isUserProfile && <EditProfileModal />}</Grid>
                   </Grid>
                   <Typography
                     variant="h6"
@@ -117,7 +117,7 @@ export default function ProfileHeader({ userDetails, userProfile }) {
                     alignItems="center"
                     justifyContent="space-between"
                   >
-                    {!userProfile && <FollowButton userId={userDetails._id} />}
+                    {!isUserProfile && <FollowButton userId={userDetails._id} />}
                   </Grid>
                 </Grid>
               </Grid>
