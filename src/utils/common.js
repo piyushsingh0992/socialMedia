@@ -7,7 +7,7 @@ export const setupAuthHeader = (token) => {
   delete axios.defaults.headers.common["auth"];
 };
 
-export const setupAuthExceptionHandler = (logout, navigate, dispatch) => {
+export const setupAuthExceptionHandler = (logout, navigate) => {
   const UNAUTHORIZED = 401;
   const PAGE_NOT_FOUND = 404;
   axios.interceptors.response.use(

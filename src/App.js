@@ -25,7 +25,7 @@ function App() {
     if (userDetails) {
       setupAuthHeader(userDetails.token);
       dispatch(signInfromLocalStorage(userDetails));
-      setupAuthExceptionHandler(logout, navigate, dispatch);
+      setupAuthExceptionHandler(logout, navigate);
     }
   }, [userDetails]);
 
