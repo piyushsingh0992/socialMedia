@@ -2,24 +2,20 @@ import React, { useEffect, useState, useRef } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import { useStyles } from "./style.js";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useSearch } from "../../customHooks/search";
+import { setLastRoute } from "../../localStorage";
 const Search = () => {
   const query = new URLSearchParams(useLocation().search);
   const searchText = query.get("searchText");
-  const navigate = useNavigate();
   const location = useLocation();
   const [searchTerm, searchTermSetter] = useState("");
   const searchFunction = useSearch();
-
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (location.pathname === "/search") {
-      inputRef.current.children[0].focus();
-    } else {
-      localStorage.setItem("lastRoute", location.pathname);
-    }
+    inputRef.current.children[0].focus();
+    location.pathname !== "/search" && setLastRoute(location.pathname);
   }, []);
 
   useEffect(() => {

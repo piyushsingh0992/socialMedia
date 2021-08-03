@@ -21,9 +21,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  useEffect(() => {
-    localStorage.removeItem("lastRoute");
-  }, []);
+  
   useEffect(() => {
     if (userDetails) {
       setupAuthHeader(userDetails.token);

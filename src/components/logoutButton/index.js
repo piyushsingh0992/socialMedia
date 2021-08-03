@@ -8,19 +8,17 @@ import { resetUserSlice } from "../../container/loginContainer/userSlice";
 import { resetPostSlice } from "../../container/newsFeedContainer/postSlice";
 import { resetNotificationSlice } from "../../container/notificationContainer/notificationSlice";
 import { setupAuthHeader } from "../../utils/common";
-
+import  useLogout  from "../../customHooks/logout";
 const LogoutButton = ({
   mobileview,
   handleMenuClose,
   handleMobileMenuClose,
 }) => {
   const dispatch = useDispatch();
+  const clearingStore = useLogout();
 
   function logout() {
-    dispatch(resetUserSlice());
-    dispatch(resetPostSlice());
-    dispatch(resetNotificationSlice());
-    setupAuthHeader();
+    clearingStore();
     handleMenuClose && handleMenuClose();
     handleMobileMenuClose && handleMobileMenuClose();
   }

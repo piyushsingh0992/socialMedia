@@ -4,6 +4,7 @@ import SearchResult from "../../components/searchResult";
 import Container from "@material-ui/core/Container";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { apiCall } from "../../services/apiCall";
+import { getLastRoute } from "../../localStorage";
 export default function SearchContainer() {
   const query = new URLSearchParams(useLocation().search);
   const searchText = query.get("searchText");
@@ -26,11 +27,7 @@ export default function SearchContainer() {
         }
       })();
     } else {
-      navigate(
-        localStorage.getItem("lastRoute")
-          ? localStorage.getItem("lastRoute")
-          : "/"
-      );
+      navigate(getLastRoute() ? getLastRoute() : "/");
     }
   }, [searchText]);
 

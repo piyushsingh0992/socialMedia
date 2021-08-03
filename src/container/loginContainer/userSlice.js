@@ -94,8 +94,6 @@ export const userSlice = createSlice({
     },
 
     resetUserSlice: (state) => {
-      logOutLocal();
-
       return {
         userDetails: {},
         status: "idle",
