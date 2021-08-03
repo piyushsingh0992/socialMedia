@@ -102,9 +102,8 @@ export const deletePostFunction = createAsyncThunk(
 export const addPostToNewsFeed = createAsyncThunk(
   "posts/addPostToNewsFeed",
   async (postId, { fulfillWithValue, rejectWithValue }) => {
-    
     let response = await apiCall("GET", `post/${postId}`);
-    
+
     if (response.success) {
       return fulfillWithValue(response);
     } else {
@@ -126,11 +125,11 @@ export const postSlice = createSlice({
     postLikeStatus: "idle",
     commentStatus: "idle",
     deletePostStatus: "idle",
-    addPosttoNewsFeedStatus:"idle",
+    addPosttoNewsFeedStatus: "idle",
   },
   reducers: {
-    resetAddPostToNewsFeedStatus: (state) =>{
-      state.addPosttoNewsFeedStatus="idle";
+    resetAddPostToNewsFeedStatus: (state) => {
+      state.addPosttoNewsFeedStatus = "idle";
     },
     resetDeletePostStatus: (state) => {
       state.deletePostStatus = "idle";
@@ -174,7 +173,6 @@ export const postSlice = createSlice({
       state.createPostStatus = "fullfilled";
 
       state.currentPost = action.payload.data.post;
-      state.posts.unshift(action.payload.data.post);
       state.userPosts.unshift(action.payload.data.post);
       state.message = action.payload.data.message;
     },
@@ -304,24 +302,25 @@ export const postSlice = createSlice({
     },
 
     [addPostToNewsFeed.pending]: (state) => {
-      state.addPosttoNewsFeedStatus="loading";
-      
+      state.addPosttoNewsFeedStatus = "loading";
     },
     [addPostToNewsFeed.fulfilled]: (state, action) => {
-      state.addPosttoNewsFeedStatus="fullfilled";
+      state.addPosttoNewsFeedStatus = "fullfilled";
       state.posts.unshift(action.payload.data.post);
       state.message = action.payload.data.message;
-      
     },
     [addPostToNewsFeed.rejected]: (state, action) => {
-      state.addPosttoNewsFeedStatus="rejected";
+      state.addPosttoNewsFeedStatus = "rejected";
       state.message = action.payload.message;
-      
     },
   },
 });
 
-export const { resetcreatePostStatus, resetPostSlice, resetDeletePostStatus,resetAddPostToNewsFeedStatus } =
-  postSlice.actions;
+export const {
+  resetcreatePostStatus,
+  resetPostSlice,
+  resetDeletePostStatus,
+  resetAddPostToNewsFeedStatus,
+} = postSlice.actions;
 
 export default postSlice.reducer;
