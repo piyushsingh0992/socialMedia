@@ -17,6 +17,7 @@ import {
 import { addPostToUserPostArray } from "../../container/loginContainer/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import PostHeader from "../postHeader";
+import { useNavigate } from "react-router";
 export default function UploadButton({ menuItem }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -27,13 +28,14 @@ export default function UploadButton({ menuItem }) {
   const user = useSelector((state) => state.auth.userDetails);
   const post = useSelector((state) => state.post);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (post.createPostStatus === "fullfilled") {
       toast.success(post.message);
       let postId = post.currentPost._id;
       dispatch(addPostToUserPostArray({ postId }));
       handleClose();
+      navigate(`/profile/${user._id}`);
     } else if (post.createPostStatus === "rejected") {
       toast.error(post.message);
     }
