@@ -60,10 +60,6 @@ export const userSlice = createSlice({
         status: "idle",
       };
     },
-    resetStatus: (state) => {
-      state.status = "idle";
-      state.message = "null";
-    },
   },
   extraReducers: {
     [getUserDetails.pending]: (state) => {
@@ -106,6 +102,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUserSlice,resetStatus } = userSlice.actions;
+export const { resetUserSlice } = userSlice.actions;
 
 export default userSlice.reducer;

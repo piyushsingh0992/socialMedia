@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { apiCall } from "../../services/apiCall";
-import { getUserDetails, getUserPosts, resetStatus } from "./userSlice.js";
+import { getUserDetails, getUserPosts } from "./userSlice.js";
 export default function ProfileContainer() {
   const [userDetails, userDetailsSetter] = useState(null);
   const [isUserProfile, isUserProfileSetter] = useState(null);
@@ -23,10 +23,7 @@ export default function ProfileContainer() {
       dispatch(getUserPosts(userId));
     }
 
-    // return () => {
-    //   dispatch(resetStatus());
 
-    // };
   }, [userId]);
 
   useEffect(() => {
