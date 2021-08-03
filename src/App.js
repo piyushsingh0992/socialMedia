@@ -11,22 +11,21 @@ import SearchContainer from "./container/searchContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import {
-  signInfromLocalStorage,
-  resetUserSlice,
-} from "./container/loginContainer/userSlice";
+import { signInfromLocalStorage } from "./container/loginContainer/userSlice";
 import PrivateRoute from "./components/privateRoute";
 import { setupAuthHeader, setupAuthExceptionHandler } from "./utils/common.js";
+import useLogout from "./customHooks/logout";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  
+  const logout = useLogout();
+
   useEffect(() => {
     if (userDetails) {
       setupAuthHeader(userDetails.token);
       dispatch(signInfromLocalStorage(userDetails));
-      setupAuthExceptionHandler(resetUserSlice, navigate, dispatch);
+      setupAuthExceptionHandler(logout, navigate, dispatch);
     }
   }, [userDetails]);
 

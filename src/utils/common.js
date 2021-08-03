@@ -9,12 +9,17 @@ export const setupAuthHeader = (token) => {
 
 export const setupAuthExceptionHandler = (logout, navigate, dispatch) => {
   const UNAUTHORIZED = 401;
+  const PAGE_NOT_FOUND = 404;
   axios.interceptors.response.use(
     (response) => response,
     (error) => {
       if (error?.response?.status === UNAUTHORIZED) {
-        dispatch(logout());
+        logout();
         navigate("login");
+      }
+
+      if (error?.response?.status === PAGE_NOT_FOUND) {
+        navigate("PAGE NOT FOUND");
       }
       return Promise.reject(error);
     }
