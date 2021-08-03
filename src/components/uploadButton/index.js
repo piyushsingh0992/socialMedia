@@ -14,7 +14,7 @@ import {
   createPost,
   resetcreatePostStatus,
 } from "../../container/newsFeedContainer/postSlice";
-import { addPostToUserPostArray } from "../../container/loginContainer/userSlice";
+import { addPostToUserPostArray } from "../../container/loginContainer/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import PostHeader from "../postHeader";
 import { useNavigate } from "react-router";

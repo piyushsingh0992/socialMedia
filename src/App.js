@@ -11,7 +11,7 @@ import SearchContainer from "./container/searchContainer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { signInfromLocalStorage } from "./container/loginContainer/userSlice";
+import { signInfromLocalStorage } from "./container/loginContainer/authSlice";
 import PrivateRoute from "./components/privateRoute";
 import { setupAuthHeader, setupAuthExceptionHandler } from "./utils/common.js";
 import useLogout from "./customHooks/logout";

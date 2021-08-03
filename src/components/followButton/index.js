@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   followFunction,
   unFollowFunction,
-} from "../../container/loginContainer/userSlice";
+} from "../../container/loginContainer/authSlice";
 const FollowButton = ({ userId, suggestion }) => {
   const [follower, followerSetter] = useState(false);
   const dispatch = useDispatch();

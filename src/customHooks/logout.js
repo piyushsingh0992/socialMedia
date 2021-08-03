@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { resetUserSlice } from "../container/loginContainer/userSlice";
+import { resetauthSlice } from "../container/loginContainer/authSlice";
 import { resetPostSlice } from "../container/newsFeedContainer/postSlice";
 import { resetNotificationSlice } from "../container/notificationContainer/notificationSlice";
 import { setupAuthHeader } from "../utils/common";
@@ -9,7 +9,7 @@ export default function useLogout() {
   const dispatch = useDispatch();
 
   return function () {
-    dispatch(resetUserSlice());
+    dispatch(resetauthSlice());
     dispatch(resetPostSlice());
     dispatch(resetNotificationSlice());
     setupAuthHeader();

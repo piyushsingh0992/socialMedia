@@ -2,14 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
 import {
   logInLocal,
-  logOutLocal,
   addPostLocal,
   addFollowingLocal,
   removeFollowingLocal,
 } from "../../localStorage";
 import { current } from "immer";
 export let updateFunction = createAsyncThunk(
-  "posts/updateFunction",
+  "auth/updateFunction",
   async (updateDetails, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", "update", { update: updateDetails });
 
@@ -22,7 +21,7 @@ export let updateFunction = createAsyncThunk(
 );
 
 export let signUpFunction = createAsyncThunk(
-  "posts/signUpFunction",
+  "auth/signUpFunction",
   async (signUpDetails, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", "auth/create", signUpDetails);
 
@@ -35,7 +34,7 @@ export let signUpFunction = createAsyncThunk(
 );
 
 export let signInFunction = createAsyncThunk(
-  "posts/signInFunction",
+  "auth/signInFunction",
   async (signInDetails, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", "auth/", signInDetails);
 
@@ -48,7 +47,7 @@ export let signInFunction = createAsyncThunk(
 );
 
 export let followFunction = createAsyncThunk(
-  "posts/followFunction",
+  "auth/followFunction",
   async (followerId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", `follow/${followerId}`);
 
@@ -61,7 +60,7 @@ export let followFunction = createAsyncThunk(
 );
 
 export let unFollowFunction = createAsyncThunk(
-  "posts/unFollowFunction",
+  "auth/unFollowFunction",
   async (followerId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("DELETE", `follow/${followerId}`);
 
@@ -73,8 +72,8 @@ export let unFollowFunction = createAsyncThunk(
   }
 );
 
-export const userSlice = createSlice({
-  name: "posts",
+export const authSlice = createSlice({
+  name: "auth",
   initialState: {
     userDetails: {},
     status: "idle",
@@ -93,7 +92,7 @@ export const userSlice = createSlice({
       addPostLocal(action.payload.postId);
     },
 
-    resetUserSlice: (state) => {
+    resetauthSlice: (state) => {
       return {
         userDetails: {},
         status: "idle",
@@ -214,10 +213,10 @@ export const userSlice = createSlice({
 export const {
   addPostToUserPostArray,
   resetSignUpState,
-  resetUserSlice,
+  resetauthSlice,
   signInfromLocalStorage,
   resetingupdateStatus,
   addUserPost,
-} = userSlice.actions;
+} = authSlice.actions;
 
-export default userSlice.reducer;
+export default authSlice.reducer;

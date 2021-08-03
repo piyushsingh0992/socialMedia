@@ -12,8 +12,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   signInFunction,
-  resetUserSlice,
-} from "../../container/loginContainer/userSlice";
+  resetauthSlice,
+} from "../../container/loginContainer/authSlice";
 
 export default function SignIn({
   currentUserSetter,
@@ -38,7 +38,7 @@ export default function SignIn({
     if (user.status === "rejected") {
       toast.error(user.message);
 
-      dispatch(resetUserSlice());
+      dispatch(resetauthSlice());
     }
   }, [user]);
 

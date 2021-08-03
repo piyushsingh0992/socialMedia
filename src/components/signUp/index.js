@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   signUpFunction,
   resetSignUpState,
-} from "../../container/loginContainer/userSlice";
+} from "../../container/loginContainer/authSlice";
 export default function SignUp({
   currentUserSetter,
   signUpDetails,

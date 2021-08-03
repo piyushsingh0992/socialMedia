@@ -13,7 +13,7 @@ import Select from "@material-ui/core/Select";
 import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { updateFunction } from "../../container/loginContainer/userSlice";
+import { updateFunction } from "../../container/loginContainer/authSlice";
 import UploadImage from "../uploadImage";
 
 export default function EditProfileModal() {
