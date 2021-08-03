@@ -4,6 +4,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { useStyles } from "./style.js";
 import { useLocation } from "react-router-dom";
 import { useSearch } from "../../customHooks/search";
+
 import { setLastRoute } from "../../localStorage";
 const Search = () => {
   const query = new URLSearchParams(useLocation().search);
