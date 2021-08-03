@@ -4,7 +4,7 @@ import postReducer from "../container/newsFeedContainer/postSlice";
 import notificationReducer from "../container/notificationContainer/notificationSlice";
 export const store = configureStore({
   reducer: {
-    user: userSliceReducer,
+    auth: userSliceReducer,
     post:postReducer,
     notification:notificationReducer,
   },

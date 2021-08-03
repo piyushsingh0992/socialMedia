@@ -11,9 +11,10 @@ import {
 const FollowButton = ({ userId, suggestion }) => {
   const [follower, followerSetter] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth);
   const [loader, loaderSetter] = useState(false);
   useEffect(() => {
+    
     let present = user.userDetails.following.find((item) => item === userId);
     if (present) {
       followerSetter(true);

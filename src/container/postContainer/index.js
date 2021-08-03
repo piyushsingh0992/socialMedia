@@ -12,7 +12,7 @@ import {
 } from "../newsFeedContainer/postSlice.js";
 export default function PostContainer() {
   const [currentPost, currentPostSetter] = useState(null);
-  let user = useSelector((state) => state.user.userDetails);
+  let user = useSelector((state) => state.auth.userDetails);
   // let post = useSelector((state) => state.post);
   let userPosts = useSelector((state) => state.post.userPosts);
   let addPosttoNewsFeedStatus = useSelector(

@@ -14,7 +14,7 @@ import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
 const LikeButton = ({ likesArray, postId }) => {
   const [liked, likedSetter] = useState(true);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth);
   const post = useSelector((state) => state.post);
   const [loader, loaderSetter] = useState(false);
 

@@ -27,7 +27,7 @@ export default function SignUp({
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const signUp = useSelector((state) => state.user.signUp);
+  const signUp = useSelector((state) => state.auth.signUp);
 
   const handleChange = (event) => {
     const name = event.target.name;

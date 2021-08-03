@@ -26,7 +26,7 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  let user = useSelector((state) => state.user.userDetails);
+  let user = useSelector((state) => state.auth.userDetails);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };

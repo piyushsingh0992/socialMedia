@@ -12,7 +12,7 @@ export default function ProfileContainer() {
   const [userDetails, userDetailsSetter] = useState(null);
   const [userProfile, userProfileSetter] = useState(false);
   const [postArray, postArraySetter] = useState(null);
-  let user = useSelector((state) => state.user.userDetails);
+  let user = useSelector((state) => state.auth.userDetails);
 
   let post = useSelector((state) => state.post);
   const dispatch = useDispatch();

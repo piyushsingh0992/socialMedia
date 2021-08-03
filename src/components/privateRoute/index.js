@@ -14,7 +14,7 @@ function getNewPath(path, paramsArray) {
 }
 
 const PrivateRoute = ({ path, ...props }) => {
-  const token = useSelector((state) => state.user.token);
+  const token = useSelector((state) => state.auth.token);
 
   let paramsArray = useParams();
 

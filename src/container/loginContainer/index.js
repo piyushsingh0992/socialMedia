@@ -17,7 +17,7 @@ export default function LoginContainer() {
   const [currentUser, currentUserSetter] = useState(true);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth);
   const dispatch=useDispatch();
 
   useEffect(() => {

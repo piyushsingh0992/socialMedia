@@ -25,7 +25,7 @@ export default function EditProfileModal() {
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  let user = useSelector((state) => state.user);
+  let user = useSelector((state) => state.auth);
   useEffect(() => {
     if (user.updateStatus === "fullfilled") {
       toast.success(user.message);

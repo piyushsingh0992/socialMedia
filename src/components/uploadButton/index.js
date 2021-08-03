@@ -24,7 +24,7 @@ export default function UploadButton({ menuItem }) {
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const [caption, captionSetter] = useState("");
-  const user = useSelector((state) => state.user.userDetails);
+  const user = useSelector((state) => state.auth.userDetails);
   const post = useSelector((state) => state.post);
   const dispatch = useDispatch();
 

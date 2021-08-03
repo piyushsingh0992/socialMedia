@@ -13,7 +13,7 @@ const CommentBox = ({ postId }) => {
   const classes = useStyles();
   const [text, textSetter] = useState("");
   let post = useSelector((state) => state.post);
-  let user = useSelector((state) => state.user.userDetails);
+  let user = useSelector((state) => state.auth.userDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loader, loaderSetter] = useState(false);

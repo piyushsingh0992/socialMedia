@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 const FollowerModalRow = ({ userDetails }) => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.userDetails);
+  const user = useSelector((state) => state.auth.userDetails);
   return (
     <Grid
       container

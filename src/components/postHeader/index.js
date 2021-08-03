@@ -17,7 +17,7 @@ const PostHeader = ({
   time,
   postId,
 }) => {
-  let user = useSelector((state) => state.user.userDetails);
+  let user = useSelector((state) => state.auth.userDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.post);

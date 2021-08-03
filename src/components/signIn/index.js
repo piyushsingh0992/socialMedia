@@ -22,7 +22,7 @@ export default function SignIn({
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth);
 
   const handleChange = (event) => {
     const name = event.target.name;
