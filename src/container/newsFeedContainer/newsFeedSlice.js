@@ -16,32 +16,6 @@ export let getAllPosts = createAsyncThunk(
   }
 );
 
-export const likePostFunction = createAsyncThunk(
-  "posts/likePostFunction",
-  async (postId, { fulfillWithValue, rejectWithValue }) => {
-    let response = await apiCall("POST", `like/${postId}`);
-
-    if (response.success) {
-      return fulfillWithValue(response);
-    } else {
-      return rejectWithValue(response);
-    }
-  }
-);
-
-export const unLikePostFunction = createAsyncThunk(
-  "posts/unLikePostFunction",
-  async (postId, { fulfillWithValue, rejectWithValue }) => {
-    let response = await apiCall("DELETE", `like/${postId}`);
-
-    if (response.success) {
-      return fulfillWithValue(response);
-    } else {
-      return rejectWithValue(response);
-    }
-  }
-);
-
 export const addCommentFunction = createAsyncThunk(
   "posts/addCommentFunction",
 
@@ -49,20 +23,6 @@ export const addCommentFunction = createAsyncThunk(
     let response = await apiCall("POST", `comment/${postId}`, {
       text: text,
     });
-
-    if (response.success) {
-      return fulfillWithValue(response);
-    } else {
-      return rejectWithValue(response);
-    }
-  }
-);
-
-export const deletePostFunction = createAsyncThunk(
-  "posts/deletePostFunction",
-
-  async (postId, { fulfillWithValue, rejectWithValue }) => {
-    let response = await apiCall("DELETE", `post/${postId}`);
 
     if (response.success) {
       return fulfillWithValue(response);
@@ -101,6 +61,15 @@ export const postSlice = createSlice({
     addPosttoNewsFeedStatus: "idle",
   },
   reducers: {
+    updateNewsFeed: (state, action) => {
+      state.posts = state.posts.map((post) => {
+        if (post._id === action.payload.post._id) {
+          return action.payload.post;
+        }
+        return post;
+      });
+    },
+
     resetAddPostToNewsFeedStatus: (state) => {
       state.addPosttoNewsFeedStatus = "idle";
     },
@@ -139,60 +108,6 @@ export const postSlice = createSlice({
       state.message = action.payload.message;
     },
 
-    [likePostFunction.pending]: (state) => {
-      state.postLikeStatus = "loading";
-    },
-    [likePostFunction.fulfilled]: (state, action) => {
-      let updatedPost = action.payload.data.post;
-      let updatedPostId = action.payload.data.post._id;
-
-      state.posts = state.posts.map((item) => {
-        if (item._id === updatedPostId) {
-          return updatedPost;
-        }
-        return item;
-      });
-
-      state.userPosts = state.userPosts.map((item) => {
-        if (item._id === updatedPostId) {
-          return updatedPost;
-        }
-        return item;
-      });
-
-      state.postLikeStatus = "fullfilled";
-    },
-    [likePostFunction.rejected]: (state, action) => {
-      state.postLikeStatus = "rejected";
-    },
-
-    [unLikePostFunction.pending]: (state) => {
-      state.postLikeStatus = "loading";
-    },
-    [unLikePostFunction.fulfilled]: (state, action) => {
-      let updatedPost = action.payload.data.post;
-      let updatedPostId = action.payload.data.post._id;
-
-      state.posts = state.posts.map((item) => {
-        if (item._id === updatedPostId) {
-          return updatedPost;
-        }
-        return item;
-      });
-
-      state.userPosts = state.userPosts.map((item) => {
-        if (item._id === updatedPostId) {
-          return updatedPost;
-        }
-        return item;
-      });
-
-      state.postLikeStatus = "fullfilled";
-    },
-    [unLikePostFunction.rejected]: (state, action) => {
-      state.postLikeStatus = "rejected";
-    },
-
     [addCommentFunction.pending]: (state) => {
       state.commentStatus = "loading";
     },
@@ -220,32 +135,6 @@ export const postSlice = createSlice({
       state.commentStatus = "rejected";
     },
 
-    [deletePostFunction.pending]: (state) => {
-      state.deletePostStatus = "loading";
-    },
-    [deletePostFunction.fulfilled]: (state, action) => {
-      let deletedPostId = action.payload.data.deletedPostId;
-
-      state.posts = state.posts.filter((item) => {
-        if (item._id === deletedPostId) {
-          return false;
-        }
-        return true;
-      });
-
-      state.userPosts = state.userPosts.filter((item) => {
-        if (item._id === deletedPostId) {
-          return false;
-        }
-        return true;
-      });
-      removePostLocal(deletedPostId);
-      state.deletePostStatus = "fullfilled";
-    },
-    [deletePostFunction.rejected]: (state, action) => {
-      state.deletePostStatus = "rejected";
-    },
-
     [addPostToNewsFeed.pending]: (state) => {
       state.addPosttoNewsFeedStatus = "loading";
     },
@@ -266,6 +155,7 @@ export const {
   resetPostSlice,
   resetDeletePostStatus,
   resetAddPostToNewsFeedStatus,
+  updateNewsFeed,
 } = postSlice.actions;
 
 export default postSlice.reducer;

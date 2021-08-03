@@ -29,6 +29,32 @@ export const deleteCurrentPost = createAsyncThunk(
   }
 );
 
+export const likePost = createAsyncThunk(
+  "currentPost/likePost",
+  async (postId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", `like/${postId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export const unLikePost = createAsyncThunk(
+  "currentPost/unLikePost",
+  async (postId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("DELETE", `like/${postId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
 export const currentPostSlice = createSlice({
   name: "currentPost",
   initialState: {
@@ -65,6 +91,32 @@ export const currentPostSlice = createSlice({
     [deleteCurrentPost.rejected]: (state, action) => {
       state.message = action.payload.message;
       state.deleteStatus = "rejected";
+    },
+
+    [likePost.pending]: (state) => {
+      state.status = "loading";
+    },
+    [likePost.fulfilled]: (state, action) => {
+      state.currentPost = action.payload.data.post;
+      state.message = action.payload.message;
+      state.status = "fullfilled";
+    },
+    [likePost.rejected]: (state, action) => {
+      state.message = action.payload.message;
+      state.status = "rejected";
+    },
+
+    [unLikePost.pending]: (state) => {
+      state.status = "loading";
+    },
+    [unLikePost.fulfilled]: (state, action) => {
+      state.message = action.payload.message;
+      state.currentPost = action.payload.data.post;
+      state.status = "fullfilled";
+    },
+    [unLikePost.rejected]: (state, action) => {
+      state.message = action.payload.message;
+      state.status = "rejected";
     },
   },
 });

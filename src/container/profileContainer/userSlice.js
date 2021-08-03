@@ -54,6 +54,16 @@ export const userSlice = createSlice({
   },
 
   reducers: {
+    updateUserPosts: (state, action) => {
+      if (state.userPosts) {
+        state.userPosts = state.userPosts.map((post) => {
+          if (post._id === action.payload.post._id) {
+            return action.payload.post;
+          }
+          return post;
+        });
+      }
+    },
     cleartUserDetails: (state) => {
       return {
         userDetails: null,
@@ -130,6 +140,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUserSlice, deletePostFromUser } = userSlice.actions;
+export const { resetUserSlice, deletePostFromUser ,updateUserPosts} = userSlice.actions;
 
 export default userSlice.reducer;
