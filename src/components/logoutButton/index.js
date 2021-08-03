@@ -3,18 +3,13 @@ import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { useDispatch } from "react-redux";
-import { resetUserSlice } from "../../container/loginContainer/userSlice";
-import { resetPostSlice } from "../../container/newsFeedContainer/postSlice";
-import { resetNotificationSlice } from "../../container/notificationContainer/notificationSlice";
-import { setupAuthHeader } from "../../utils/common";
-import  useLogout  from "../../customHooks/logout";
+
+import useLogout from "../../customHooks/logout";
 const LogoutButton = ({
   mobileview,
   handleMenuClose,
   handleMobileMenuClose,
 }) => {
-  const dispatch = useDispatch();
   const clearingStore = useLogout();
 
   function logout() {
