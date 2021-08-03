@@ -106,7 +106,7 @@ export default function UploadButton({ menuItem }) {
       >
         <div style={modalStyle} className={classes.paper}>
           <Card className={classes.card}>
-            {/* <PostHeader userDetails={user.userDetails} /> */}
+            <PostHeader userDetails={user.userDetails} />
 
             <CardMedia
               className={classes.media}

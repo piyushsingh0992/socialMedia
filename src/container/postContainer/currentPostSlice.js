@@ -15,6 +15,7 @@ export const getCurrentPost = createAsyncThunk(
   }
 );
 
+
 export const currentPostSlice = createSlice({
   name: "currentPost",
   initialState: {
