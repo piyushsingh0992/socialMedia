@@ -15,7 +15,7 @@ const LikeButton = ({ likesArray, postId }) => {
   const [liked, likedSetter] = useState(true);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
-  const post = useSelector((state) => state.post);
+  const post = useSelector((state) => state.newsFeed);
   const [loader, loaderSetter] = useState(false);
 
   useEffect(() => {

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewsFeedContainer() {
   const classes = useStyles();
-  const newsFeed = useSelector((state) => state.post);
+  const newsFeed = useSelector((state) => state.newsFeed);
   let dispatch = useDispatch();
 
   useEffect(() => {

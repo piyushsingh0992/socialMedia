@@ -91,7 +91,6 @@ export const userSlice = createSlice({
         state.userDetails != null &&
         state.userDetails._id === action.payload.data.post.user._id
       ) {
-        debugger;
         state.userPosts.unshift(action.payload.data.post);
       }
     },

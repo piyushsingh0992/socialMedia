@@ -12,7 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const CommentBox = ({ postId }) => {
   const classes = useStyles();
   const [text, textSetter] = useState("");
-  let post = useSelector((state) => state.post);
+  let post = useSelector((state) => state.newsFeed);
   let user = useSelector((state) => state.auth.userDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();

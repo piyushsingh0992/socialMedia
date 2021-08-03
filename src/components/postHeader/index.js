@@ -20,7 +20,7 @@ const PostHeader = ({
   let user = useSelector((state) => state.auth.userDetails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const post = useSelector((state) => state.post);
+  const post = useSelector((state) => state.newsFeed);
 
   useEffect(() => {
     post.deletePostStatus === "fullfilled" && dispatch(resetDeletePostStatus());
