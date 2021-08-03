@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { resetauthSlice } from "../container/loginContainer/authSlice";
-import { resetPostSlice } from "../container/newsFeedContainer/postSlice";
+import { resetPostSlice } from "../container/newsFeedContainer/newsFeedSlice";
 import { resetNotificationSlice } from "../container/notificationContainer/notificationSlice";
 import { setupAuthHeader } from "../utils/common";
 import { logOutLocal, clearLastRoute } from "../localStorage";

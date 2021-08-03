@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Post from "../../components/post";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllPosts } from "./postSlice";
+import { getAllPosts } from "./newsFeedSlice";
 import { toast } from "react-toastify";
 
 import Suggestions from "../../components/suggestions";

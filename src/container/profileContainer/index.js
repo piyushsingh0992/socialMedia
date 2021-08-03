@@ -18,16 +18,18 @@ export default function ProfileContainer() {
   let { userId } = useParams();
 
   useEffect(() => {
-    if (user.userDetails._id !== userId) {
+    if (user.userDetails === null) {
+      dispatch(getUserDetails(userId));
+      dispatch(getUserPosts(userId));
+    } else if (user.userDetails && user.userDetails._id !== userId) {
       dispatch(getUserDetails(userId));
       dispatch(getUserPosts(userId));
     }
-
-
   }, [userId]);
 
   useEffect(() => {
-    if (user.status === "fullfilled" && user.userDetails._id === userId) {
+    if (user.status === "fullfilled" && user.userDetails?._id === userId) {
+      
       isUserProfileSetter(auth.userKey === userId);
       userDetailsSetter(user.userDetails);
     } else if (user.status === "rejected") {
@@ -39,7 +41,8 @@ export default function ProfileContainer() {
   }, [user]);
 
   useEffect(() => {
-    if (user.status === "fullfilled" && user.userDetails._id === userId) {
+    if (user.status === "fullfilled" && user.userDetails?._id === userId) {
+      
       postArraySetter(user.userPosts);
     } else if (user.status === "rejected") {
       postArraySetter([]);

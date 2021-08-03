@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   likePostFunction,
   unLikePostFunction,
-} from "../../container/newsFeedContainer/postSlice";
+} from "../../container/newsFeedContainer/newsFeedSlice";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { toast } from "react-toastify";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";

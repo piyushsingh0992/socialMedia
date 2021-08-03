@@ -47,16 +47,16 @@ export let getUserPosts = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    userDetails: {},
+    userDetails: null,
     status: "idle",
     message: "null",
-    userPosts: [],
+    userPosts: null,
   },
 
   reducers: {
     cleartUserDetails: (state) => {
       return {
-        userDetails: [],
+        userDetails: null,
         status: "idle",
       };
     },
@@ -77,10 +77,23 @@ export const userSlice = createSlice({
       state.status = "loading";
     },
     [createPost.fulfilled]: (state, action) => {
-      state.userDetails.posts.unshift(action.payload.data.post._id);
       state.status = "fullfilled";
-      state.userPosts.unshift(action.payload.data.post);
       state.message = action.payload.data.message;
+
+      if (
+        state.userDetails != null &&
+        state.userDetails._id === action.payload.data.post.user._id
+      ) {
+        state.userDetails.posts.unshift(action.payload.data.post._id);
+      }
+
+      if (
+        state.userDetails != null &&
+        state.userDetails._id === action.payload.data.post.user._id
+      ) {
+        debugger;
+        state.userPosts.unshift(action.payload.data.post);
+      }
     },
     [createPost.rejected]: (state, action) => {
       state.status = "rejected";

@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeletePost from "../deletePost";
-import { resetDeletePostStatus } from "../../container/newsFeedContainer/postSlice";
+import { resetDeletePostStatus } from "../../container/newsFeedContainer/newsFeedSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

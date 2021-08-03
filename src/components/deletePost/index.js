@@ -2,7 +2,7 @@ import React from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import { deletePostFunction } from "../../container/newsFeedContainer/postSlice";
+import { deletePostFunction } from "../../container/newsFeedContainer/newsFeedSlice";
 import { useDispatch } from "react-redux";
 
 const DeletePost = ({ anchorEl, handleClose, postId, userId }) => {

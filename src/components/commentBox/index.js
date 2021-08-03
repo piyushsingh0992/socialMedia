@@ -4,7 +4,7 @@ import InputBase from "@material-ui/core/InputBase";
 import Grid from "@material-ui/core/Grid";
 import { useStyles } from "./style.js";
 import CardContent from "@material-ui/core/CardContent";
-import { addCommentFunction } from "../../container/newsFeedContainer/postSlice.js";
+import { addCommentFunction } from "../../container/newsFeedContainer/newsFeedSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
