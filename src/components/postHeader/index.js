@@ -29,6 +29,7 @@ const PostHeader = ({
       toast.error("Sorry Couldn't delete your post");
     return () => {
       if (post.deletePostStatus === "fullfilled") {
+      
         toast.success("post deleted");
         navigate("/");
       }

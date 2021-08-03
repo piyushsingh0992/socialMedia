@@ -28,6 +28,7 @@ export default function EditProfileModal() {
   let user = useSelector((state) => state.auth);
   useEffect(() => {
     if (user.updateStatus === "fullfilled") {
+    
       toast.success(user.message);
       setOpen(false);
     } else if (user.updateStatus === "rejected") {

@@ -12,9 +12,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { toast } from "react-toastify";
 import {
   createPost,
-  resetcreatePostStatus,
-} from "../../container/newsFeedContainer/postSlice";
-import { addPostToUserPostArray } from "../../container/loginContainer/authSlice";
+} from "../../container/profileContainer/userSlice";
+
 import { useSelector, useDispatch } from "react-redux";
 import PostHeader from "../postHeader";
 import { useNavigate } from "react-router";
@@ -25,27 +24,25 @@ export default function UploadButton({ menuItem }) {
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const [caption, captionSetter] = useState("");
-  const user = useSelector((state) => state.auth.userDetails);
-  const post = useSelector((state) => state.post);
+  const auth = useSelector((state) => state.auth);
+
+  const user = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
-    
-    if (post.createPostStatus === "fullfilled") {
-      toast.success(post.message);
-      let postId = post.currentPost._id;
-      dispatch(addPostToUserPostArray({ postId }));
-      handleClose();
-      navigate(`/profile/${user._id}`);
-    } else if (post.createPostStatus === "rejected") {
-      toast.error(post.message);
+    if (open) {
+      if (user.status === "fullfilled") {
+      
+        toast.success(user.message);
+        handleClose();
+        navigate(`/profile/${auth.userKey}`);
+      } else if (user.status === "rejected") {
+        toast.error(user.message);
+      }
     }
-
-    return () => {
-      dispatch(resetcreatePostStatus());
-    };
-
-  }, [post.createPostStatus]);
+  }, [user.status]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -70,7 +67,6 @@ export default function UploadButton({ menuItem }) {
 
   const handleFileInputChange = (e) => {
     let file = e.target.files[0];
-
     if (file) {
       previewFile(file);
       setFileInputState(e.target.value);
@@ -110,7 +106,7 @@ export default function UploadButton({ menuItem }) {
       >
         <div style={modalStyle} className={classes.paper}>
           <Card className={classes.card}>
-            <PostHeader userDetails={user} />
+            {/* <PostHeader userDetails={user.userDetails} /> */}
 
             <CardMedia
               className={classes.media}
@@ -139,7 +135,7 @@ export default function UploadButton({ menuItem }) {
               onClick={() => {
                 dispatch(
                   createPost({
-                    userId: user._id,
+                    userId: auth.userKey,
                     postDetails: {
                       caption,
                       img: previewSource,
@@ -148,7 +144,7 @@ export default function UploadButton({ menuItem }) {
                 );
               }}
             >
-              {post.createPostStatus === "loading" ? "Uploading..." : "Post"}
+              {user.status === "loading" ? "Uploading..." : "Post"}
             </Button>
           </Grid>
         </div>

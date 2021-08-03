@@ -33,5 +33,6 @@ export const successSignUp = (
     pronouns: "",
     sex: "",
   });
+
   toast.success(message);
 };

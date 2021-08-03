@@ -7,30 +7,26 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { apiCall } from "../../services/apiCall";
-import { getUserDetails, getUserPosts } from "./userSlice.js";
+import { getUserDetails, getUserPosts, resetStatus } from "./userSlice.js";
 export default function ProfileContainer() {
   const [userDetails, userDetailsSetter] = useState(null);
-  const [isUserProfile, isUserProfileSetter] = useState(false);
+  const [isUserProfile, isUserProfileSetter] = useState(null);
   const [postArray, postArraySetter] = useState(null);
   let user = useSelector((state) => state.user);
   let auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   let { userId } = useParams();
 
-  async function getOtherUserPosts(userId, postArraySetter) {
-    let { data, message, success } = await apiCall("GET", `post/${userId}/all`);
-    if (success === true) {
-      postArraySetter(data.posts);
-    } else {
-      toast.error(message);
-    }
-  }
-
   useEffect(() => {
     if (user.userDetails._id !== userId) {
       dispatch(getUserDetails(userId));
       dispatch(getUserPosts(userId));
     }
+
+    // return () => {
+    //   dispatch(resetStatus());
+
+    // };
   }, [userId]);
 
   useEffect(() => {
@@ -50,7 +46,7 @@ export default function ProfileContainer() {
       postArraySetter(user.userPosts);
     } else if (user.status === "rejected") {
       postArraySetter([]);
-      toast.error(user.message)
+      toast.error(user.message);
     }
   }, [user]);
 

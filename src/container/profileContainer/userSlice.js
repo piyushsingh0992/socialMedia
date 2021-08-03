@@ -60,6 +60,10 @@ export const userSlice = createSlice({
         status: "idle",
       };
     },
+    resetStatus: (state) => {
+      state.status = "idle";
+      state.message = "null";
+    },
   },
   extraReducers: {
     [getUserDetails.pending]: (state) => {
@@ -77,9 +81,8 @@ export const userSlice = createSlice({
       state.status = "loading";
     },
     [createPost.fulfilled]: (state, action) => {
+      state.userDetails.posts.unshift(action.payload.data.post._id);
       state.status = "fullfilled";
-
-      state.currentPost = action.payload.data.post;
       state.userPosts.unshift(action.payload.data.post);
       state.message = action.payload.data.message;
     },
@@ -103,6 +106,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUserSlice } = userSlice.actions;
+export const { resetUserSlice,resetStatus } = userSlice.actions;
 
 export default userSlice.reducer;
