@@ -6,9 +6,35 @@ export const getUserDetails = createAsyncThunk(
   "user/getUserDetails",
 
   async (userId, { fulfillWithValue, rejectWithValue }) => {
-    
     let response = await apiCall("GET", `user/${userId}`);
-    
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export let createPost = createAsyncThunk(
+  "user/createPost",
+  async ({ userId, postDetails }, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", `post/${userId}/create`, {
+      postDetails,
+    });
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export let getUserPosts = createAsyncThunk(
+  "posts/getUserPosts",
+  async (userId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("GET", `post/${userId}/all`);
 
     if (response.success) {
       return fulfillWithValue(response);
@@ -21,18 +47,13 @@ export const getUserDetails = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    userDetails: [],
+    userDetails: {},
     status: "idle",
+    message: "null",
+    userPosts: [],
   },
 
   reducers: {
-    populatingUserDetails: (state, action) => {
-      return {
-        userDetails: action.payload.userDetails,
-        status: "fullfilled",
-      };
-    },
-
     cleartUserDetails: (state) => {
       return {
         userDetails: [],
@@ -45,12 +66,39 @@ export const userSlice = createSlice({
       state.status = "loading";
     },
     [getUserDetails.fulfilled]: (state, action) => {
-     
       state.userDetails = action.payload.data.userDetails;
       state.status = "fullfilled";
     },
     [getUserDetails.rejected]: (state, action) => {
       state.status = "rejected";
+    },
+
+    [createPost.pending]: (state) => {
+      state.status = "loading";
+    },
+    [createPost.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+
+      state.currentPost = action.payload.data.post;
+      state.userPosts.unshift(action.payload.data.post);
+      state.message = action.payload.data.message;
+    },
+    [createPost.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.message = action.payload.message;
+    },
+
+    [getUserPosts.pending]: (state) => {
+      state.status = "loading";
+    },
+    [getUserPosts.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.message = action.payload.data.message;
+      state.userPosts = action.payload.data.posts;
+    },
+    [getUserPosts.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.message = action.payload.message;
     },
   },
 });

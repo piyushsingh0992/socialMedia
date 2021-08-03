@@ -167,9 +167,11 @@ export const postSlice = createSlice({
     },
 
     [createPost.pending]: (state) => {
+      
       state.createPostStatus = "loading";
     },
     [createPost.fulfilled]: (state, action) => {
+      
       state.createPostStatus = "fullfilled";
 
       state.currentPost = action.payload.data.post;
@@ -177,6 +179,7 @@ export const postSlice = createSlice({
       state.message = action.payload.data.message;
     },
     [createPost.rejected]: (state, action) => {
+      
       state.createPostStatus = "rejected";
       state.message = action.payload.message;
     },

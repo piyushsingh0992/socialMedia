@@ -30,6 +30,7 @@ export default function UploadButton({ menuItem }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
+    
     if (post.createPostStatus === "fullfilled") {
       toast.success(post.message);
       let postId = post.currentPost._id;
@@ -43,7 +44,8 @@ export default function UploadButton({ menuItem }) {
     return () => {
       dispatch(resetcreatePostStatus());
     };
-  }, [post.posts]);
+
+  }, [post.createPostStatus]);
 
   const handleOpen = () => {
     setOpen(true);

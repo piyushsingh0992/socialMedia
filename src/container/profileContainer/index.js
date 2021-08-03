@@ -7,14 +7,12 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { apiCall } from "../../services/apiCall";
-import { getUserPosts } from "../newsFeedContainer/postSlice.js";
-import { getUserDetails } from "./userSlice.js";
+import { getUserDetails, getUserPosts } from "./userSlice.js";
 export default function ProfileContainer() {
   const [userDetails, userDetailsSetter] = useState(null);
   const [isUserProfile, isUserProfileSetter] = useState(false);
   const [postArray, postArraySetter] = useState(null);
   let user = useSelector((state) => state.user);
-  let post = useSelector((state) => state.post);
   let auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   let { userId } = useParams();
@@ -31,6 +29,7 @@ export default function ProfileContainer() {
   useEffect(() => {
     if (user.userDetails._id !== userId) {
       dispatch(getUserDetails(userId));
+      dispatch(getUserPosts(userId));
     }
   }, [userId]);
 
@@ -47,25 +46,13 @@ export default function ProfileContainer() {
   }, [user]);
 
   useEffect(() => {
-    if (userId === user._id) {
-      switch (post.userPostsStatus) {
-        case "idle":
-          dispatch(getUserPosts(userId));
-          return;
-
-        case "fullfilled":
-          postArraySetter(post.userPosts);
-          return;
-        case "rejected":
-          toast.error(post.message);
-          return;
-        default:
-          return;
-      }
-    } else {
-      getOtherUserPosts(userId, postArraySetter);
+    if (user.status === "fullfilled" && user.userDetails._id === userId) {
+      postArraySetter(user.userPosts);
+    } else if (user.status === "rejected") {
+      postArraySetter([]);
+      toast.error(user.message)
     }
-  }, [userId, post]);
+  }, [user]);
 
   return (
     <div className="main-container">
