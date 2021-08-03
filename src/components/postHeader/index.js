@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeletePost from "../deletePost";
-import { resetDeletePostStatus } from "../../container/newsFeedContainer/newsFeedSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 const PostHeader = ({
@@ -19,22 +17,7 @@ const PostHeader = ({
 }) => {
   let user = useSelector((state) => state.auth.userDetails);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const post = useSelector((state) => state.newsFeed);
-
-  useEffect(() => {
-    post.deletePostStatus === "fullfilled" && dispatch(resetDeletePostStatus());
-
-    post.deletePostStatus === "rejected" &&
-      toast.error("Sorry Couldn't delete your post");
-    return () => {
-      if (post.deletePostStatus === "fullfilled") {
-      
-        toast.success("post deleted");
-        navigate("/");
-      }
-    };
-  }, [post]);
+  let currentPost = useSelector((state) => state.currentPost);
 
   return (
     <CardHeader
@@ -57,14 +40,13 @@ const PostHeader = ({
       }}
       action={
         <div>
-          {userDetails._id === user._id &&
-            (post.deletePostStatus === "loading" ? (
-              <CircularProgress />
-            ) : (
-              <IconButton aria-label="settings" onClick={handleClick}>
-                <MoreVertIcon />
-              </IconButton>
-            ))}
+          {currentPost.deleteStatus === "loading" ? (
+            <CircularProgress />
+          ) : (
+            <IconButton aria-label="settings" onClick={handleClick}>
+              <MoreVertIcon />
+            </IconButton>
+          )}
 
           {userDetails._id === user._id && (
             <DeletePost

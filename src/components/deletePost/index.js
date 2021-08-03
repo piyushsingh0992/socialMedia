@@ -2,10 +2,10 @@ import React from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import { deletePostFunction } from "../../container/newsFeedContainer/newsFeedSlice";
+import { deleteCurrentPost } from "../../container/postContainer/currentPostSlice";
 import { useDispatch } from "react-redux";
 
-const DeletePost = ({ anchorEl, handleClose, postId, userId }) => {
+const DeletePost = ({ anchorEl, handleClose, postId }) => {
   const dispatch = useDispatch();
 
   return (
@@ -16,7 +16,7 @@ const DeletePost = ({ anchorEl, handleClose, postId, userId }) => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
       onClick={() => {
-        dispatch(deletePostFunction(postId));
+        dispatch(deleteCurrentPost(postId));
       }}
     >
       <MenuItem onClick={handleClose}>

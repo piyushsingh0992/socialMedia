@@ -60,6 +60,22 @@ export const userSlice = createSlice({
         status: "idle",
       };
     },
+
+    deletePostFromUser: (state, action) => {
+      console.log(current(state));
+
+      if (state.userPosts) {
+        state.userPosts = state.userPosts.filter(
+          (post) => post._id !== action.payload.postId
+        );
+      }
+      if (state.userDetails) {
+        state.userDetails.posts = state.userDetails.posts.filter(
+          (postId) => postId !== action.payload.postId
+        );
+      }
+      console.log(current(state));
+    },
   },
   extraReducers: {
     [getUserDetails.pending]: (state) => {
@@ -114,6 +130,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUserSlice } = userSlice.actions;
+export const { resetUserSlice, deletePostFromUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -5,13 +5,31 @@ import PostPreview from "../../components/postPreview";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCurrentPost } from "./currentPostSlice";
+import { getCurrentPost, resetDeleteStatus } from "./currentPostSlice";
+import { deletePostFromUser } from "../profileContainer/userSlice";
 export default function PostContainer() {
   const [currentPostDetails, currentPostDetailsSetter] = useState(null);
   let currentPost = useSelector((state) => state.currentPost);
+  let auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   let { postId } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetDeleteStatus());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentPost.deleteStatus === "fullfilled") {
+      dispatch(deletePostFromUser({ postId: currentPost.currentPost._id }));
+      toast.success(currentPost.message);
+      navigate(`/profile/${auth.userKey}`);
+    } else if (currentPost.deleteStatus === "rejected") {
+      toast.error(currentPost.message);
+    }
+  }, [currentPost]);
 
   useEffect(() => {
     if (currentPost.status === "fullfilled") {

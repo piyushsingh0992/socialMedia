@@ -10,7 +10,6 @@ import PostHeader from "../postHeader";
 import Comment from "../comment";
 import Grid from "@material-ui/core/Grid";
 import moment from "moment";
-import CommentList from "../commentList";
 import PostActionButtons from "../postActionButtons";
 
 const useStyles = makeStyles((theme) => ({

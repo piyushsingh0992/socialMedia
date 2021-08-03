@@ -15,15 +15,33 @@ export const getCurrentPost = createAsyncThunk(
   }
 );
 
+export const deleteCurrentPost = createAsyncThunk(
+  "currentPost/deleteCurrentPost",
+
+  async (postId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("DELETE", `post/${postId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
 
 export const currentPostSlice = createSlice({
   name: "currentPost",
   initialState: {
-    currentPost: {},
+    currentPost: null,
     status: "idle",
     message: null,
+    deleteStatus: "idle",
   },
-  reducers: {},
+  reducers: {
+    resetDeleteStatus: (state) => {
+      state.deleteStatus = "idle";
+    },
+  },
   extraReducers: {
     [getCurrentPost.pending]: (state) => {
       state.status = "loading";
@@ -37,9 +55,20 @@ export const currentPostSlice = createSlice({
       state.status = "rejected";
       state.message = action.payload.message;
     },
+    [deleteCurrentPost.pending]: (state, action) => {
+      state.deleteStatus = "loading";
+    },
+    [deleteCurrentPost.fulfilled]: (state, action) => {
+      state.message = action.payload.message;
+      state.deleteStatus = "fullfilled";
+    },
+    [deleteCurrentPost.rejected]: (state, action) => {
+      state.message = action.payload.message;
+      state.deleteStatus = "rejected";
+    },
   },
 });
 
-export const {} = currentPostSlice.actions;
+export const { resetDeleteStatus } = currentPostSlice.actions;
 
 export default currentPostSlice.reducer;
