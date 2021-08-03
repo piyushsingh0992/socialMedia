@@ -17,22 +17,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function NewsFeedContainer() {
   const classes = useStyles();
-  const post = useSelector((state) => state.post);
+  const newsFeed = useSelector((state) => state.post);
   let dispatch = useDispatch();
 
   useEffect(() => {
-    if (post.status === "idle") {
+    if (newsFeed.status === "idle") {
       dispatch(getAllPosts());
+    } else if (newsFeed.status === "rejected") {
+      toast.error(newsFeed.message);
     }
-
-    if (post.status === "rejected") {
-      toast.error(post.message);
-    }
-  }, [post]);
+  }, [newsFeed]);
 
   return (
     <div className="main-container">
@@ -43,10 +39,10 @@ export default function NewsFeedContainer() {
         maxWidth="md"
       >
         <Container fixed maxWidth="sm">
-          {post.status === "loading" && <h1>loading</h1>}
-          {post.status === "rejected" && <h1>Cann't load news feed </h1>}
-          {post.status === "fullfilled" &&
-            post.posts.map((item) => {
+          {newsFeed.status === "loading" && <h1>loading</h1>}
+          {newsFeed.status === "rejected" && <h1>Cann't load news feed </h1>}
+          {newsFeed.status === "fullfilled" &&
+            newsFeed.posts.map((item) => {
               return <Post postDetails={item} />;
             })}
         </Container>
