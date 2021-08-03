@@ -17,16 +17,16 @@ export default function LoginContainer() {
   const [currentUser, currentUserSetter] = useState(true);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const user = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
   const dispatch=useDispatch();
 
   useEffect(() => {
-    if (user.token) {
-      setupAuthHeader(user.token);
+    if (auth.token) {
+      setupAuthHeader(auth.token);
       setupAuthExceptionHandler(resetauthSlice, navigate, dispatch);
       navigate(state && state.from ? state.from : "/");
     }
-  }, [user]);
+  }, [auth]);
 
   const [signInDetails, signInDetailsSetter] = useState({
     password: "",
