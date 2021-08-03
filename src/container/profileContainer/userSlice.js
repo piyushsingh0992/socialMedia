@@ -6,7 +6,7 @@ export const getUserDetails = createAsyncThunk(
   "user/getUserDetails",
 
   async (userId, { fulfillWithValue, rejectWithValue }) => {
-    let response = await apiCall("GET", `notification`);
+    let response = await apiCall("GET", `user/${userId}`);
 
     if (response.success) {
       return fulfillWithValue(response);
@@ -43,7 +43,8 @@ export const userSlice = createSlice({
       state.status = "loading";
     },
     [getUserDetails.fulfilled]: (state, action) => {
-      state.notifications = action.payload.userDetails;
+     
+      state.userDetails = action.payload.data.userDetails;
       state.status = "fullfilled";
     },
     [getUserDetails.rejected]: (state, action) => {

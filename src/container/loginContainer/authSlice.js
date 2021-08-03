@@ -81,6 +81,7 @@ export const authSlice = createSlice({
     message: null,
     token: null,
     updateStatus: "idle",
+    userKey:null,
     signUp: {
       status: "idle",
       message: null,
@@ -121,6 +122,7 @@ export const authSlice = createSlice({
       state.message = action.payload.message;
       state.token = action.payload.token;
       state.userDetails = action.payload.userDetails;
+      state.userKey=action.payload.userKey;
     },
   },
   extraReducers: {
@@ -144,10 +146,12 @@ export const authSlice = createSlice({
       state.message = action.payload.message;
       state.token = action.payload.data.token;
       state.userDetails = action.payload.data.userDetails;
+      state.userKey=action.payload.data.userDetails._id
 
       logInLocal({
         token: action.payload.data.token,
         userDetails: action.payload.data.userDetails,
+        userKey:action.payload.data.userDetails._id
       });
     },
     [signInFunction.rejected]: (state, action) => {
