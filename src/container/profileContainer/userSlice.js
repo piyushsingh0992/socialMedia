@@ -6,7 +6,9 @@ export const getUserDetails = createAsyncThunk(
   "user/getUserDetails",
 
   async (userId, { fulfillWithValue, rejectWithValue }) => {
+    
     let response = await apiCall("GET", `user/${userId}`);
+    
 
     if (response.success) {
       return fulfillWithValue(response);

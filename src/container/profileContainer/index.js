@@ -21,7 +21,6 @@ export default function ProfileContainer() {
 
   async function getOtherUserPosts(userId, postArraySetter) {
     let { data, message, success } = await apiCall("GET", `post/${userId}/all`);
-
     if (success === true) {
       postArraySetter(data.posts);
     } else {
@@ -30,18 +29,22 @@ export default function ProfileContainer() {
   }
 
   useEffect(() => {
-    isUserProfileSetter(auth.userKey === userId);
+    if (user.userDetails._id !== userId) {
+      dispatch(getUserDetails(userId));
+    }
+  }, [userId]);
 
+  useEffect(() => {
     if (user.status === "fullfilled" && user.userDetails._id === userId) {
+      isUserProfileSetter(auth.userKey === userId);
       userDetailsSetter(user.userDetails);
     } else if (user.status === "rejected") {
+      isUserProfileSetter(auth.userKey === userId);
       userDetailsSetter({
         userName: "User Not found",
       });
-    } else {
-      dispatch(getUserDetails(userId));
     }
-  }, [userId, user]);
+  }, [user]);
 
   useEffect(() => {
     if (userId === user._id) {
