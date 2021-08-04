@@ -38,7 +38,7 @@ export default function ProfileContainer() {
 
   useEffect(() => {
     if (auth.userKey === userId) {
-      if (user.userDetails === null) {
+      if (user.userPosts === null) {
         dispatch(getUserPosts(userId));
       }
     } else {
