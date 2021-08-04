@@ -17,11 +17,15 @@ import { useNavigate } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1rem 0",
-    padding: "0.1rem",
+    padding: 0,
+  },
+  content:{
+    padding:"0.6rem",
+    margin:0
   },
   media: {
-    height: 70,
-    width: 70,
+    height: 60,
+    width: 60,
   },
   button: {
     "&:hover": {
@@ -54,7 +58,7 @@ function mediaType(type, details, classes) {
       return (
         <Avatar
           src={details.userId.profileImage}
-          style={{ height: "70px", width: "70px" }}
+          className={classes.media}
         />
       );
 
@@ -107,7 +111,7 @@ export default function Notification({ notificationDetails }) {
       }}
     >
       <CardActionArea>
-        <CardContent>
+        <CardContent className={classes.content}>
           <Grid container alignItems="center" justifyContent="flex-start">
             <Grid item xs={2}>
               {mediaType(type, notificationDetails, classes)}
