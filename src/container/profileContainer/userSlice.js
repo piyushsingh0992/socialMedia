@@ -2,12 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
 import { current } from "immer";
 
-import {
-  logInLocal,
-  addPostLocal,
-  addFollowingLocal,
-  removeFollowingLocal,
-} from "../../localStorage";
+import { logInLocal } from "../../localStorage";
 
 export const getUserDetails = createAsyncThunk(
   "user/getUserDetails",
@@ -234,7 +229,6 @@ export const userSlice = createSlice({
         userName: action.payload.data.userDetails.userName,
         profileImage: action.payload.data.userDetails.profileImage,
       });
-      
     },
 
     [editUserDetails.rejected]: (state, action) => {

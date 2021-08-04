@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
 import SearchResult from "../../components/searchResult";
 import Container from "@material-ui/core/Container";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { apiCall } from "../../services/apiCall";
 import { getLastRoute } from "../../localStorage";
 export default function SearchContainer() {
