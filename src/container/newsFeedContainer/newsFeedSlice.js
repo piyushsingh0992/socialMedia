@@ -20,13 +20,8 @@ export const postSlice = createSlice({
   initialState: {
     posts: [],
     createPostStatus: "idle",
-    currentPost: null,
-    userPosts: [],
-    userPostsStatus: "idle",
     status: "idle",
     message: "",
-
-
     deletePostStatus: "idle",
   },
   reducers: {
@@ -39,22 +34,19 @@ export const postSlice = createSlice({
       });
     },
 
-
     resetDeletePostStatus: (state) => {
       state.deletePostStatus = "idle";
     },
     resetcreatePostStatus: (state) => {
       state.createPostStatus = "idle";
-      state.currentPost = null;
+
       state.message = "";
     },
     resetPostSlice: (state) => {
       return {
         posts: [],
         createPostStatus: "idle",
-        currentPost: null,
-        userPosts: [],
-        userPostsStatus: "idle",
+
         status: "idle",
         message: "",
         deletePostStatus: "idle",

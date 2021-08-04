@@ -15,7 +15,7 @@ const PostHeader = ({
   time,
   postId,
 }) => {
-  let user = useSelector((state) => state.auth.userDetails);
+  let auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   let currentPost = useSelector((state) => state.currentPost);
 
@@ -48,7 +48,7 @@ const PostHeader = ({
             </IconButton>
           )}
 
-          {userDetails._id === user._id && (
+          {userDetails._id === auth.userKey && (
             <DeletePost
               anchorEl={anchorEl}
               handleClose={handleClose}
