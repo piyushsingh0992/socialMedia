@@ -33,18 +33,33 @@ const useStyles = makeStyles((theme) => ({
     height: "85vh",
     width: "50%",
   },
+  caption: {
+    padding: "1rem",
+    borderBottom: "1px solid black",
+  },
+  allCommentContainer: {
+    overflowY: "scroll",
+    overflowX: "hidden",
+    maxHeight: "60vh",
+    padding: "2.5vh",
+  },
+  commentBoxContainer: {
+    position: "absolute",
+    bottom: "1rem",
+    width: "100%",
+    paddingBottom: " 0.5rem ",
+  
+  },
 }));
 
 export default function PostPreview({ currentPost }) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [expanded, setExpanded] = useState(false);
+
   const [anchorEl, setAnchorEl] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded((value) => !value);
-  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -75,33 +90,17 @@ export default function PostPreview({ currentPost }) {
               variant="body2"
               color="textPrimary"
               component="p"
-              style={{ padding: "1rem", borderBottom: "1px solid black" }}
+              className={classes.caption}
             >
               {currentPost.caption}
             </Typography>
           )}
-          <Grid
-            container
-            style={{
-              overflowY: "scroll",
-              overflowX: "hidden",
-              maxHeight: "60vh",
-              padding: "2.5vh",
-            }}
-          >
+          <Grid container className={classes.allCommentContainer}>
             {currentPost.comments.map((item) => {
               return <Comment commentDetails={item} />;
             })}
           </Grid>
-          <div
-            style={{
-              position: "absolute",
-              bottom: "1rem",
-              width: "100%",
-              paddingBottom: " 0.5rem ",
-              backgroudn: "pink",
-            }}
-          >
+          <div className={classes.commentBoxContainer}>
             <PostActionButtons
               postId={currentPost._id}
               likesArray={currentPost.likes}
