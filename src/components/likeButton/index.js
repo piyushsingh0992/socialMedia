@@ -15,11 +15,12 @@ import { updateUserPosts } from "../../container/profileContainer/userSlice";
 const LikeButton = ({ likesArray, postId }) => {
   const [liked, likedSetter] = useState(true);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
   const newsFeed = useSelector((state) => state.newsFeed);
   const [loader, loaderSetter] = useState(false);
   const currentPost = useSelector((state) => state.currentPost);
   useEffect(() => {
+    
     if (loader) {
       if (currentPost.status === "fullfilled") {
         dispatch(updateNewsFeed({ post: currentPost.currentPost }));
@@ -34,6 +35,7 @@ const LikeButton = ({ likesArray, postId }) => {
   }, [currentPost]);
 
   useEffect(() => {
+   
     let present = likesArray.find((item) => item === user.userDetails._id);
     if (present) {
       likedSetter(true);

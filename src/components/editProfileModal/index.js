@@ -13,7 +13,8 @@ import Select from "@material-ui/core/Select";
 import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { updateFunction } from "../../container/loginContainer/authSlice";
+import { editUserDetails } from "../../container/profileContainer/userSlice";
+import {restAuthToken} from "../../container/loginContainer/authSlice";
 import UploadImage from "../uploadImage";
 
 export default function EditProfileModal() {
@@ -25,13 +26,13 @@ export default function EditProfileModal() {
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  let user = useSelector((state) => state.auth);
+  let user = useSelector((state) => state.user);
   useEffect(() => {
-    if (user.updateStatus === "fullfilled") {
-    
+    if (user.status === "fullfilled") {
+      restAuthToken(localStorage.getItem("userDetails")?.token);
       toast.success(user.message);
       setOpen(false);
-    } else if (user.updateStatus === "rejected") {
+    } else if (user.status === "rejected") {
       toast.error(user.message);
     }
   }, [user]);
@@ -208,10 +209,10 @@ export default function EditProfileModal() {
                 className={classes.button}
                 startIcon={<SaveIcon />}
                 onClick={() => {
-                  dispatch(updateFunction(userDetails));
+                  dispatch(editUserDetails(userDetails));
                 }}
               >
-                {user.updateStatus === "loading" ? "loading..." : "Save"}
+                {user.status === "loading" ? "loading..." : "Save"}
               </Button>
             </Grid>
           </div>

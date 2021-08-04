@@ -72,6 +72,10 @@ export const authSlice = createSlice({
       addPostLocal(action.payload.postId);
     },
 
+    restAuthToken: (state, action) => {
+      state.token = action.payload.token;
+    },
+
     resetauthSlice: (state) => {
       return {
         userDetails: {},
@@ -148,19 +152,14 @@ export const authSlice = createSlice({
     [updateFunction.fulfilled]: (state, action) => {
       state.updateStatus = "fullfilled";
       state.message = action.payload.message;
-      state.token = action.payload.data.token;
-      state.userName = action.payload.data.userDetails.userName;
-      state.profileImage = action.payload.data.userDetails.profileImage;
-      state.userDetails = action.payload.data.userDetails;
-
-      localStorage.setItem(
-        "userDetails",
-        JSON.stringify({
-          token: action.payload.data.token,
-          userDetails: action.payload.data.userDetails,
-        })
-      );
+      logInLocal({
+        token: action.payload.data.token,
+        userKey: action.payload.data.userDetails._id,
+        userName: action.payload.data.userDetails.userName,
+        profileImage: action.payload.data.userDetails.profileImage,
+      });
     },
+
     [updateFunction.rejected]: (state, action) => {
       state.updateStatus = "rejected";
       state.message = action.payload.message;
@@ -175,6 +174,7 @@ export const {
   signInfromLocalStorage,
   resetingupdateStatus,
   addUserPost,
+  restAuthToken
 } = authSlice.actions;
 
 export default authSlice.reducer;

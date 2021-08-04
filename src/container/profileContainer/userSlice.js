@@ -2,6 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
 import { current } from "immer";
 
+import {
+  logInLocal,
+  addPostLocal,
+  addFollowingLocal,
+  removeFollowingLocal,
+} from "../../localStorage";
+
 export const getUserDetails = createAsyncThunk(
   "user/getUserDetails",
 
@@ -61,6 +68,19 @@ export let unFollow = createAsyncThunk(
   "user/unFollow",
   async (followerId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("DELETE", `follow/${followerId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export let editUserDetails = createAsyncThunk(
+  "user/editUserDetails",
+  async (updateDetails, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", "update", { update: updateDetails });
 
     if (response.success) {
       return fulfillWithValue(response);
@@ -199,6 +219,27 @@ export const userSlice = createSlice({
     },
     [unFollow.rejected]: (state, action) => {
       state.status = "rejected";
+    },
+
+    [editUserDetails.pending]: (state) => {
+      state.status = "loading";
+    },
+    [editUserDetails.fulfilled]: (state, action) => {
+      state.status = "fullfilled";
+      state.message = action.payload.message;
+      state.userDetails = action.payload.data.userDetails;
+      logInLocal({
+        token: action.payload.data.token,
+        userKey: action.payload.data.userDetails._id,
+        userName: action.payload.data.userDetails.userName,
+        profileImage: action.payload.data.userDetails.profileImage,
+      });
+      
+    },
+
+    [editUserDetails.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.message = action.payload.message;
     },
   },
 });
