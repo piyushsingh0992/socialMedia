@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Navbar from "../../components/navbar";
-import "./style.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Post from "../../components/post";
@@ -11,9 +10,9 @@ import { toast } from "react-toastify";
 import Suggestions from "../../components/suggestions";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: theme.spacing(3, 2),
-    background: "red",
+  root: {
+    display: "flex",
+    justifyContent: "center",
   },
 }));
 
@@ -34,10 +33,7 @@ export default function NewsFeedContainer() {
     <div className="main-container">
       <Navbar />
 
-      <Container
-        style={{ display: "flex", justifyContent: "center" }}
-        maxWidth="md"
-      >
+      <Container className={classes.root} maxWidth="md">
         <Container fixed maxWidth="sm">
           {newsFeed.status === "loading" && <h1>loading</h1>}
           {newsFeed.status === "rejected" && <h1>Cann't load news feed </h1>}
