@@ -6,6 +6,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import useLogout from "../../customHooks/logout";
 import { useStyles } from "./style.js";
+import Typography from "@material-ui/core/Typography";
 const LogoutButton = ({
   mobileview,
   handleMenuClose,
@@ -25,10 +26,12 @@ const LogoutButton = ({
       <IconButton>
         <ExitToAppIcon className={classes.icon} color="red" />
       </IconButton>
-      Logout
+      <Typography varient="p">Logout</Typography>
     </MenuItem>
   ) : (
-    <MenuItem onClick={logout}>Logout</MenuItem>
+    <MenuItem onClick={logout}>
+      <Typography varient="p">Logout</Typography>
+    </MenuItem>
   );
 };
 

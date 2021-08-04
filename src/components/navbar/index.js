@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import UploadButton from "../uploadButton";
 import { useSelector, useDispatch } from "react-redux";
 import LogoutButton from "../logoutButton";
-
+import Typography from "@material-ui/core/Typography";
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -65,7 +65,9 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleProfileMenuClose}>
+        <Typography varient="p">Profile</Typography>
+      </MenuItem>
       <LogoutButton handleMenuClose={handleMenuClose} />
     </Menu>
   );
@@ -86,7 +88,7 @@ export default function PrimarySearchAppBar() {
         }}
       >
         <Avatar className={classes.avatarMobile} src={auth.profileImage} />
-        Profile
+        <Typography varient="p">Profile</Typography>
       </MenuItem>
       <MenuItem
         onClick={() => {
@@ -94,9 +96,9 @@ export default function PrimarySearchAppBar() {
         }}
       >
         <IconButton>
-          <HomeIcon             className={classes.icon} />
+          <HomeIcon className={classes.icon} />
         </IconButton>
-        Home
+        <Typography varient="p">Home</Typography>
       </MenuItem>
       <MenuItem
         onClick={() => {
@@ -109,7 +111,7 @@ export default function PrimarySearchAppBar() {
             style={{ padding: "0px !important" }}
           />
         </IconButton>
-        Notifications
+        <Typography varient="p">Notifications</Typography>
       </MenuItem>
       <UploadButton menuItem />
       <LogoutButton mobileview handleMobileMenuClose={handleMobileMenuClose} />
@@ -139,7 +141,7 @@ export default function PrimarySearchAppBar() {
                 }}
               >
                 <HomeIcon
-                              className={classes.icon}
+                  className={classes.icon}
                   onClick={() => {
                     navigate("/");
                   }}
@@ -147,7 +149,7 @@ export default function PrimarySearchAppBar() {
               </IconButton>
               <IconButton>
                 <NotificationsIcon
-                              className={classes.icon}
+                  className={classes.icon}
                   onClick={() => {
                     navigate("/notifications");
                   }}
