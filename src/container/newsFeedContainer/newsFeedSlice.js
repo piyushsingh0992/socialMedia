@@ -56,9 +56,6 @@ export const postSlice = createSlice({
   },
 });
 
-export const {
-  resetPostSlice,
-  updateNewsFeed,
-} = postSlice.actions;
+export const { resetPostSlice, updateNewsFeed } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar";
 import Container from "@material-ui/core/Container";
 import Notification from "../../components/notification";
-import Typography from "@material-ui/core/Typography";
-import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { getNotififcations } from "./notificationSlice.js";
 
@@ -13,14 +11,11 @@ export default function NotificationContainer() {
   let dispatch = useDispatch();
   useEffect(() => {
     if (notification.status === "idle") {
-      
       notificationArraySetter(null);
       dispatch(getNotififcations());
     } else if (notification.status === "fullfilled") {
-      
       notificationArraySetter(notification.notifications);
     } else if (notification.status === "rejected") {
-      
       notificationArraySetter([]);
     }
   }, [notification]);

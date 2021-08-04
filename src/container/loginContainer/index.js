@@ -9,7 +9,7 @@ import {
   setupAuthExceptionHandler,
 } from "../../utils/common.js";
 import { useDispatch } from "react-redux";
-import {getUserDetails} from "../profileContainer/userSlice";
+import { getUserDetails } from "../profileContainer/userSlice";
 import { resetauthSlice } from "./authSlice";
 export default function LoginContainer() {
   const [currentUser, currentUserSetter] = useState(true);
