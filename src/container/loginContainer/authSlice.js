@@ -39,11 +39,6 @@ export const authSlice = createSlice({
 
     updateStatus: "idle",
 
-    signUp: {
-      status: "idle",
-      message: null,
-    },
-
     token: null,
     userKey: null,
     userName: null,
@@ -61,21 +56,10 @@ export const authSlice = createSlice({
         message: "",
         updateStatus: "idle",
         token: null,
-        signUp: {
-          status: "idle",
-          message: null,
-        },
       };
     },
     resetingupdateStatus: (state) => {
       state.updateStatus = "idle";
-    },
-
-    resetSignUpState: (state) => {
-      state.signUp = {
-        status: "null",
-        message: null,
-      };
     },
 
     signInfromLocalStorage: (state, action) => {
@@ -89,16 +73,13 @@ export const authSlice = createSlice({
   },
   extraReducers: {
     [signUpFunction.pending]: (state) => {
-      
       state.status = "loading";
     },
     [signUpFunction.fulfilled]: (state, action) => {
-      
       state.status = "fullfilled";
       state.message = action.payload.message;
     },
     [signUpFunction.rejected]: (state, action) => {
-      
       state.status = "rejected";
       state.message = action.payload.message;
     },
@@ -130,7 +111,6 @@ export const authSlice = createSlice({
 });
 
 export const {
-  resetSignUpState,
   resetauthSlice,
   signInfromLocalStorage,
   resetingupdateStatus,

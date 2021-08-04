@@ -17,7 +17,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   signUpFunction,
-  resetSignUpState,
 } from "../../container/loginContainer/authSlice";
 export default function SignUp({
   currentUserSetter,
@@ -47,7 +46,6 @@ export default function SignUp({
     toast,
   };
   useEffect(() => {
-   
     if (loader) {
       if (auth.status === "fullfilled") {
         successSignUp(successSignUpProps, auth.message);
@@ -60,7 +58,6 @@ export default function SignUp({
   }, [auth.status]);
 
   async function submitHandler() {
-    
     if (check(signUpDetails)) {
       toast.error("please fill in all the details");
       return;
@@ -164,7 +161,6 @@ export default function SignUp({
             color="primary"
             className={classes.submit}
             onClick={() => {
-              
               loaderSetter(true);
               submitHandler();
             }}
