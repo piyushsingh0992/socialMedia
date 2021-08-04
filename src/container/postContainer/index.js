@@ -5,7 +5,7 @@ import PostPreview from "../../components/postPreview";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCurrentPost, resetDeleteStatus } from "./currentPostSlice";
+import { getCurrentPost, resetCurrentPostSlice } from "./currentPostSlice";
 import { deletePostFromUser } from "../profileContainer/userSlice";
 export default function PostContainer() {
   const [currentPostDetails, currentPostDetailsSetter] = useState(null);
@@ -17,7 +17,7 @@ export default function PostContainer() {
 
   useEffect(() => {
     return () => {
-      dispatch(resetDeleteStatus());
+      dispatch(resetCurrentPostSlice());
     };
   }, []);
 

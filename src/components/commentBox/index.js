@@ -26,6 +26,7 @@ const CommentBox = ({ postId }) => {
       if (currentPost.status === "fullfilled") {
         dispatch(updateNewsFeed({ post: currentPost.currentPost }));
         dispatch(updateUserPosts({ post: currentPost.currentPost }));
+
         loaderSetter(false);
         textSetter("");
         toast.success(currentPost.message);

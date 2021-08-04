@@ -80,8 +80,11 @@ export const currentPostSlice = createSlice({
     deleteStatus: "idle",
   },
   reducers: {
-    resetDeleteStatus: (state) => {
-      state.deleteStatus = "idle";
+    resetCurrentPostSlice: (state) => {
+      state.currentPost= null;
+      state.status= "idle";
+      state.message= null;
+      state.deleteStatus= "idle";
     },
   },
   extraReducers: {
@@ -150,6 +153,6 @@ export const currentPostSlice = createSlice({
   },
 });
 
-export const { resetDeleteStatus } = currentPostSlice.actions;
+export const { resetCurrentPostSlice } = currentPostSlice.actions;
 
 export default currentPostSlice.reducer;
