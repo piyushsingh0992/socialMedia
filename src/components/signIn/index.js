@@ -37,8 +37,6 @@ export default function SignIn({
   useEffect(() => {
     if (user.status === "rejected") {
       toast.error(user.message);
-
-      dispatch(resetauthSlice());
     }
   }, [user]);
 

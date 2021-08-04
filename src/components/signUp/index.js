@@ -27,7 +27,7 @@ export default function SignUp({
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const signUp = useSelector((state) => state.auth.signUp);
+  const auth = useSelector((state) => state.auth);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -47,14 +47,14 @@ export default function SignUp({
     toast,
   };
   useEffect(() => {
-    if (signUp.status === "fullfilled") {
-      successSignUp(successSignUpProps, signUp.message);
-      dispatch(resetSignUpState());
-    } else if (signUp.status === "rejected") {
-      toast.error(signUp.message);
-      dispatch(resetSignUpState());
+    if (auth.status === "fullfilled") {
+      successSignUp(successSignUpProps, auth.message);
+      // dispatch(resetSignUpState());
+    } else if (auth.status === "rejected") {
+      toast.error(auth.message);
+      // dispatch(resetSignUpState());
     }
-  }, [signUp.status]);
+  }, [auth.status]);
 
   async function submitHandler() {
     if (check(signUpDetails)) {
@@ -162,7 +162,7 @@ export default function SignUp({
               submitHandler();
             }}
           >
-            {signUp.status === "loading" ? "loading..." : "Sign Up"}
+            {auth.status === "loading" ? "loading..." : "Sign Up"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid

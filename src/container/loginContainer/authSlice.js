@@ -1,24 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
-import {
-  logInLocal,
-  addPostLocal,
-  addFollowingLocal,
-  removeFollowingLocal,
-} from "../../localStorage";
+import { logInLocal, addPostLocal } from "../../localStorage";
 import { current } from "immer";
-export let updateFunction = createAsyncThunk(
-  "auth/updateFunction",
-  async (updateDetails, { fulfillWithValue, rejectWithValue }) => {
-    let response = await apiCall("POST", "update", { update: updateDetails });
-
-    if (response.success) {
-      return fulfillWithValue(response);
-    } else {
-      return rejectWithValue(response);
-    }
-  }
-);
 
 export let signUpFunction = createAsyncThunk(
   "auth/signUpFunction",
@@ -67,11 +50,6 @@ export const authSlice = createSlice({
     profileImage: null,
   },
   reducers: {
-    addPostToUserPostArray: (state, action) => {
-      state.userDetails.posts.push(action.payload.postId);
-      addPostLocal(action.payload.postId);
-    },
-
     restAuthToken: (state, action) => {
       state.token = action.payload.token;
     },
@@ -111,15 +89,18 @@ export const authSlice = createSlice({
   },
   extraReducers: {
     [signUpFunction.pending]: (state) => {
-      state.signUp.status = "loading";
+      
+      state.status = "loading";
     },
     [signUpFunction.fulfilled]: (state, action) => {
-      state.signUp.status = "fullfilled";
-      state.signUp.message = action.payload.message;
+      
+      state.status = "fullfilled";
+      state.message = action.payload.message;
     },
     [signUpFunction.rejected]: (state, action) => {
-      state.signUp.status = "rejected";
-      state.signUp.message = action.payload.message;
+      
+      state.status = "rejected";
+      state.message = action.payload.message;
     },
 
     [signInFunction.pending]: (state) => {
@@ -145,36 +126,16 @@ export const authSlice = createSlice({
       state.status = "rejected";
       state.message = action.payload.message;
     },
-
-    [updateFunction.pending]: (state) => {
-      state.updateStatus = "loading";
-    },
-    [updateFunction.fulfilled]: (state, action) => {
-      state.updateStatus = "fullfilled";
-      state.message = action.payload.message;
-      logInLocal({
-        token: action.payload.data.token,
-        userKey: action.payload.data.userDetails._id,
-        userName: action.payload.data.userDetails.userName,
-        profileImage: action.payload.data.userDetails.profileImage,
-      });
-    },
-
-    [updateFunction.rejected]: (state, action) => {
-      state.updateStatus = "rejected";
-      state.message = action.payload.message;
-    },
   },
 });
 
 export const {
-  addPostToUserPostArray,
   resetSignUpState,
   resetauthSlice,
   signInfromLocalStorage,
   resetingupdateStatus,
   addUserPost,
-  restAuthToken
+  restAuthToken,
 } = authSlice.actions;
 
 export default authSlice.reducer;
