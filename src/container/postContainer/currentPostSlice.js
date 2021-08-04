@@ -139,7 +139,7 @@ export const currentPostSlice = createSlice({
     },
 
     [addComment.pending]: (state) => {
-      state.commentStatus = "loading";
+      state.status = "loading";
     },
     [addComment.fulfilled]: (state, action) => {
       state.message = action.payload.message;

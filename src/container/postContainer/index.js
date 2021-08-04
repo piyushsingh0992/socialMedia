@@ -16,12 +16,6 @@ export default function PostContainer() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    return () => {
-      dispatch(resetCurrentPostSlice());
-    };
-  }, []);
-
-  useEffect(() => {
     if (currentPost.deleteStatus === "fullfilled") {
       dispatch(deletePostFromUser({ postId: currentPost.currentPost._id }));
       toast.success(currentPost.message);
@@ -42,6 +36,9 @@ export default function PostContainer() {
 
   useEffect(() => {
     dispatch(getCurrentPost(postId));
+    return () => {
+      dispatch(resetCurrentPostSlice());
+    };
   }, [postId]);
 
   return (

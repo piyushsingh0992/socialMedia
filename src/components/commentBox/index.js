@@ -22,11 +22,12 @@ const CommentBox = ({ postId }) => {
   const currentPost = useSelector((state) => state.currentPost);
 
   useEffect(() => {
+    debugger;
     if (loader) {
+      debugger;
       if (currentPost.status === "fullfilled") {
         dispatch(updateNewsFeed({ post: currentPost.currentPost }));
         dispatch(updateUserPosts({ post: currentPost.currentPost }));
-
         loaderSetter(false);
         textSetter("");
         toast.success(currentPost.message);
