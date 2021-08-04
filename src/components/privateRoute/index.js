@@ -1,17 +1,7 @@
 import React from "react";
 import { useParams, Navigate, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-function getNewPath(path, paramsArray) {
-  let pathArray = path.split(":");
-  let newArray = pathArray.map((item) => {
-    if (paramsArray[item]) {
-      return paramsArray[item];
-    }
-    return item;
-  });
-  return newArray.join("");
-}
+import {getNewPath} from "../../utils/common"
 
 const PrivateRoute = ({ path, ...props }) => {
   const token = useSelector((state) => state.auth.token);

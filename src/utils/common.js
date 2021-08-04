@@ -25,3 +25,14 @@ export const setupAuthExceptionHandler = (logout, navigate) => {
     }
   );
 };
+
+export function getNewPath(path, paramsArray) {
+  let pathArray = path.split(":");
+  let newArray = pathArray.map((item) => {
+    if (paramsArray[item]) {
+      return paramsArray[item];
+    }
+    return item;
+  });
+  return newArray.join("");
+}

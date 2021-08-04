@@ -47,8 +47,6 @@ export const Suggestion = () => {
         ) : (
           <h1>loading</h1>
         )}
-
-
       </CardContent>
     </Card>
   );

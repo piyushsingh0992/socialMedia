@@ -11,7 +11,6 @@ const Comment = ({ commentDetails }) => {
       wrap="nowrap"
       spacing={2}
       style={{
-        // margin: "0.5rem 0",
         alignItems: "center",
         paddingTop: "0.5rem",
         paddingBottom: "0.5rem",

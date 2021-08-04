@@ -10,9 +10,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { toast } from "react-toastify";
-import {
-  createPost,
-} from "../../container/profileContainer/userSlice";
+import { createPost } from "../../container/profileContainer/userSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 import PostHeader from "../postHeader";
@@ -34,7 +32,6 @@ export default function UploadButton({ menuItem }) {
   useEffect(() => {
     if (open) {
       if (user.status === "fullfilled") {
-      
         toast.success(user.message);
         handleClose();
         navigate(`/profile/${auth.userKey}`);

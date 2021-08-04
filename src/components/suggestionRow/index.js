@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem 0",
     padding: "0.5rem",
     cursor: "pointer",
-    height:"30px",
-    width:"30px"
+    height: "30px",
+    width: "30px",
   },
 }));
 

@@ -38,7 +38,7 @@ export default function SearchResult({ userDetails }) {
   const navigate = useNavigate();
   return (
     <Card className={classes.root}>
-      <CardActionArea >
+      <CardActionArea>
         <CardContent>
           <Grid container alignItems="center" justifyContent="flex-start">
             <Grid

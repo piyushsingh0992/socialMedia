@@ -7,7 +7,6 @@ export function check(signUpDetails) {
     }
   }, 0);
 
-
   return check !== Object.keys(signUpDetails).length;
 }
 

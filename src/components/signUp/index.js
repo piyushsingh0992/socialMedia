@@ -15,9 +15,7 @@ import { check, successSignUp } from "./common.js";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  signUpFunction,
-} from "../../container/loginContainer/authSlice";
+import { signUpFunction } from "../../container/loginContainer/authSlice";
 export default function SignUp({
   currentUserSetter,
   signUpDetails,
