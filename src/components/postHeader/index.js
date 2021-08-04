@@ -39,16 +39,15 @@ const PostHeader = ({
         borderBottom: "0.1px solid grey",
       }}
       action={
-        <div>
-          {currentPost.deleteStatus === "loading" ? (
-            <CircularProgress />
-          ) : (
-            <IconButton aria-label="settings" onClick={handleClick}>
-              <MoreVertIcon />
-            </IconButton>
-          )}
-
-          {userDetails._id === auth.userKey && (
+        userDetails._id === auth.userKey && (
+          <div>
+            {currentPost.deleteStatus === "loading" ? (
+              <CircularProgress />
+            ) : (
+              <IconButton aria-label="settings" onClick={handleClick}>
+                <MoreVertIcon />
+              </IconButton>
+            )}
             <DeletePost
               anchorEl={anchorEl}
               handleClose={handleClose}
@@ -56,8 +55,8 @@ const PostHeader = ({
               userId={userDetails._id}
               handleClick={handleClick}
             />
-          )}
-        </div>
+          </div>
+        )
       }
     />
   );
