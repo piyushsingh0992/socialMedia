@@ -9,7 +9,7 @@ import { getCurrentPost } from "./postSlice";
 import { deletePostFromUser } from "../profileContainer/userSlice";
 export default function PostContainer() {
   const [currentPostDetails, currentPostDetailsSetter] = useState(null);
-  let currentPost = useSelector((state) => state.currentPost);
+  let currentPost = useSelector((state) => state.post);
   let auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   let { postId } = useParams();

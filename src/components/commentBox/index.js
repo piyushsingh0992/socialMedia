@@ -19,7 +19,7 @@ const CommentBox = ({ postId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loader, loaderSetter] = useState(false);
-  const currentPost = useSelector((state) => state.currentPost);
+  const currentPost = useSelector((state) => state.post);
 
   useEffect(() => {
     

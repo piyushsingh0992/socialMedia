@@ -17,7 +17,7 @@ const PostHeader = ({
 }) => {
   let auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  let currentPost = useSelector((state) => state.currentPost);
+  let currentPost = useSelector((state) => state.post);
 
   return (
     <CardHeader
