@@ -10,6 +10,9 @@ import Grid from "@material-ui/core/Grid";
 import FollowerModal from "../followerModal";
 import EditProfileModal from "../editProfileModal";
 import FollowButton from "../followButton";
+
+import UserToolTip from "../userToolTip";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1rem 0",
@@ -32,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProfileHeader({ userDetails, isUserProfile }) {
-  
   const classes = useStyles();
 
   return (
@@ -63,13 +65,29 @@ export default function ProfileHeader({ userDetails, isUserProfile }) {
                         color="textPrimary"
                         component="p"
                       >
-                        {isUserProfile
-                          ? userDetails.userName.length > 10
-                            ? `${userDetails.userName.slice(0, 10)}...`
-                            : `${userDetails.userName}`
-                          : userDetails.userName.length > 15
-                          ? `${userDetails.userName.slice(0, 15)}...`
-                          : `${userDetails.userName}`}
+                        {isUserProfile ? (
+                          userDetails.userName.length > 10 ? (
+                            <UserToolTip
+                              variant="h4"
+                              color="textPrimary"
+                              component="p"
+                              text={`${userDetails.userName.slice(0, 10)}...`}
+                              toolTipText={userDetails.userName}
+                            />
+                          ) : (
+                            `${userDetails.userName}`
+                          )
+                        ) : userDetails.userName.length > 13 ? (
+                          <UserToolTip
+                            variant="h4"
+                            color="textPrimary"
+                            component="p"
+                            text={`${userDetails.userName.slice(0, 13)}...`}
+                            toolTipText={userDetails.userName}
+                          />
+                        ) : (
+                          `${userDetails.userName}`
+                        )}
                       </Typography>
                     </Grid>
                     <Grid>{isUserProfile && <EditProfileModal />}</Grid>

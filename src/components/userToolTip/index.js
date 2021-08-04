@@ -2,10 +2,10 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 
-export function UserToolTip({ text, toolTipText }) {
+export default function UserToolTip({ text, toolTipText, variant, color, component }) {
   return (
     <Tooltip arrow title={toolTipText} placement="top">
-      <Typography variant="h6" color="textPrimary" component="span">
+      <Typography variant={variant} color={color} component={component}>
         {text}
       </Typography>
     </Tooltip>
