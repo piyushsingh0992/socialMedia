@@ -94,7 +94,7 @@ export default function PrimarySearchAppBar() {
         }}
       >
         <IconButton>
-          <HomeIcon style={{ color: "black" }} />
+          <HomeIcon             className={classes.icon} />
         </IconButton>
         Home
       </MenuItem>
@@ -139,7 +139,7 @@ export default function PrimarySearchAppBar() {
                 }}
               >
                 <HomeIcon
-                  style={{ color: "black" }}
+                              className={classes.icon}
                   onClick={() => {
                     navigate("/");
                   }}
@@ -147,7 +147,7 @@ export default function PrimarySearchAppBar() {
               </IconButton>
               <IconButton>
                 <NotificationsIcon
-                  style={{ color: "black" }}
+                              className={classes.icon}
                   onClick={() => {
                     navigate("/notifications");
                   }}
