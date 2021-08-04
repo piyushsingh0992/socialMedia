@@ -32,9 +32,35 @@ export let createPost = createAsyncThunk(
 );
 
 export let getUserPosts = createAsyncThunk(
-  "posts/getUserPosts",
+  "user/getUserPosts",
   async (userId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("GET", `post/${userId}/all`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export let follow = createAsyncThunk(
+  "user/follow",
+  async (followerId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("POST", `follow/${followerId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
+
+export let unFollow = createAsyncThunk(
+  "user/unFollow",
+  async (followerId, { fulfillWithValue, rejectWithValue }) => {
+    let response = await apiCall("DELETE", `follow/${followerId}`);
 
     if (response.success) {
       return fulfillWithValue(response);
@@ -143,6 +169,36 @@ export const userSlice = createSlice({
     [getUserPosts.rejected]: (state, action) => {
       state.status = "rejected";
       state.message = action.payload.message;
+    },
+
+    [follow.pending]: (state) => {
+      state.status = "loading";
+    },
+    [follow.fulfilled]: (state, action) => {
+      state.userDetails.following.unshift(action.payload.data.followerId);
+
+      state.status = "fullfilled";
+    },
+    [follow.rejected]: (state, action) => {
+      state.status = "rejected";
+    },
+
+    [unFollow.pending]: (state) => {
+      state.status = "loading";
+    },
+    [unFollow.fulfilled]: (state, action) => {
+      let followerId = action.payload.data.followerId;
+
+      state.userDetails.following = state.userDetails.following.filter(
+        (item) => {
+          return item != followerId;
+        }
+      );
+
+      state.status = "fullfilled";
+    },
+    [unFollow.rejected]: (state, action) => {
+      state.status = "rejected";
     },
   },
 });

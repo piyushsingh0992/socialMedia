@@ -46,32 +46,6 @@ export let signInFunction = createAsyncThunk(
   }
 );
 
-export let followFunction = createAsyncThunk(
-  "auth/followFunction",
-  async (followerId, { fulfillWithValue, rejectWithValue }) => {
-    let response = await apiCall("POST", `follow/${followerId}`);
-
-    if (response.success) {
-      return fulfillWithValue(response);
-    } else {
-      return rejectWithValue(response);
-    }
-  }
-);
-
-export let unFollowFunction = createAsyncThunk(
-  "auth/unFollowFunction",
-  async (followerId, { fulfillWithValue, rejectWithValue }) => {
-    let response = await apiCall("DELETE", `follow/${followerId}`);
-
-    if (response.success) {
-      return fulfillWithValue(response);
-    } else {
-      return rejectWithValue(response);
-    }
-  }
-);
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -79,13 +53,18 @@ export const authSlice = createSlice({
     status: "idle",
     error: null,
     message: null,
-    token: null,
+
     updateStatus: "idle",
-    userKey:null,
+
     signUp: {
       status: "idle",
       message: null,
     },
+
+    token: null,
+    userKey: null,
+    userName: null,
+    profileImage: null,
   },
   reducers: {
     addPostToUserPostArray: (state, action) => {
@@ -119,10 +98,11 @@ export const authSlice = createSlice({
 
     signInfromLocalStorage: (state, action) => {
       state.status = "fullfilled";
-      state.message = action.payload.message;
+      state.message = "Logen in";
       state.token = action.payload.token;
-      state.userDetails = action.payload.userDetails;
-      state.userKey=action.payload.userKey;
+      state.userKey = action.payload.userKey;
+      state.userName = action.payload.userName;
+      state.profileImage = action.payload.profileImage;
     },
   },
   extraReducers: {
@@ -144,14 +124,17 @@ export const authSlice = createSlice({
     [signInFunction.fulfilled]: (state, action) => {
       state.status = "fullfilled";
       state.message = action.payload.message;
+
       state.token = action.payload.data.token;
-      state.userDetails = action.payload.data.userDetails;
-      state.userKey=action.payload.data.userDetails._id
+      state.userKey = action.payload.data.userDetails._id;
+      state.userName = action.payload.data.userDetails.userName;
+      state.profileImage = action.payload.data.userDetails.profileImage;
 
       logInLocal({
         token: action.payload.data.token,
-        userDetails: action.payload.data.userDetails,
-        userKey:action.payload.data.userDetails._id
+        userKey: action.payload.data.userDetails._id,
+        userName: action.payload.data.userDetails.userName,
+        profileImage: action.payload.data.userDetails.profileImage,
       });
     },
     [signInFunction.rejected]: (state, action) => {
@@ -166,8 +149,8 @@ export const authSlice = createSlice({
       state.updateStatus = "fullfilled";
       state.message = action.payload.message;
       state.token = action.payload.data.token;
-      state.userName=action.payload.data.userDetails.userName
-      state.profileImage=action.payload.data.userDetails.profileImage
+      state.userName = action.payload.data.userDetails.userName;
+      state.profileImage = action.payload.data.userDetails.profileImage;
       state.userDetails = action.payload.data.userDetails;
 
       localStorage.setItem(
@@ -181,37 +164,6 @@ export const authSlice = createSlice({
     [updateFunction.rejected]: (state, action) => {
       state.updateStatus = "rejected";
       state.message = action.payload.message;
-    },
-
-    [followFunction.pending]: (state) => {
-      state.status = "loading";
-    },
-    [followFunction.fulfilled]: (state, action) => {
-      state.userDetails.following.unshift(action.payload.data.followerId);
-      addFollowingLocal(action.payload.data.followerId);
-      state.status = "fullfilled";
-    },
-    [followFunction.rejected]: (state, action) => {
-      state.status = "rejected";
-    },
-
-    [unFollowFunction.pending]: (state) => {
-      state.status = "loading";
-    },
-    [unFollowFunction.fulfilled]: (state, action) => {
-      let followerId = action.payload.data.followerId;
-
-      state.userDetails.following = state.userDetails.following.filter(
-        (item) => {
-          return item != followerId;
-        }
-      );
-      removeFollowingLocal(action.payload.data.followerId);
-
-      state.status = "fullfilled";
-    },
-    [unFollowFunction.rejected]: (state, action) => {
-      state.status = "rejected";
     },
   },
 });

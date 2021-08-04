@@ -4,18 +4,14 @@ import Button from "@material-ui/core/Button";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  followFunction,
-  unFollowFunction,
-} from "../../container/loginContainer/authSlice";
+import { follow, unFollow } from "../../container/profileContainer/userSlice";
 const FollowButton = ({ userId, suggestion }) => {
   const [follower, followerSetter] = useState(false);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
   const [loader, loaderSetter] = useState(false);
   useEffect(() => {
-    
-    let present = user.userDetails.following.find((item) => item === userId);
+    let present = user.userDetails?.following.find((item) => item === userId);
     if (present) {
       followerSetter(true);
     } else {
@@ -27,26 +23,15 @@ const FollowButton = ({ userId, suggestion }) => {
     }
   }, [userId, user]);
 
-  function activateLoader() {
-    loaderSetter(true);
-  }
-
   const classes = useStyles();
-  function follow(userId) {
-    dispatch(followFunction(userId));
-  }
-
-  function unFollow(userId) {
-    dispatch(unFollowFunction(userId));
-  }
 
   if (suggestion) {
     return follower ? (
       <h4
         style={{ color: "black" }}
         onClick={() => {
-          activateLoader();
-          unFollow(userId);
+          loaderSetter(true);
+          dispatch(unFollow(userId));
         }}
       >
         {loader ? "loading..." : "unFollow"}
@@ -55,8 +40,8 @@ const FollowButton = ({ userId, suggestion }) => {
       <h4
         style={{ color: "blue" }}
         onClick={() => {
-          activateLoader();
-          follow(userId);
+          loaderSetter(true);
+          dispatch(follow(userId));
         }}
       >
         {loader ? "loading..." : "Follow"}
@@ -70,8 +55,8 @@ const FollowButton = ({ userId, suggestion }) => {
       color="primary"
       className={classes.unFollowButton}
       onClick={() => {
-        activateLoader();
-        unFollow(userId);
+        loaderSetter(true);
+        dispatch(unFollow(userId));
       }}
     >
       {loader ? "loading..." : "unFollow"}
@@ -82,8 +67,8 @@ const FollowButton = ({ userId, suggestion }) => {
       color="primary"
       className={classes.followButton}
       onClick={() => {
-        activateLoader();
-        follow(userId);
+        loaderSetter(true);
+        dispatch(follow(userId));
       }}
     >
       {loader ? "loading..." : "Follow"}

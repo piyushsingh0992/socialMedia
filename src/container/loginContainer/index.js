@@ -8,22 +8,21 @@ import {
   setupAuthHeader,
   setupAuthExceptionHandler,
 } from "../../utils/common.js";
-import {  useDispatch, } from "react-redux";
-
-import {
-  resetauthSlice,
-} from "./authSlice";
+import { useDispatch } from "react-redux";
+import {getUserDetails} from "../profileContainer/userSlice";
+import { resetauthSlice } from "./authSlice";
 export default function LoginContainer() {
   const [currentUser, currentUserSetter] = useState(true);
   const navigate = useNavigate();
   const { state } = useLocation();
   const auth = useSelector((state) => state.auth);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (auth.token) {
       setupAuthHeader(auth.token);
       setupAuthExceptionHandler(resetauthSlice, navigate, dispatch);
+      dispatch(getUserDetails(auth.userKey));
       navigate(state && state.from ? state.from : "/");
     }
   }, [auth]);
