@@ -3,7 +3,7 @@ import { apiCall } from "../../services/apiCall";
 import { current } from "immer";
 
 export const getCurrentPost = createAsyncThunk(
-  "currentPost/getCurrentPost",
+  "post/getCurrentPost",
   async (postId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("GET", `post/${postId}`);
 
@@ -16,7 +16,7 @@ export const getCurrentPost = createAsyncThunk(
 );
 
 export const deleteCurrentPost = createAsyncThunk(
-  "currentPost/deleteCurrentPost",
+  "post/deleteCurrentPost",
 
   async (postId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("DELETE", `post/${postId}`);
@@ -30,7 +30,7 @@ export const deleteCurrentPost = createAsyncThunk(
 );
 
 export const likePost = createAsyncThunk(
-  "currentPost/likePost",
+  "post/likePost",
   async (postId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", `like/${postId}`);
 
@@ -43,7 +43,7 @@ export const likePost = createAsyncThunk(
 );
 
 export const unLikePost = createAsyncThunk(
-  "currentPost/unLikePost",
+  "post/unLikePost",
   async (postId, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("DELETE", `like/${postId}`);
 
@@ -56,7 +56,7 @@ export const unLikePost = createAsyncThunk(
 );
 
 export const addComment = createAsyncThunk(
-  "currentPost/addComment",
+  "post/addComment",
 
   async ({ postId, text }, { fulfillWithValue, rejectWithValue }) => {
     let response = await apiCall("POST", `comment/${postId}`, {
@@ -72,7 +72,7 @@ export const addComment = createAsyncThunk(
 );
 
 export const postSlice = createSlice({
-  name: "currentPost",
+  name: "post",
   initialState: {
     currentPost: null,
     status: "idle",
