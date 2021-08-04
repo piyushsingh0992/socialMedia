@@ -85,14 +85,14 @@ export default function UploadButton({ menuItem }) {
         <label htmlFor="icon-button-file">
           <MenuItem>
             <IconButton>
-              <PhotoCamera style={{ color: "black" }} />
+              <PhotoCamera className={classes.icon} />
             </IconButton>
             <Typography varient="p">Upload</Typography>
           </MenuItem>
         </label>
       ) : (
         <IconButton>
-          <PhotoCamera style={{ color: "black" }} />
+          <PhotoCamera className={classes.icon} />
         </IconButton>
       )}
 

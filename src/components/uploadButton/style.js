@@ -40,6 +40,10 @@ export const useStyles = makeStyles((theme) => ({
   card: {
     margin: "1.5rem 0",
   },
+
+  icon:{
+    color:"black"
+  },
   media: {
     height: 0,
     maxHeight: "350vh",
