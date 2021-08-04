@@ -6,8 +6,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import "./style.css";
 import { apiCall } from "../../apiCall";
+import Typography from "@material-ui/core/Typography";
 import SuggestionRow from "../suggestionRow";
-import { tsNonNullExpression } from "@babel/types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,8 @@ export const Suggestion = () => {
   return (
     <Card className={`${classes.root} suggestionBox`}>
       <CardContent>
-        <h2 style={{ padding: " 0 0.5rem", margin: "0.5rem" }}>Suggestions</h2>
+        <Typography variant="h6">Suggestions</Typography>
+
         {suggestion ? (
           suggestion.map((item) => {
             return <SuggestionRow userDetails={item} />;
