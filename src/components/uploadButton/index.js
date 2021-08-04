@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import PostHeader from "../postHeader";
 import { useNavigate } from "react-router";
+import CircularProgress from "@material-ui/core/CircularProgress";
 export default function UploadButton({ menuItem }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
@@ -142,7 +143,11 @@ export default function UploadButton({ menuItem }) {
                 );
               }}
             >
-              {user.status === "loading" ? "Uploading..." : "Post"}
+              {user.status === "loading" ? (
+                <CircularProgress size={28} color="white" />
+              ) : (
+                "Post"
+              )}
             </Button>
           </Grid>
         </div>

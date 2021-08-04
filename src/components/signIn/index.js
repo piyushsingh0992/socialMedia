@@ -9,7 +9,7 @@ import logo from "../../assets/logo.png";
 
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   signInFunction,
   resetauthSlice,
@@ -83,7 +83,7 @@ export default function SignIn({
               dispatch(signInFunction(signInDetails));
             }}
           >
-            {user.status === "loading" ? "loading..." : "Sign In"}
+            {user.status === "loading" ? <CircularProgress size={28} color="white"/> : "Sign In"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid

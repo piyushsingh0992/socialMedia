@@ -16,6 +16,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { editUserDetails } from "../../container/profileContainer/userSlice";
 import {restAuthToken} from "../../container/loginContainer/authSlice";
 import UploadImage from "../uploadImage";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 
 export default function EditProfileModal() {
   const classes = useStyles();
@@ -212,12 +214,12 @@ export default function EditProfileModal() {
                   dispatch(editUserDetails(userDetails));
                 }}
               >
-                {user.status === "loading" ? "loading..." : "Save"}
+                {user.status === "loading" ? <CircularProgress size={28} color="white"/> : "Save"}
               </Button>
             </Grid>
           </div>
         ) : (
-          <h1>loading</h1>
+<CircularProgress size={28} color="white"/>
         )}
       </Modal>
     </div>

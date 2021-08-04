@@ -16,6 +16,7 @@ import { check, successSignUp } from "./common.js";
 import { useSelector, useDispatch } from "react-redux";
 
 import { signUpFunction } from "../../container/loginContainer/authSlice";
+import CircularProgress from "@material-ui/core/CircularProgress";
 export default function SignUp({
   currentUserSetter,
   signUpDetails,
@@ -56,8 +57,10 @@ export default function SignUp({
   }, [auth.status]);
 
   async function submitHandler() {
+    
     if (check(signUpDetails)) {
       toast.error("please fill in all the details");
+      loaderSetter(false);
       return;
     }
 
@@ -163,7 +166,7 @@ export default function SignUp({
               submitHandler();
             }}
           >
-            {loader ? "loading..." : "Sign Up"}
+            {loader ? <CircularProgress size={28} color="white"/> : "Sign Up"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid

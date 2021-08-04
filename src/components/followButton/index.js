@@ -3,7 +3,7 @@ import { useStyles } from "./style.js";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { follow, unFollow } from "../../container/profileContainer/userSlice";
 const FollowButton = ({ userId, suggestion }) => {
   const [follower, followerSetter] = useState(false);
@@ -36,7 +36,7 @@ const FollowButton = ({ userId, suggestion }) => {
           dispatch(unFollow(userId));
         }}
       >
-        {loader ? "loading..." : "unFollow"}
+        {loader ? <CircularProgress size={26} /> : "unFollow"}
       </Typography>
     ) : (
       <Typography
@@ -47,13 +47,14 @@ const FollowButton = ({ userId, suggestion }) => {
           dispatch(follow(userId));
         }}
       >
-        {loader ? "loading..." : "Follow"}
+        {loader ? <CircularProgress size={26} /> : "Follow"}
       </Typography>
     );
   }
 
   return follower ? (
     <Button
+      fullWidth
       variant="contained"
       color="primary"
       className={classes.unFollowButton}
@@ -62,10 +63,11 @@ const FollowButton = ({ userId, suggestion }) => {
         dispatch(unFollow(userId));
       }}
     >
-      {loader ? "loading..." : "unFollow"}
+      {loader ? <CircularProgress size={26} /> : "unFollow"}
     </Button>
   ) : (
     <Button
+    fullWidth
       variant="contained"
       color="primary"
       className={classes.followButton}
@@ -74,7 +76,7 @@ const FollowButton = ({ userId, suggestion }) => {
         dispatch(follow(userId));
       }}
     >
-      {loader ? "loading..." : "Follow"}
+      {loader ? <CircularProgress size={26} color="white" /> : "Follow"}
     </Button>
   );
 };
