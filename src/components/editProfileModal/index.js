@@ -96,7 +96,7 @@ export default function EditProfileModal() {
     <div>
       <EditOutlinedIcon
         onClick={handleOpen}
-        style={{ cursor: "pointer", marginLeft: "1rem", fontSize: 38 }}
+        className={classes.icon}
       />
 
       <Modal

@@ -5,12 +5,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import useLogout from "../../customHooks/logout";
+import { useStyles } from "./style.js";
 const LogoutButton = ({
   mobileview,
   handleMenuClose,
   handleMobileMenuClose,
 }) => {
   const clearingStore = useLogout();
+  const classes = useStyles();
 
   function logout() {
     clearingStore();
@@ -21,7 +23,7 @@ const LogoutButton = ({
   return mobileview ? (
     <MenuItem onClick={logout}>
       <IconButton>
-        <ExitToAppIcon style={{ color: "black" }} />
+        <ExitToAppIcon className={classes.icon} color="red" />
       </IconButton>
       Logout
     </MenuItem>

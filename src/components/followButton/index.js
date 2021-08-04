@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useStyles } from "./style.js";
 import Button from "@material-ui/core/Button";
-
+import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 
 import { follow, unFollow } from "../../container/profileContainer/userSlice";
@@ -27,7 +27,9 @@ const FollowButton = ({ userId, suggestion }) => {
 
   if (suggestion) {
     return follower ? (
-      <h4
+      <Typography
+        varient="h4"
+        color="textPrimary"
         style={{ color: "black" }}
         onClick={() => {
           loaderSetter(true);
@@ -35,17 +37,18 @@ const FollowButton = ({ userId, suggestion }) => {
         }}
       >
         {loader ? "loading..." : "unFollow"}
-      </h4>
+      </Typography>
     ) : (
-      <h4
-        style={{ color: "blue" }}
+      <Typography
+        varient="h4"
+        color="primary"
         onClick={() => {
           loaderSetter(true);
           dispatch(follow(userId));
         }}
       >
         {loader ? "loading..." : "Follow"}
-      </h4>
+      </Typography>
     );
   }
 

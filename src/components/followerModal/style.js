@@ -12,6 +12,7 @@ export function getModalStyle() {
 }
 
 export const useStyles = makeStyles((theme) => ({
+  root: { width: "350px", margin: "1rem 0" },
   paper: {
     position: "absolute",
     width: 400,

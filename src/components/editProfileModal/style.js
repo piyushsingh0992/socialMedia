@@ -33,4 +33,8 @@ export const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+
+  icon:{
+    cursor: "pointer", marginLeft: "1rem", fontSize: 38 
+  }
 }));

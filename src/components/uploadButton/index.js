@@ -80,20 +80,21 @@ export default function UploadButton({ menuItem }) {
         onChange={handleFileInputChange}
         value={fileInputState}
       />
-      <label htmlFor="icon-button-file">
-        {menuItem ? (
+
+      {menuItem ? (
+        <label htmlFor="icon-button-file">
           <MenuItem>
             <IconButton>
               <PhotoCamera style={{ color: "black" }} />
             </IconButton>
             Upload
           </MenuItem>
-        ) : (
-          <IconButton aria-label="upload picture" component="span">
-            <PhotoCamera style={{ color: "black" }} />
-          </IconButton>
-        )}
-      </label>
+        </label>
+      ) : (
+        <IconButton>
+          <PhotoCamera style={{ color: "black" }} />
+        </IconButton>
+      )}
 
       <Modal
         open={open}

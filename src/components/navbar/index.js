@@ -85,16 +85,7 @@ export default function PrimarySearchAppBar() {
           navigate(`/profile/${auth.userKey}`);
         }}
       >
-        <Avatar
-          style={{
-            height: "30px",
-            width: "30px",
-            margin: "10px",
-            objectFit: "contain",
-          }}
-          className={classes.avatar}
-          src={auth.profileImage}
-        />
+        <Avatar className={classes.avatarMobile} src={auth.profileImage} />
         Profile
       </MenuItem>
       <MenuItem
@@ -114,7 +105,8 @@ export default function PrimarySearchAppBar() {
       >
         <IconButton>
           <NotificationsIcon
-            style={{ color: "black", padding: "0px !important" }}
+            className={classes.icon}
+            style={{ padding: "0px !important" }}
           />
         </IconButton>
         Notifications
@@ -172,15 +164,7 @@ export default function PrimarySearchAppBar() {
                 aria-controls={menuId}
                 onClick={handleProfileMenuOpen}
               >
-                <Avatar
-                  style={{
-                    height: "25px",
-                    width: "25px",
-                    objectFit: "contain",
-                  }}
-                  className={classes.avatar}
-                  src={auth.profileImage}
-                />
+                <Avatar className={classes.avatar} src={auth.profileImage} />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>

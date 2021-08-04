@@ -2,20 +2,32 @@ import { alpha, makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    position:"sticky",
-    top:"0vh",
-    color:"white",
-    zIndex:"10"
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "sticky",
+    top: "0vh",
+    color: "white",
+    zIndex: "10",
   },
 
-  toolBox:{
-    background:theme.palette.secondary
-    
+  toolBox: {
+    background: theme.palette.secondary,
   },
-
+  icon:{
+    color: "black"
+  },
+  avatarMobile: {
+    height: "30px",
+    width: "30px",
+    margin: "10px",
+    objectFit: "contain",
+  },
+  avatar: {
+    height: "25px",
+    width: "25px",
+    objectFit: "contain",
+  },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
@@ -26,7 +38,7 @@ export const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "#CACCCE",
-    
+
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",

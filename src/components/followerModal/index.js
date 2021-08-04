@@ -11,14 +11,16 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const FollowerModalRow = ({ userDetails }) => {
+  const classes = useStyles();
+
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.userDetails);
+  const auth = useSelector((state) => state.auth);
   return (
     <Grid
       container
       justifyContent="space-around"
       alignItems="center"
-      style={{ width: "350px", margin: "1rem 0" }}
+      className={classes.root}
     >
       <Grid item xs={2}>
         <Avatar
@@ -46,22 +48,19 @@ const FollowerModalRow = ({ userDetails }) => {
         <Typography>{userDetails.pronouns}</Typography>
       </Grid>
       <Grid item xs={2}>
-        {userDetails._id !=user._id &&
-                  <FollowButton userId={userDetails._id} />
-        }
-
+        {userDetails._id != auth.userKey && (
+          <FollowButton userId={userDetails._id} />
+        )}
       </Grid>
     </Grid>
   );
 };
 
-export default function FollowerModal({
-  title,
+export default function FollowerModalFollowerModal({
   numbers,
-  following,
-  follower,
+
   type,
-  userId
+  userId,
 }) {
   const classes = useStyles();
 
@@ -80,14 +79,15 @@ export default function FollowerModal({
   useEffect(() => {
     if (open) {
       (async function () {
-        let { data, success, message } = await apiCall("GET", `follow/${type}/${userId}`);
+        let { data, success, message } = await apiCall(
+          "GET",
+          `follow/${type}/${userId}`
+        );
         if (success) {
           userArraySetter(data.list);
         } else {
           userArraySetter([]);
         }
-
-        
       })();
     }
     return () => {
