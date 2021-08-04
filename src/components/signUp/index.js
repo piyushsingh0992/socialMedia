@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -28,7 +28,7 @@ export default function SignUp({
   const classes = useStyles();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-
+  const [loader, loaderSetter] = useState(false);
   const handleChange = (event) => {
     const name = event.target.name;
     signUpDetailsSetter((state) => {
@@ -47,20 +47,25 @@ export default function SignUp({
     toast,
   };
   useEffect(() => {
-    if (auth.status === "fullfilled") {
-      successSignUp(successSignUpProps, auth.message);
-      // dispatch(resetSignUpState());
-    } else if (auth.status === "rejected") {
-      toast.error(auth.message);
-      // dispatch(resetSignUpState());
+   
+    if (loader) {
+      if (auth.status === "fullfilled") {
+        successSignUp(successSignUpProps, auth.message);
+        loaderSetter(false);
+      } else if (auth.status === "rejected") {
+        toast.error(auth.message);
+        loaderSetter(false);
+      }
     }
   }, [auth.status]);
 
   async function submitHandler() {
+    
     if (check(signUpDetails)) {
       toast.error("please fill in all the details");
       return;
     }
+
     dispatch(signUpFunction(signUpDetails));
   }
 
@@ -159,10 +164,12 @@ export default function SignUp({
             color="primary"
             className={classes.submit}
             onClick={() => {
+              
+              loaderSetter(true);
               submitHandler();
             }}
           >
-            {auth.status === "loading" ? "loading..." : "Sign Up"}
+            {loader ? "loading..." : "Sign Up"}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid
