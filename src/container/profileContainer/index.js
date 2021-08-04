@@ -18,37 +18,66 @@ export default function ProfileContainer() {
   let { userId } = useParams();
 
   useEffect(() => {
-    if (user.userDetails === null) {
-      dispatch(getUserDetails(userId));
-      dispatch(getUserPosts(userId));
-    } else if (user.userDetails && user.userDetails._id !== userId) {
-      dispatch(getUserDetails(userId));
-      dispatch(getUserPosts(userId));
+    if (auth.userKey === userId) {
+      if (user.userDetails === null) {
+        dispatch(getUserDetails(userId));
+      }
+    } else {
+      (async function () {
+        let response = await apiCall("GET", `user/${userId}`);
+        if (response.success) {
+          userDetailsSetter(response.data.userDetails);
+        } else {
+          userDetailsSetter({
+            userName: "User Not found",
+          });
+        }
+      })();
     }
   }, [userId]);
 
   useEffect(() => {
-    if (user.status === "fullfilled" && user.userDetails?._id === userId) {
-      
-      isUserProfileSetter(auth.userKey === userId);
-      userDetailsSetter(user.userDetails);
-    } else if (user.status === "rejected") {
-      isUserProfileSetter(auth.userKey === userId);
-      userDetailsSetter({
-        userName: "User Not found",
-      });
+    if (auth.userKey === userId) {
+      if (user.userDetails === null) {
+        dispatch(getUserPosts(userId));
+      }
+    } else {
+      (async function () {
+        let response = await apiCall("GET", `post/${userId}/all`);
+
+        if (response.success) {
+          postArraySetter(response.data.posts);
+        } else {
+          postArraySetter([]);
+        }
+      })();
     }
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => {
-    if (user.status === "fullfilled" && user.userDetails?._id === userId) {
-      
-      postArraySetter(user.userPosts);
-    } else if (user.status === "rejected") {
-      postArraySetter([]);
-      toast.error(user.message);
+    if (user.userDetails?._id === userId) {
+      if (user.status === "fullfilled") {
+        isUserProfileSetter(auth.userKey === userId);
+        userDetailsSetter(user.userDetails);
+      } else if (user.status === "rejected") {
+        isUserProfileSetter(auth.userKey === userId);
+        userDetailsSetter({
+          userName: "User Not found",
+        });
+      }
     }
-  }, [user]);
+  }, [user, userId]);
+
+  useEffect(() => {
+    if (user.userDetails?._id === userId) {
+      if (user.status === "fullfilled") {
+        postArraySetter(user.userPosts);
+      } else if (user.status === "rejected") {
+        postArraySetter([]);
+        toast.error(user.message);
+      }
+    }
+  }, [user, userId]);
 
   return (
     <div className="main-container">

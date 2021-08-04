@@ -64,6 +64,12 @@ export const userSlice = createSlice({
         });
       }
     },
+
+    updateUserDetails: (state, action) => {
+      if (action.payload.userDetails._id === action.payload.userDetails._id) {
+        state.userDetails = action.payload.userDetails;
+      }
+    },
     cleartUserDetails: (state) => {
       return {
         userDetails: null,
@@ -140,6 +146,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { resetUserSlice, deletePostFromUser ,updateUserPosts} = userSlice.actions;
+export const { resetUserSlice, deletePostFromUser, updateUserPosts } =
+  userSlice.actions;
 
 export default userSlice.reducer;
