@@ -114,7 +114,7 @@ export const postSlice = createSlice({
       state.currentPost = action.payload.data.post;
       state.message = action.payload.message;
       state.status = "fullfilled";
-      debugger;
+      
     },
     [likePost.rejected]: (state, action) => {
       state.message = action.payload.message;

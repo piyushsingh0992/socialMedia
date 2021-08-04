@@ -22,9 +22,7 @@ const CommentBox = ({ postId }) => {
   const currentPost = useSelector((state) => state.post);
 
   useEffect(() => {
-    
     if (loader) {
-      
       if (currentPost.status === "fullfilled") {
         dispatch(updateNewsFeed({ post: currentPost.currentPost }));
         dispatch(updateUserPosts({ post: currentPost.currentPost }));
@@ -48,23 +46,14 @@ const CommentBox = ({ postId }) => {
     }
   }
   return (
-    <CardContent
-      style={{
-        borderTop: "0.1px solid grey",
-        background: "white",
-        paddingTop: "0.8rem",
-        paddingBottom: "0.8rem",
-        marginTop: "0",
-        marginBottom: "0",
-      }}
-    >
+    <CardContent className={classes.root}>
       <Grid container wrap="nowrap" spacing={2}>
         <Grid
           item
           onClick={() => {
             navigate(`/profile/${auth.userKey}`);
           }}
-          style={{ cursor: "pointer" }}
+          className={classes.avatarGrid}
         >
           <Avatar src={auth.profileImage} />
         </Grid>
