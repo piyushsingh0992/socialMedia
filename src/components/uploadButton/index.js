@@ -11,7 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { toast } from "react-toastify";
 import { createPost } from "../../container/profileContainer/userSlice";
-
+import Typography from "@material-ui/core/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import PostHeader from "../postHeader";
 import { useNavigate } from "react-router";
@@ -87,7 +87,7 @@ export default function UploadButton({ menuItem }) {
             <IconButton>
               <PhotoCamera style={{ color: "black" }} />
             </IconButton>
-            Upload
+            <Typography varient="p">Upload</Typography>
           </MenuItem>
         </label>
       ) : (
