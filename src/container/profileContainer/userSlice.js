@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiCall } from "../../services/apiCall";
+import { apiCall } from "../../apiCall";
 import { current } from "immer";
 
 import { logInLocal } from "../../localStorage";

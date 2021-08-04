@@ -6,7 +6,7 @@ import ImageGrid from "../../components/imageGrid";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { apiCall } from "../../services/apiCall";
+import { apiCall } from "../../apiCall";
 import { getUserDetails, getUserPosts } from "./userSlice.js";
 export default function ProfileContainer() {
   const [userDetails, userDetailsSetter] = useState(null);

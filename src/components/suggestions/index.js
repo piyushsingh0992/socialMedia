@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import "./style.css";
-import { apiCall } from "../../services/apiCall";
+import { apiCall } from "../../apiCall";
 import SuggestionRow from "../suggestionRow";
 import { tsNonNullExpression } from "@babel/types";
 

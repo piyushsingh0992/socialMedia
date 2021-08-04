@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import FollowButton from "../followButton";
 import { getModalStyle, useStyles } from "./style.js";
-import { apiCall } from "../../services/apiCall";
+import { apiCall } from "../../apiCall";
 
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
