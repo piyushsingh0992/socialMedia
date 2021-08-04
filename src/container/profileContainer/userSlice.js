@@ -66,6 +66,7 @@ export const userSlice = createSlice({
     },
 
     updateUserDetails: (state, action) => {
+      console.log(current(state));
       if (action.payload.userDetails._id === action.payload.userDetails._id) {
         state.userDetails = action.payload.userDetails;
       }

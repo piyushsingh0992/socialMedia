@@ -166,6 +166,8 @@ export const authSlice = createSlice({
       state.updateStatus = "fullfilled";
       state.message = action.payload.message;
       state.token = action.payload.data.token;
+      state.userName=action.payload.data.userDetails.userName
+      state.profileImage=action.payload.data.userDetails.profileImage
       state.userDetails = action.payload.data.userDetails;
 
       localStorage.setItem(

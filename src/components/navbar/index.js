@@ -26,7 +26,8 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  let user = useSelector((state) => state.auth.userDetails);
+  let auth = useSelector((state) => state.auth);
+  debugger;
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -41,7 +42,7 @@ export default function PrimarySearchAppBar() {
   };
 
   const handleProfileMenuClose = () => {
-    navigate(`/profile/${user._id}`);
+    navigate(`/profile/${auth.userKey}`);
     handleMenuClose();
   };
 
@@ -82,7 +83,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem
         onClick={() => {
-          navigate(`/profile/${user._id}`);
+          navigate(`/profile/${auth.userKey}`);
         }}
       >
         <Avatar
@@ -93,7 +94,7 @@ export default function PrimarySearchAppBar() {
             objectFit: "contain",
           }}
           className={classes.avatar}
-          src={user.profileImage}
+          src={auth.profileImage}
         />
         Profile
       </MenuItem>
@@ -179,7 +180,7 @@ export default function PrimarySearchAppBar() {
                     objectFit: "contain",
                   }}
                   className={classes.avatar}
-                  src={user.profileImage}
+                  src={auth.profileImage}
                 />
               </IconButton>
             </div>
