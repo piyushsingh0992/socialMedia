@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { store } from './app/store';
-import { Provider } from 'react-redux';
+import { store } from "./app/store";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { createTheme ,ThemeProvider} from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createTheme({
   palette: {
@@ -13,9 +13,17 @@ const theme = createTheme({
       main: "rgb(40,103,178)",
     },
     secondary: {
-      main: "rgb(255,255,255)"
-    }
-
+      main: "rgb(255,255,255)",
+    },
+  },
+  overrides: {
+    MuiTooltip: {
+      tooltip: {
+        cursor: "pointer",
+        fontSize: "0.7rem",
+        padding:"0.5rem",
+      },
+    },
   },
 });
 
@@ -23,12 +31,11 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ThemeProvider theme={theme}>
-      <Provider store={store}>
-      <App />
-      </Provider>
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ThemeProvider>
     </Router>
-  </React.StrictMode>
-  ,
+  </React.StrictMode>,
   document.getElementById("root")
 );

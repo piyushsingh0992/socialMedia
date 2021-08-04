@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import FollowButton from "../followButton";
 import { useNavigate } from "react-router-dom";
+import { UserToolTip } from "../userToolTip";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -50,7 +51,14 @@ export const SuggestionRow = ({ userDetails }) => {
         <Grid container justifyContent="space-between">
           <Grid item xs={6}>
             <Typography variant="h6" color="textPrimary" component="span">
-              {userDetails.userName}
+              {userDetails.userName.length > 8 ? (
+                <UserToolTip
+                  text={userDetails.userName.slice(0, 8) + "..."}
+                  toolTipText={userDetails.userName}
+                />
+              ) : (
+                `${userDetails.userName}`
+              )}
             </Typography>
             <Typography variant="p" color="textSecondary" component="p">
               {userDetails.pronouns}
