@@ -20,10 +20,11 @@ export default function UploadImage({ text, name, changeHanlder }) {
       />
       <label htmlFor={`${name}-file`}>
         <MenuItem
-          style={{ color: "white", background: "blue", borderRadius: "10px" }}
+          className={classes.menu}
+          // style={{ color: "white", background: "blue", borderRadius: "10px" }}
         >
           <IconButton>
-            <CloudUploadIcon style={{ color: "white" }} />
+            <CloudUploadIcon className={classes.icon} />
           </IconButton>
           {text}
         </MenuItem>

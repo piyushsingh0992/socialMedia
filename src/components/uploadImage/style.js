@@ -19,6 +19,21 @@ export const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
+
+  menu: {
+    color: "white",
+    background: "blue",
+    borderRadius: "10px",
+    "&:hover": {
+      color: "white",
+      background: "blue",
+      borderRadius: "10px",
+    },
+  },
+
+  icon: {
+    color: "white",
+  },
   paper: {
     position: "absolute",
     minWidth: 450,
