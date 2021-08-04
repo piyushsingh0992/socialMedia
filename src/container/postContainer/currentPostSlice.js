@@ -80,12 +80,7 @@ export const currentPostSlice = createSlice({
     deleteStatus: "idle",
   },
   reducers: {
-    resetCurrentPostSlice: (state) => {
-      state.currentPost= null;
-      state.status= "idle";
-      state.message= null;
-      state.deleteStatus= "idle";
-    },
+    
   },
   extraReducers: {
     [getCurrentPost.pending]: (state) => {
@@ -153,6 +148,6 @@ export const currentPostSlice = createSlice({
   },
 });
 
-export const { resetCurrentPostSlice } = currentPostSlice.actions;
+export const {  } = currentPostSlice.actions;
 
 export default currentPostSlice.reducer;
