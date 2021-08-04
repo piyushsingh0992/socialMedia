@@ -15,7 +15,7 @@ const CommentBox = ({ postId }) => {
   const classes = useStyles();
   const [text, textSetter] = useState("");
   let post = useSelector((state) => state.newsFeed);
-  let user = useSelector((state) => state.auth.userDetails);
+  let auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loader, loaderSetter] = useState(false);
@@ -62,11 +62,11 @@ const CommentBox = ({ postId }) => {
         <Grid
           item
           onClick={() => {
-            navigate(`/profile/${user._id}`);
+            navigate(`/profile/${auth.userKey}`);
           }}
           style={{ cursor: "pointer" }}
         >
-          <Avatar src={user.profileImage} />
+          <Avatar src={auth.profileImage} />
         </Grid>
         <Grid item xs>
           {loader ? (

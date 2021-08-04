@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../services/apiCall";
-import { logInLocal, addPostLocal } from "../../localStorage";
+import { logInLocal } from "../../localStorage";
 import { current } from "immer";
 
 export let signUpFunction = createAsyncThunk(
@@ -32,13 +32,8 @@ export let signInFunction = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    userDetails: {},
     status: "idle",
-    error: null,
     message: null,
-
-    updateStatus: "idle",
-
     token: null,
     userKey: null,
     userName: null,
@@ -51,15 +46,13 @@ export const authSlice = createSlice({
 
     resetauthSlice: (state) => {
       return {
-        userDetails: {},
         status: "idle",
-        message: "",
-        updateStatus: "idle",
+        message: null,
         token: null,
+        userKey: null,
+        userName: null,
+        profileImage: null,
       };
-    },
-    resetingupdateStatus: (state) => {
-      state.updateStatus = "idle";
     },
 
     signInfromLocalStorage: (state, action) => {
@@ -113,7 +106,7 @@ export const authSlice = createSlice({
 export const {
   resetauthSlice,
   signInfromLocalStorage,
-  resetingupdateStatus,
+
   addUserPost,
   restAuthToken,
 } = authSlice.actions;
