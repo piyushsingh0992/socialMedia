@@ -38,7 +38,7 @@ export default function Post({ postDetails }) {
       <CardMedia
         className={classes.media}
         image={postDetails.img.url}
-        title="Paella dish"
+       
       />
 
       {postDetails.caption && (
