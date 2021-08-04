@@ -120,14 +120,10 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" color="secondary" style={{ boxShadow: "none" }}>
         <Container fixed maxWidth="md">
-          <Toolbar style={{ minHeigh: "48px" }}>
+          <Toolbar style={{ maxHeight: "48px" }}>
             <img
               src={logo}
-              style={{
-                height: "50px",
-                objectFit: "contain",
-                cursor: "pointer",
-              }}
+              className={classes.img}
               onClick={() => {
                 navigate("/");
               }}
