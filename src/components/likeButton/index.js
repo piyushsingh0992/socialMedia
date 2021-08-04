@@ -8,7 +8,7 @@ import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
 import {
   likePost,
   unLikePost,
-} from "../../container/postContainer/currentPostSlice";
+} from "../../container/postContainer/postSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { updateNewsFeed } from "../../container/newsFeedContainer/newsFeedSlice";
 import { updateUserPosts } from "../../container/profileContainer/userSlice";
@@ -35,7 +35,7 @@ const LikeButton = ({ likesArray, postId }) => {
   }, [currentPost]);
 
   useEffect(() => {
-   
+    debugger;
     let present = likesArray.find((item) => item === user.userDetails._id);
     if (present) {
       likedSetter(true);

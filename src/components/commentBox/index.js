@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { addComment } from "../../container/postContainer/currentPostSlice";
+import { addComment } from "../../container/postContainer/postSlice";
 import { updateNewsFeed } from "../../container/newsFeedContainer/newsFeedSlice";
 import { updateUserPosts } from "../../container/profileContainer/userSlice";
 const CommentBox = ({ postId }) => {

@@ -5,7 +5,7 @@ import PostPreview from "../../components/postPreview";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCurrentPost } from "./currentPostSlice";
+import { getCurrentPost } from "./postSlice";
 import { deletePostFromUser } from "../profileContainer/userSlice";
 export default function PostContainer() {
   const [currentPostDetails, currentPostDetailsSetter] = useState(null);
@@ -26,7 +26,7 @@ export default function PostContainer() {
   }, [currentPost]);
 
   useEffect(() => {
-    if (loader) {
+    if (loader || currentPost.currentPost?._id === currentPostDetails?._id) {
       if (currentPost.status === "fullfilled") {
         currentPostDetailsSetter(currentPost.currentPost);
         loaderSetter(false);

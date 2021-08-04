@@ -71,7 +71,7 @@ export const addComment = createAsyncThunk(
   }
 );
 
-export const currentPostSlice = createSlice({
+export const postSlice = createSlice({
   name: "currentPost",
   initialState: {
     currentPost: null,
@@ -114,6 +114,7 @@ export const currentPostSlice = createSlice({
       state.currentPost = action.payload.data.post;
       state.message = action.payload.message;
       state.status = "fullfilled";
+      debugger;
     },
     [likePost.rejected]: (state, action) => {
       state.message = action.payload.message;
@@ -148,6 +149,6 @@ export const currentPostSlice = createSlice({
   },
 });
 
-export const {  } = currentPostSlice.actions;
+export const {  } = postSlice.actions;
 
-export default currentPostSlice.reducer;
+export default postSlice.reducer;
