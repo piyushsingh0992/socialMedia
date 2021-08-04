@@ -58,7 +58,6 @@ export const postSlice = createSlice({
 
 export const {
   resetPostSlice,
-
   updateNewsFeed,
 } = postSlice.actions;
 

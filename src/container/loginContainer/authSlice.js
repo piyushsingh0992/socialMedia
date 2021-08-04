@@ -106,8 +106,6 @@ export const authSlice = createSlice({
 export const {
   resetauthSlice,
   signInfromLocalStorage,
-
-  addUserPost,
   restAuthToken,
 } = authSlice.actions;
 
