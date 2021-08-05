@@ -47,7 +47,7 @@ const FollowButton = ({ userId, suggestion }) => {
           dispatch(follow(userId));
         }}
       >
-        {loader ? <CircularProgress size={26} /> : "Follow"}
+        {loader ? <CircularProgress size={26} color="white"/> : "Follow"}
       </Typography>
     );
   }

@@ -8,6 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { apiCall } from "../../apiCall";
 import { getUserDetails, getUserPosts } from "./userSlice.js";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { useStyles } from "./style.js";
+import Typography from "@material-ui/core/Typography";
 export default function ProfileContainer() {
   const [userDetails, userDetailsSetter] = useState(null);
   const [isUserProfile, isUserProfileSetter] = useState(null);
@@ -16,6 +19,7 @@ export default function ProfileContainer() {
   let auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   let { userId } = useParams();
+  const classes = useStyles();
 
   useEffect(() => {
     if (auth.userKey === userId) {
@@ -90,16 +94,22 @@ export default function ProfileContainer() {
             isUserProfile={isUserProfile}
           />
         ) : (
-          <h1>loading</h1>
+          <div className={classes.root}>
+            <CircularProgress size={88} />
+          </div>
         )}
         {postArray ? (
           postArray.length > 0 ? (
             <ImageGrid postArray={postArray} />
           ) : (
-            <h1>No Posts</h1>
+            <div className={classes.nopost}>
+              <Typography variant="h3">No Posts</Typography>
+            </div>
           )
         ) : (
-          <h1>Loading</h1>
+          <div className={classes.root}>
+            <CircularProgress size={88} />
+          </div>
         )}
       </Container>
     </div>

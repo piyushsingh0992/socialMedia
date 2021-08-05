@@ -7,7 +7,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCurrentPost } from "./postSlice";
 import { deletePostFromUser } from "../profileContainer/userSlice";
+import { useStyles } from "./style.js";
+import CircularProgress from "@material-ui/core/CircularProgress";
 export default function PostContainer() {
+  const classes = useStyles();
   const [currentPostDetails, currentPostDetailsSetter] = useState(null);
   let currentPost = useSelector((state) => state.post);
   let auth = useSelector((state) => state.auth);
@@ -49,7 +52,9 @@ export default function PostContainer() {
         {currentPostDetails ? (
           <PostPreview currentPost={currentPostDetails} />
         ) : (
-          <h1>loading</h1>
+          <div className={classes.loading}>
+            <CircularProgress size={150} />
+          </div>
         )}
       </Container>
     </div>

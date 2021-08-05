@@ -5,10 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { toast } from "react-toastify";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteOutlined";
-import {
-  likePost,
-  unLikePost,
-} from "../../container/postContainer/postSlice";
+import { likePost, unLikePost } from "../../container/postContainer/postSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { updateNewsFeed } from "../../container/newsFeedContainer/newsFeedSlice";
 import { updateUserPosts } from "../../container/profileContainer/userSlice";
@@ -20,7 +17,6 @@ const LikeButton = ({ likesArray, postId }) => {
   const [loader, loaderSetter] = useState(false);
   const currentPost = useSelector((state) => state.post);
   useEffect(() => {
-    
     if (loader) {
       if (currentPost.status === "fullfilled") {
         dispatch(updateNewsFeed({ post: currentPost.currentPost }));
@@ -35,7 +31,7 @@ const LikeButton = ({ likesArray, postId }) => {
   }, [currentPost]);
 
   useEffect(() => {
-    
+    debugger;
     let present = likesArray.find((item) => item === user.userDetails._id);
     if (present) {
       likedSetter(true);
@@ -56,25 +52,29 @@ const LikeButton = ({ likesArray, postId }) => {
 
   return liked ? (
     <IconButton onClick={unLike}>
-      <Typography color="textSecondary" variant="p">
+      <Typography
+        color="textSecondary"
+        variant="p"
+        style={{ paddingRight: "10px" }}
+      >
         {likesArray.length}
       </Typography>
       {loader ? (
-        <CircularProgress />
+        <CircularProgress size={28} />
       ) : (
-        <FavoriteOutlinedIcon style={{ color: "red", paddingLeft: "10px" }} />
+        <FavoriteOutlinedIcon style={{ color: "red" }} />
       )}
     </IconButton>
   ) : (
     <IconButton onClick={like}>
-      <Typography color="textSecondary" variant="p">
+      <Typography
+        color="textSecondary"
+        variant="p"
+        style={{ paddingRight: "10px" }}
+      >
         {likesArray.length}
       </Typography>
-      {loader ? (
-        <CircularProgress />
-      ) : (
-        <FavoriteBorderOutlinedIcon style={{ paddingLeft: "10px" }} />
-      )}
+      {loader ? <CircularProgress size={28} /> : <FavoriteBorderOutlinedIcon />}
     </IconButton>
   );
 };

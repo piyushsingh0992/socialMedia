@@ -59,7 +59,7 @@ const CommentBox = ({ postId }) => {
         </Grid>
         <Grid item xs>
           {loader ? (
-            <CircularProgress />
+            <CircularProgress size={30}/>
           ) : (
             <InputBase
               placeholder="Add a comment"

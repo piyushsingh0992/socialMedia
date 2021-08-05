@@ -8,17 +8,8 @@ import "./style.css";
 import { apiCall } from "../../apiCall";
 import Typography from "@material-ui/core/Typography";
 import SuggestionRow from "../suggestionRow";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: 270,
-    margin: "1.5rem 0",
-    maxHeight: "18rem",
-    padding: "0 0.5rem",
-    position: "sticky",
-    top: "10vh",
-  },
-}));
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { useStyles } from "./style.js";
 
 export const Suggestion = () => {
   const classes = useStyles();
@@ -46,7 +37,9 @@ export const Suggestion = () => {
             return <SuggestionRow userDetails={item} />;
           })
         ) : (
-          <h1>loading</h1>
+          <div className={classes.loading}>
+            <CircularProgress />
+          </div>
         )}
       </CardContent>
     </Card>

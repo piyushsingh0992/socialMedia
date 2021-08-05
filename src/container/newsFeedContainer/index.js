@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Navbar from "../../components/navbar";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Post from "../../components/post";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,12 +8,9 @@ import { toast } from "react-toastify";
 
 import Suggestions from "../../components/suggestions";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-  },
-}));
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { useStyles } from "./style.js";
+import Typography from "@material-ui/core/Typography";
 
 export default function NewsFeedContainer() {
   const classes = useStyles();
@@ -35,8 +31,16 @@ export default function NewsFeedContainer() {
 
       <Container className={classes.root} maxWidth="md">
         <Container fixed maxWidth="sm">
-          {newsFeed.status === "loading" && <h1>loading</h1>}
-          {newsFeed.status === "rejected" && <h1>Cann't load news feed </h1>}
+          {newsFeed.status === "loading" && (
+            <div className={classes.loading}>
+              <CircularProgress size={150} />
+            </div>
+          )}
+          {newsFeed.status === "rejected" && (
+            <div className={classes.loading}>
+              <Typography variant="h4">Cann't load news feed</Typography>
+            </div>
+          )}
           {newsFeed.status === "fullfilled" &&
             newsFeed.posts.map((item) => {
               return <Post postDetails={item} />;
