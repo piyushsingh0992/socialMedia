@@ -28,7 +28,6 @@ const CommentBox = ({ postId }) => {
         dispatch(updateUserPosts({ post: currentPost.currentPost }));
         loaderSetter(false);
         textSetter("");
-        toast.success(currentPost.message);
       } else if (currentPost.status === "rejected") {
         toast.error(post.message);
         loaderSetter(false);
@@ -59,7 +58,7 @@ const CommentBox = ({ postId }) => {
         </Grid>
         <Grid item xs>
           {loader ? (
-            <CircularProgress size={30}/>
+            <CircularProgress size={30} />
           ) : (
             <InputBase
               placeholder="Add a comment"

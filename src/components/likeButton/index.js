@@ -22,7 +22,7 @@ const LikeButton = ({ likesArray, postId }) => {
         dispatch(updateNewsFeed({ post: currentPost.currentPost }));
         dispatch(updateUserPosts({ post: currentPost.currentPost }));
         loaderSetter(false);
-        toast.success(currentPost.message);
+ 
       } else if (currentPost.status === "rejected") {
         loaderSetter(false);
         toast.error(currentPost.message);

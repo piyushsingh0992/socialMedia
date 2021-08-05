@@ -21,7 +21,7 @@ export default function PostContainer() {
   useEffect(() => {
     if (currentPost.deleteStatus === "fullfilled") {
       dispatch(deletePostFromUser({ postId: currentPost.currentPost._id }));
-      toast.success(currentPost.message);
+      
       navigate(`/profile/${auth.userKey}`);
     } else if (currentPost.deleteStatus === "rejected") {
       toast.error(currentPost.message);
