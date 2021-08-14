@@ -29,9 +29,12 @@ export default function ProfileContainer() {
     } else {
       (async function () {
         let response = await apiCall("GET", `user/${userId}`);
+
         if (response.success) {
+          
           userDetailsSetter(response.data.userDetails);
         } else {
+          
           userDetailsSetter({
             userName: "User Not found",
           });
@@ -62,12 +65,11 @@ export default function ProfileContainer() {
     if (user.userDetails?._id === userId) {
       if (user.status === "fullfilled") {
         isUserProfileSetter(auth.userKey === userId);
+        
         userDetailsSetter(user.userDetails);
       } else if (user.status === "rejected") {
-        isUserProfileSetter(auth.userKey === userId);
-        userDetailsSetter({
-          userName: "User Not found",
-        });
+        
+        toast.error(user.message)
       }
     }
   }, [user, userId]);

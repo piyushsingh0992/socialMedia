@@ -32,7 +32,7 @@ export default function EditProfileModal() {
   useEffect(() => {
     if (user.status === "fullfilled") {
       restAuthToken(localStorage.getItem("userDetails")?.token);
-      toast.success(user.message);
+      // toast.success(user.message);
       setOpen(false);
     } else if (user.status === "rejected") {
       toast.error(user.message);

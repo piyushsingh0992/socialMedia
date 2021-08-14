@@ -31,7 +31,7 @@ const LikeButton = ({ likesArray, postId }) => {
   }, [currentPost]);
 
   useEffect(() => {
-    debugger;
+    
     let present = likesArray.find((item) => item === user.userDetails._id);
     if (present) {
       likedSetter(true);

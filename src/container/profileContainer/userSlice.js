@@ -218,11 +218,13 @@ export const userSlice = createSlice({
 
     [editUserDetails.pending]: (state) => {
       state.status = "loading";
+      
     },
     [editUserDetails.fulfilled]: (state, action) => {
       state.status = "fullfilled";
       state.message = action.payload.message;
       state.userDetails = action.payload.data.userDetails;
+      
       logInLocal({
         token: action.payload.data.token,
         userKey: action.payload.data.userDetails._id,
@@ -234,6 +236,7 @@ export const userSlice = createSlice({
     [editUserDetails.rejected]: (state, action) => {
       state.status = "rejected";
       state.message = action.payload.message;
+      
     },
   },
 });
