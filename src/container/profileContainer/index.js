@@ -29,7 +29,7 @@ export default function ProfileContainer() {
     } else {
       (async function () {
         let response = await apiCall("GET", `user/${userId}`);
-        debugger;
+        
         if (response.success) {
           userDetailsSetter(response.data.userDetails);
         } else {
@@ -49,7 +49,7 @@ export default function ProfileContainer() {
     } else {
       (async function () {
         let response = await apiCall("GET", `post/${userId}/all`);
-        debugger;
+        
         if (response.success) {
           postArraySetter(response.data.posts);
         } else {

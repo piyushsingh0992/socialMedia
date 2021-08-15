@@ -114,7 +114,7 @@ export const userSlice = createSlice({
     },
 
     updateUserDetails: (state, action) => {
-      console.log(current(state));
+     
       if (action.payload.userDetails._id === action.payload.userDetails._id) {
         state.userDetails = action.payload.userDetails;
       }
@@ -127,7 +127,6 @@ export const userSlice = createSlice({
     },
 
     deletePostFromUser: (state, action) => {
-      console.log(current(state));
 
       if (state.userPosts) {
         state.userPosts = state.userPosts.filter(
@@ -139,7 +138,6 @@ export const userSlice = createSlice({
           (postId) => postId !== action.payload.postId
         );
       }
-      console.log(current(state));
     },
   },
   extraReducers: {

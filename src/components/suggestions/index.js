@@ -15,12 +15,10 @@ export const Suggestion = () => {
   const [loader, loaderSetter] = useState(true);
   const suggestion = useSelector((state) => state.suggestion);
   const user = useSelector((state) => state.user.userDetails);
-  console.log("user ->", user);
 
   const setSuggestionArray = (suggestions) => {
     suggestions = suggestions.filter((item) => {
-      if (user.following.includes(item._id)) {
-        debugger;
+      if (user.following.includes(item._id)) {   
         return false;
       }
       return true;
