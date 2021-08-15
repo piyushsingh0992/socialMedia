@@ -22,7 +22,7 @@ export default function EditProfileModal() {
   const classes = useStyles();
   const [imgUploadText, imgUploadTextSetter] = useState({
     coverImage: "upload Cover Image",
-    profileImage: "Upload profileImage",
+    profileImage: "Upload profile Image",
   });
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
@@ -42,9 +42,6 @@ export default function EditProfileModal() {
     let newUser = {
       coverImage: user.userDetails.coverImage,
       email: user.userDetails.email,
-      followers: user.userDetails.followers,
-      following: user.userDetails.following,
-      posts: user.userDetails.posts,
       profileImage: user.userDetails.profileImage,
       pronouns: user.userDetails.pronouns,
       sex: user.userDetails.sex,

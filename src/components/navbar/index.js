@@ -16,7 +16,7 @@ import Search from "../search";
 import { useStyles } from "./style.js";
 import { useNavigate } from "react-router-dom";
 import UploadButton from "../uploadButton";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import LogoutButton from "../logoutButton";
 import Typography from "@material-ui/core/Typography";
 export default function PrimarySearchAppBar() {
@@ -147,13 +147,12 @@ export default function PrimarySearchAppBar() {
                   }}
                 />
               </IconButton>
-              <IconButton>
-                <NotificationsIcon
-                  className={classes.icon}
-                  onClick={() => {
-                    navigate("/notifications");
-                  }}
-                />
+              <IconButton
+                onClick={() => {
+                  navigate("/notifications");
+                }}
+              >
+                <NotificationsIcon className={classes.icon} />
               </IconButton>
               <UploadButton />
 

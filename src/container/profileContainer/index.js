@@ -29,12 +29,10 @@ export default function ProfileContainer() {
     } else {
       (async function () {
         let response = await apiCall("GET", `user/${userId}`);
-
+        debugger;
         if (response.success) {
-          
           userDetailsSetter(response.data.userDetails);
         } else {
-          
           userDetailsSetter({
             userName: "User Not found",
           });
@@ -51,7 +49,7 @@ export default function ProfileContainer() {
     } else {
       (async function () {
         let response = await apiCall("GET", `post/${userId}/all`);
-
+        debugger;
         if (response.success) {
           postArraySetter(response.data.posts);
         } else {
@@ -64,12 +62,10 @@ export default function ProfileContainer() {
   useEffect(() => {
     if (user.userDetails?._id === userId) {
       if (user.status === "fullfilled") {
-        
         isUserProfileSetter(auth.userKey === userId);
         userDetailsSetter(user.userDetails);
       } else if (user.status === "rejected") {
-        
-        toast.error(user.message)
+        toast.error(user.message);
       }
     }
   }, [user, userId]);
@@ -77,7 +73,6 @@ export default function ProfileContainer() {
   useEffect(() => {
     if (user.userDetails?._id === userId) {
       if (user.status === "fullfilled") {
-        
         postArraySetter(user.userPosts);
       } else if (user.status === "rejected") {
         toast.error(user.message);

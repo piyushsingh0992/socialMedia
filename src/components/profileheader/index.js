@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfileHeader({ userDetails, isUserProfile }) {
   const classes = useStyles();
 
+
   return (
     <Card className={classes.root}>
       <CardActionArea style={{ cursor: "default" }}>
@@ -71,7 +72,7 @@ export default function ProfileHeader({ userDetails, isUserProfile }) {
                               variant="h4"
                               color="textPrimary"
                               component="p"
-                              text={`${userDetails.userName.slice(0, 10)}...`}
+                              text={`${userDetails.userName.slice(0, 8)} ..`}
                               toolTipText={userDetails.userName}
                             />
                           ) : (

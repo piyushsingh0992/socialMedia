@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
-
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import "./style.css";
@@ -33,7 +31,7 @@ export const Suggestion = () => {
         <Typography variant="h6">Suggestions</Typography>
 
         {suggestion ? (
-          suggestion.map((item) => {
+          suggestion.slice(0,3).map((item) => {
             return <SuggestionRow userDetails={item} />;
           })
         ) : (
