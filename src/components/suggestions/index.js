@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import "./style.css";
 import { apiCall } from "../../apiCall";
 import Typography from "@material-ui/core/Typography";
 import SuggestionRow from "../suggestionRow";
@@ -26,7 +25,7 @@ export const Suggestion = () => {
   }, []);
 
   return (
-    <Card className={`${classes.root} suggestionBox`}>
+    <Card className={`${classes.root}`}>
       <CardContent>
         <Typography variant="h6">Suggestions</Typography>
 
