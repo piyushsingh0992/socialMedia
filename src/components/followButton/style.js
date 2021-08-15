@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     background: "none",
     color: theme.palette.primary.main,
     border: `2px solid ${theme.palette.primary.main}`,
+    // fontSize:"0.7rem",
 
     "&:hover": {
       background: theme.palette.primary,

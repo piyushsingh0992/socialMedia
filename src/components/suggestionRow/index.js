@@ -9,16 +9,17 @@ import { useNavigate } from "react-router-dom";
 import UserToolTip from "../userToolTip";
 
 const useStyles = makeStyles((theme) => ({
+
   avatar: {
-    margin: "1rem 0",
-    padding: "0.5rem",
-    cursor: "pointer",
-    height: "30px",
-    width: "30px",
+    background: theme.palette.primary.main,
+    height: "40px",
+    width: "40px",
+        margin: "1rem 0",
   },
 }));
 
 export const SuggestionRow = ({ userDetails }) => {
+  
   const classes = useStyles();
   const navigate = useNavigate();
   return (
@@ -38,7 +39,7 @@ export const SuggestionRow = ({ userDetails }) => {
         <Avatar
           aria-label="recipe"
           className={classes.avatar}
-          src={userDetails.profileImg}
+          src={userDetails.profileImage}
         />
       </Grid>
       <Grid
@@ -50,12 +51,12 @@ export const SuggestionRow = ({ userDetails }) => {
       >
         <Grid container justifyContent="space-between">
           <Grid item xs={6}>
-            {userDetails.userName.length > 8 ? (
+            {userDetails.userName.length > 5 ? (
               <UserToolTip
                 variant="h6"
                 color="textPrimary"
                 component="span"
-                text={userDetails.userName.slice(0, 8) + "..."}
+                text={userDetails.userName.slice(0, 5) + "..."}
                 toolTipText={userDetails.userName}
               />
             ) : (

@@ -32,7 +32,7 @@ export const postSlice = createSlice({
       });
     },
 
-    resetPostSlice: (state) => {
+    resetNewsFeedSlice: (state) => {
       return {
         posts: [],
         status: "idle",
@@ -56,6 +56,6 @@ export const postSlice = createSlice({
   },
 });
 
-export const { resetPostSlice, updateNewsFeed } = postSlice.actions;
+export const { resetNewsFeedSlice, updateNewsFeed } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -4,7 +4,7 @@ import Container from "@material-ui/core/Container";
 import Notification from "../../components/notification";
 import { useSelector, useDispatch } from "react-redux";
 import { getNotififcations } from "./notificationSlice.js";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 export default function NotificationContainer() {
   const notification = useSelector((state) => state.notification);
   const [notificationArray, notificationArraySetter] = useState(null);
@@ -37,7 +37,9 @@ export default function NotificationContainer() {
             })}
           </>
         ) : (
-          <h1>loading</h1>
+          <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:"100vh"}}>
+            <CircularProgress size={100} />
+          </div>
         )}
       </Container>
     </div>

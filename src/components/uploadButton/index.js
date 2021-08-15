@@ -92,9 +92,11 @@ export default function UploadButton({ menuItem }) {
           </MenuItem>
         </label>
       ) : (
-        <IconButton>
-          <PhotoCamera className={classes.icon} />
-        </IconButton>
+        <label htmlFor="icon-button-file">
+          <IconButton aria-label="upload picture" component="span">
+            <PhotoCamera className={classes.icon1} />
+          </IconButton>
+        </label>
       )}
 
       <Modal

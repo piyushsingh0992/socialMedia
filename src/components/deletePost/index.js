@@ -5,7 +5,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { deleteCurrentPost } from "../../container/postContainer/postSlice";
 import { useDispatch } from "react-redux";
 
-const DeletePost = ({ anchorEl, handleClose, postId }) => {
+const DeletePost = ({ anchorEl, handleClose, postId,deleteLoaderSetter }) => {
   const dispatch = useDispatch();
 
   return (
@@ -16,6 +16,7 @@ const DeletePost = ({ anchorEl, handleClose, postId }) => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
       onClick={() => {
+        deleteLoaderSetter(true);
         dispatch(deleteCurrentPost(postId));
       }}
     >

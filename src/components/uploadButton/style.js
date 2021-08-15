@@ -44,6 +44,10 @@ export const useStyles = makeStyles((theme) => ({
   icon:{
     color:"black"
   },
+  icon1:{
+    color:"black",
+    marginTop:"0.4rem"
+  },
   media: {
     height: 0,
     maxHeight: "350vh",

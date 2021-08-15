@@ -80,7 +80,14 @@ export const postSlice = createSlice({
     deleteStatus: "idle",
   },
   reducers: {
-    
+    resetPostSlice: (state) => {
+      return {
+        currentPost: null,
+        status: "idle",
+        message: null,
+        deleteStatus: "idle",
+      };
+    },
   },
   extraReducers: {
     [getCurrentPost.pending]: (state) => {
@@ -114,7 +121,6 @@ export const postSlice = createSlice({
       state.currentPost = action.payload.data.post;
       state.message = action.payload.message;
       state.status = "fullfilled";
-      
     },
     [likePost.rejected]: (state, action) => {
       state.message = action.payload.message;
@@ -149,6 +155,6 @@ export const postSlice = createSlice({
   },
 });
 
-export const {  } = postSlice.actions;
+export const {resetPostSlice} = postSlice.actions;
 
 export default postSlice.reducer;

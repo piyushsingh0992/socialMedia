@@ -14,10 +14,9 @@ import SaveIcon from "@material-ui/icons/Save";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { editUserDetails } from "../../container/profileContainer/userSlice";
-import {restAuthToken} from "../../container/loginContainer/authSlice";
+import { restAuthToken } from "../../container/loginContainer/authSlice";
 import UploadImage from "../uploadImage";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
 
 export default function EditProfileModal() {
   const classes = useStyles();
@@ -40,7 +39,18 @@ export default function EditProfileModal() {
   }, [user]);
 
   useEffect(() => {
-    userDetailsSetter(user.userDetails);
+    let newUser = {
+      coverImage: user.userDetails.coverImage,
+      email: user.userDetails.email,
+      followers: user.userDetails.followers,
+      following: user.userDetails.following,
+      posts: user.userDetails.posts,
+      profileImage: user.userDetails.profileImage,
+      pronouns: user.userDetails.pronouns,
+      sex: user.userDetails.sex,
+      userName: user.userDetails.userName,
+    };
+    userDetailsSetter(newUser);
     return () => {
       userDetailsSetter(null);
     };
@@ -96,10 +106,7 @@ export default function EditProfileModal() {
 
   return (
     <div>
-      <EditOutlinedIcon
-        onClick={handleOpen}
-        className={classes.icon}
-      />
+      <EditOutlinedIcon onClick={handleOpen} className={classes.icon} />
 
       <Modal
         open={open}
@@ -214,12 +221,16 @@ export default function EditProfileModal() {
                   dispatch(editUserDetails(userDetails));
                 }}
               >
-                {user.status === "loading" ? <CircularProgress size={28} color="white"/> : "Save"}
+                {user.status === "loading" ? (
+                  <CircularProgress size={28} color="white" />
+                ) : (
+                  "Save"
+                )}
               </Button>
             </Grid>
           </div>
         ) : (
-<CircularProgress size={28} color="white"/>
+          <CircularProgress size={28} color="white" />
         )}
       </Modal>
     </div>

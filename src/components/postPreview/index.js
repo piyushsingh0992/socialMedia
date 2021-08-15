@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PostPreview({ currentPost }) {
+export default function PostPreview({ currentPost,deleteLoader,deleteLoaderSetter }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -84,6 +84,7 @@ export default function PostPreview({ currentPost }) {
             userDetails={currentPost.user}
             time={moment(currentPost.createdAt).format("LL")}
             postId={currentPost._id}
+            deleteLoader={deleteLoader} deleteLoaderSetter={deleteLoaderSetter}
           />
           {currentPost.caption.length > 0 && (
             <Typography

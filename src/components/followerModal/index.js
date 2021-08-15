@@ -36,7 +36,7 @@ const FollowerModalRow = ({ userDetails }) => {
       </Grid>
       <Grid
         item
-        xs={8}
+        xs={7}
         style={{
           cursor: "pointer",
         }}
@@ -47,7 +47,7 @@ const FollowerModalRow = ({ userDetails }) => {
         <Typography>{userDetails.userName}</Typography>
         <Typography>{userDetails.pronouns}</Typography>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         {userDetails._id != auth.userKey && (
           <FollowButton userId={userDetails._id} />
         )}

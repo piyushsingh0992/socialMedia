@@ -14,6 +14,8 @@ const PostHeader = ({
   userDetails,
   time,
   postId,
+  deleteLoader,
+  deleteLoaderSetter,
 }) => {
   let auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -41,7 +43,7 @@ const PostHeader = ({
       action={
         userDetails._id === auth.userKey && (
           <div>
-            {currentPost.deleteStatus === "loading" ? (
+            {deleteLoader ? (
               <CircularProgress />
             ) : (
               <IconButton aria-label="settings" onClick={handleClick}>
@@ -54,6 +56,7 @@ const PostHeader = ({
               postId={postId}
               userId={userDetails._id}
               handleClick={handleClick}
+              deleteLoaderSetter={deleteLoaderSetter}
             />
           </div>
         )

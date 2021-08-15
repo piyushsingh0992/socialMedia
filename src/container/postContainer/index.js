@@ -18,13 +18,17 @@ export default function PostContainer() {
   let { postId } = useParams();
   const navigate = useNavigate();
   const [loader, loaderSetter] = useState(false);
+  const [deleteLoader, deleteLoaderSetter] = useState(false);
   useEffect(() => {
-    if (currentPost.deleteStatus === "fullfilled") {
-      dispatch(deletePostFromUser({ postId: currentPost.currentPost._id }));
-      
-      navigate(`/profile/${auth.userKey}`);
-    } else if (currentPost.deleteStatus === "rejected") {
-      toast.error(currentPost.message);
+    if (deleteLoader) {
+      if (currentPost.deleteStatus === "fullfilled") {
+        dispatch(deletePostFromUser({ postId: currentPost.currentPost._id }));
+        deleteLoaderSetter(false);
+        navigate(`/profile/${auth.userKey}`);
+      } else if (currentPost.deleteStatus === "rejected") {
+        deleteLoaderSetter(false);
+        toast.error(currentPost.message);
+      }
     }
   }, [currentPost]);
 
@@ -50,7 +54,7 @@ export default function PostContainer() {
       <Navbar />
       <Container fixed maxWidth="md">
         {currentPostDetails ? (
-          <PostPreview currentPost={currentPostDetails} />
+          <PostPreview currentPost={currentPostDetails}  deleteLoader={deleteLoader} deleteLoaderSetter={deleteLoaderSetter}/>
         ) : (
           <div className={classes.loading}>
             <CircularProgress size={150} />

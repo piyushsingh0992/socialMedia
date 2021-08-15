@@ -64,8 +64,8 @@ export default function ProfileContainer() {
   useEffect(() => {
     if (user.userDetails?._id === userId) {
       if (user.status === "fullfilled") {
-        isUserProfileSetter(auth.userKey === userId);
         
+        isUserProfileSetter(auth.userKey === userId);
         userDetailsSetter(user.userDetails);
       } else if (user.status === "rejected") {
         
@@ -77,9 +77,9 @@ export default function ProfileContainer() {
   useEffect(() => {
     if (user.userDetails?._id === userId) {
       if (user.status === "fullfilled") {
+        
         postArraySetter(user.userPosts);
       } else if (user.status === "rejected") {
-        postArraySetter([]);
         toast.error(user.message);
       }
     }
