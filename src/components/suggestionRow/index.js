@@ -50,22 +50,22 @@ export const SuggestionRow = ({ userDetails }) => {
         }}
       >
         <Grid container justifyContent="space-between">
-          <Grid item xs={6}>
-            {userDetails.userName.length > 5 ? (
+          <Grid item xs={7}>
+            {userDetails.userName.length > 15 ? (
               <UserToolTip
-                variant="h6"
+                variant="p"
                 color="textPrimary"
-                component="span"
-                text={userDetails.userName.slice(0, 5) + "..."}
+                component="h3"
+                text={userDetails.userName.slice(0, 15) + "..."}
                 toolTipText={userDetails.userName}
               />
             ) : (
-              <Typography variant="h6" color="textPrimary" component="span">
+              <Typography variant="p" color="textPrimary" component="h3" >
                 {userDetails.userName}
               </Typography>
             )}
 
-            <Typography variant="p" color="textSecondary" component="p">
+            <Typography variant="span" color="textSecondary" >
               {userDetails.pronouns}
             </Typography>
           </Grid>

@@ -5,6 +5,7 @@ import { resetNotificationSlice } from "../container/notificationContainer/notif
 import { resetUserSlice } from "../container/profileContainer/userSlice";
 import { resetPostSlice } from "../container/postContainer/postSlice";
 import { setupAuthHeader } from "../utils/common";
+import { resetSuggestionSlice } from "../container/newsFeedContainer/suggestionSlice";
 import { logOutLocal, clearLastRoute } from "../localStorage";
 
 export default function useLogout() {
@@ -16,6 +17,7 @@ export default function useLogout() {
     dispatch(resetNotificationSlice());
     dispatch(resetUserSlice());
     dispatch(resetPostSlice());
+    dispatch(resetSuggestionSlice());
     setupAuthHeader();
     logOutLocal();
     clearLastRoute();

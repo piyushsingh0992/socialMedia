@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiCall } from "../../apiCall";
 import { current } from "immer";
+import { randomize } from "../../utils/common";
 
 export let getAllPosts = createAsyncThunk(
   "posts/getAllPosts",
@@ -46,7 +47,7 @@ export const postSlice = createSlice({
     },
     [getAllPosts.fulfilled]: (state, action) => {
       state.status = "fullfilled";
-      state.posts = action.payload.data.posts;
+      state.posts = randomize(action.payload.data.posts);
       state.message = action.payload.data.message;
     },
     [getAllPosts.rejected]: (state, action) => {

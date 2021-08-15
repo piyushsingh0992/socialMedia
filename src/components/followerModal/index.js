@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import FollowButton from "../followButton";
 import { getModalStyle, useStyles } from "./style.js";
 import { apiCall } from "../../apiCall";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -132,7 +132,7 @@ export default function FollowerModalFollowerModal({
               return <FollowerModalRow userDetails={userDetails} />;
             })
           ) : (
-            <h1>loading</h1>
+            <CircularProgress size={28} />
           )}
         </div>
       </Modal>

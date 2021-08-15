@@ -20,4 +20,7 @@ export const useStyles = makeStyles((theme) => ({
       display: "none !important",
     },
   },
+  heading: {
+    margin: "0.5rem 0",
+  },
 }));

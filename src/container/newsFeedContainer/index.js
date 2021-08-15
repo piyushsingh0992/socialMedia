@@ -10,21 +10,15 @@ import Suggestions from "../../components/suggestions";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useStyles } from "./style.js";
-import Typography from "@material-ui/core/Typography";
+import { getSuggestions } from "./suggestionSlice";
 
 export default function NewsFeedContainer() {
   const classes = useStyles();
   const newsFeed = useSelector((state) => state.newsFeed);
+  const suggestion = useSelector((state) => state.suggestion);
   let dispatch = useDispatch();
   const [loader, loaderSetter] = useState(true);
   const [postArray, postArraySetter] = useState([]);
-
-  const randmizePosts = (newsFeed) => {
-    return newsFeed
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ value }) => value);
-  };
 
   useEffect(() => {
     if (newsFeed.status === "idle") {
@@ -33,10 +27,19 @@ export default function NewsFeedContainer() {
       toast.error(newsFeed.message);
       loaderSetter(false);
     } else if (newsFeed.status === "fullfilled") {
-      postArraySetter(randmizePosts(newsFeed.posts));
+      postArraySetter(newsFeed.posts);
       loaderSetter(false);
     }
   }, [newsFeed]);
+
+  useEffect(() => {
+    if (suggestion.status === "idle") {
+      dispatch(getSuggestions());
+    } else if (suggestion.status === "rejected") {
+      toast.error(suggestion.message);
+    } else if (suggestion.status === "fullfilled") {
+    }
+  }, [suggestion]);
 
   return (
     <div className="main-container">

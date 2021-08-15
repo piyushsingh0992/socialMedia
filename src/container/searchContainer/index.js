@@ -5,12 +5,15 @@ import Container from "@material-ui/core/Container";
 import { useLocation, useNavigate } from "react-router-dom";
 import { apiCall } from "../../apiCall";
 import { getLastRoute } from "../../localStorage";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { useStyles } from "./style.js";
 export default function SearchContainer() {
   const query = new URLSearchParams(useLocation().search);
   const searchText = query.get("searchText");
   const [searchResultArray, searchResultArraySetter] = useState(null);
   const [searchResultText, searchResultTextSetter] = useState(null);
   const navigate = useNavigate();
+  const classes = useStyles();
   useEffect(() => {
     searchResultArraySetter(null);
     if (searchText) {
@@ -43,7 +46,9 @@ export default function SearchContainer() {
             })}
           </div>
         ) : (
-          <h1>loading</h1>
+          <div className={classes.loaderContainer}>
+            <CircularProgress size={120} />
+          </div>
         )}
       </Container>
     </div>

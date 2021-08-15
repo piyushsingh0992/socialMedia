@@ -36,3 +36,10 @@ export function getNewPath(path, paramsArray) {
   });
   return newArray.join("");
 }
+
+export const randomize = (array) => {
+  return array
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+};

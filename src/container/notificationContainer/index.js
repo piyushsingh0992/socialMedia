@@ -5,10 +5,13 @@ import Notification from "../../components/notification";
 import { useSelector, useDispatch } from "react-redux";
 import { getNotififcations } from "./notificationSlice.js";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
+import { useStyles } from "./style.js";
 export default function NotificationContainer() {
   const notification = useSelector((state) => state.notification);
   const [notificationArray, notificationArraySetter] = useState(null);
   let dispatch = useDispatch();
+  const classes = useStyles();
   useEffect(() => {
     if (notification.status === "idle") {
       notificationArraySetter(null);
@@ -27,9 +30,13 @@ export default function NotificationContainer() {
         {notificationArray ? (
           <>
             {notificationArray.length > 0 ? (
-              <h3>`{notificationArray.length} new notifications`</h3>
+              <Typography variant="h5" className={classes.heading}>
+                {notificationArray.length} new notifications
+              </Typography>
             ) : (
-              <h3>no new notifications</h3>
+              <Typography variant="h5" className={classes.heading}>
+                No new notifications
+              </Typography>
             )}
 
             {notificationArray.map((item) => {
@@ -37,7 +44,14 @@ export default function NotificationContainer() {
             })}
           </>
         ) : (
-          <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:"100vh"}}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "100vh",
+            }}
+          >
             <CircularProgress size={100} />
           </div>
         )}
