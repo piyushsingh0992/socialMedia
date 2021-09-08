@@ -83,7 +83,36 @@ export default function SignIn({
               dispatch(signInFunction(signInDetails));
             }}
           >
-            {user.status === "loading" ? <CircularProgress size={28} color="white"/> : "Sign In"}
+            {user.status === "loading" ? (
+              <CircularProgress size={28} color="white" />
+            ) : (
+              "Sign In"
+            )}
+          </Button>
+
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={() => {
+              signInDetailsSetter({
+                email: "piyush1997@gmail.com",
+                password: "piyush@1997",
+              });
+              dispatch(
+                signInFunction({
+                  email: "piyush1997@gmail.com",
+                  password: "piyush@1997",
+                })
+              );
+            }}
+          >
+            {user.status === "loading" ? (
+              <CircularProgress size={28} color="white" />
+            ) : (
+              "Sign In As Guest"
+            )}
           </Button>
           <Grid container alignItems="center" justify="center">
             <Grid
