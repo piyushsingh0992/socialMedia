@@ -7,5 +7,13 @@ export const useStyles = makeStyles((theme) => ({
     paddingBottom: "0.5rem",
     marginTop: "0",
     marginBottom: "0",
+    wordWrap: "break-word",
   },
+
+  del:{
+    '&:hover': {
+      transform: "scale(1.2)",
+      cursor:"pointer",
+    }
+  }
 }));

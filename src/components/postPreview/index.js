@@ -98,7 +98,7 @@ export default function PostPreview({ currentPost,deleteLoader,deleteLoaderSette
           )}
           <Grid container className={classes.allCommentContainer}>
             {currentPost.comments.map((item) => {
-              return <Comment commentDetails={item} />;
+              return <Comment commentDetails={item} postId={currentPost._id}/>;
             })}
           </Grid>
           <div className={classes.commentBoxContainer}>

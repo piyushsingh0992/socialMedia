@@ -71,6 +71,20 @@ export const addComment = createAsyncThunk(
   }
 );
 
+export const deleteComment = createAsyncThunk(
+  "post/deleteComment",
+
+  async ({ postId, commentId }, { fulfillWithValue, rejectWithValue }) => {
+    
+    let response = await apiCall("DELETE", `comment/${postId}/${commentId}`);
+
+    if (response.success) {
+      return fulfillWithValue(response);
+    } else {
+      return rejectWithValue(response);
+    }
+  }
+);
 export const postSlice = createSlice({
   name: "post",
   initialState: {
@@ -152,9 +166,23 @@ export const postSlice = createSlice({
       state.message = action.payload.message;
       state.status = "rejected";
     },
+
+    [deleteComment.pending]: (state) => {
+      state.status = "loading";
+    },
+    [deleteComment.fulfilled]: (state, action) => {
+      state.message = action.payload.message;
+      state.currentPost = action.payload.data.post;
+      state.deletedCommentId=action.payload.data.deletedCommentId
+      state.status = "fullfilled";
+    },
+    [deleteComment.rejected]: (state, action) => {
+      state.message = action.payload.message;
+      state.status = "rejected";
+    },
   },
 });
 
-export const {resetPostSlice} = postSlice.actions;
+export const { resetPostSlice } = postSlice.actions;
 
 export default postSlice.reducer;
