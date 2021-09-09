@@ -114,7 +114,6 @@ export const userSlice = createSlice({
     },
 
     updateUserDetails: (state, action) => {
-     
       if (action.payload.userDetails._id === action.payload.userDetails._id) {
         state.userDetails = action.payload.userDetails;
       }
@@ -127,7 +126,6 @@ export const userSlice = createSlice({
     },
 
     deletePostFromUser: (state, action) => {
-
       if (state.userPosts) {
         state.userPosts = state.userPosts.filter(
           (post) => post._id !== action.payload.postId
@@ -170,7 +168,9 @@ export const userSlice = createSlice({
         state.userDetails != null &&
         state.userDetails._id === action.payload.data.post.user._id
       ) {
-        state.userPosts.unshift(action.payload.data.post);
+        state.userPosts
+          ? state.userPosts.unshift(action.payload.data.post)
+          : (state.userPosts = [action.payload.data.post]);
       }
     },
     [createPost.rejected]: (state, action) => {
