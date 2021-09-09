@@ -1,15 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `10%`,
-    left: `30%`,
-    // transform: `translate(-${top}%, -${left}%)`,
-  };
-}
 export const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -23,10 +13,17 @@ export const useStyles = makeStyles((theme) => ({
     position: "absolute",
     minWidth: 450,
     backgroundColor: theme.palette.background.paper,
+  
     border: `2px solid ${theme.palette.primary.main}`,
     boxShadow: theme.shadows[5],
     borderRadius: "5px",
     padding: theme.spacing(1, 1, 1),
+    top: `10%`,
+    left: `30%`,
+    [theme.breakpoints.down("md")]: {
+      top: `10%`,
+      left: `10%`,
+    },
   },
   formControl: {
     minWidth: 120,
@@ -41,12 +38,12 @@ export const useStyles = makeStyles((theme) => ({
     margin: "1.5rem 0",
   },
 
-  icon:{
-    color:"black"
+  icon: {
+    color: "black",
   },
-  icon1:{
-    color:"black",
-    marginTop:"0.4rem"
+  icon1: {
+    color: "black",
+    marginTop: "0.4rem",
   },
   media: {
     height: 0,

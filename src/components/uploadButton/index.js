@@ -18,7 +18,7 @@ import { useNavigate } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
 export default function UploadButton({ menuItem }) {
   const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
+
   const [open, setOpen] = useState(false);
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
@@ -105,7 +105,7 @@ export default function UploadButton({ menuItem }) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div style={modalStyle} className={classes.paper}>
+        <div  className={classes.paper}>
           <Card className={classes.card}>
             <PostHeader userDetails={user.userDetails} />
 
