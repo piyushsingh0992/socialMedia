@@ -35,7 +35,6 @@ function App() {
       <Routes>
         <PrivateRoute path="/" element={<NewsFeedContainer />} />
         <PrivateRoute path="/post/:postId" element={<PostContainer />} />
-
         <PrivateRoute path="/profile/:userId" element={<ProfileContainer />} />
         <PrivateRoute
           path="/notifications"

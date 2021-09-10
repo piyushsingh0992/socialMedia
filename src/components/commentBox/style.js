@@ -20,9 +20,5 @@ export const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
   },
 }));

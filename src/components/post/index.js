@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useStyles } from "./style.js";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -25,6 +25,10 @@ export default function Post({ postDetails }) {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    setExpanded(postDetails.comments.length > 0);
+  }, [postDetails.comments.length]);
+
   return (
     <Card className={classes.root}>
       <PostHeader
@@ -35,11 +39,7 @@ export default function Post({ postDetails }) {
         time={moment(postDetails.createdAt).format("LL")}
         postId={postDetails._id}
       />
-      <CardMedia
-        className={classes.media}
-        image={postDetails.img.url}
-       
-      />
+      <CardMedia className={classes.media} image={postDetails.img.url} />
 
       {postDetails.caption && (
         <CardContent>
@@ -55,8 +55,12 @@ export default function Post({ postDetails }) {
         likesArray={postDetails.likes}
         comment={postDetails.comments.length}
       />
-      <CommentList expanded={expanded} commentArray={postDetails.comments} postId={postDetails._id} />
-      <CommentBox postId={postDetails._id} setExpanded={setExpanded}/>
+      <CommentList
+        expanded={expanded}
+        commentArray={postDetails.comments}
+        postId={postDetails._id}
+      />
+      <CommentBox postId={postDetails._id} setExpanded={setExpanded} />
     </Card>
   );
 }
