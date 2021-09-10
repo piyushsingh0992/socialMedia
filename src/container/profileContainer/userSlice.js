@@ -89,6 +89,7 @@ export const userSlice = createSlice({
   initialState: {
     userDetails: null,
     status: "idle",
+    createPostStatus:"idle",
     message: "null",
     userPosts: null,
   },
@@ -151,10 +152,10 @@ export const userSlice = createSlice({
     },
 
     [createPost.pending]: (state) => {
-      state.status = "loading";
+      state.createPostStatus="loading"
     },
     [createPost.fulfilled]: (state, action) => {
-      state.status = "fullfilled";
+      state.createPostStatus = "fullfilled";
       state.message = action.payload.data.message;
 
       if (
@@ -174,7 +175,7 @@ export const userSlice = createSlice({
       }
     },
     [createPost.rejected]: (state, action) => {
-      state.status = "rejected";
+      state.createPostStatus = "rejected";
       state.message = action.payload.message;
     },
 

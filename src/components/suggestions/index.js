@@ -18,7 +18,7 @@ export const Suggestion = () => {
 
   const setSuggestionArray = (suggestions) => {
     suggestions = suggestions.filter((item) => {
-      if (user.following.includes(item._id)) {   
+      if (user && user.following && user.following.includes(item._id)) {
         return false;
       }
       return true;

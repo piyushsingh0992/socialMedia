@@ -10,7 +10,10 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import { toast } from "react-toastify";
-import { createPost } from "../../container/profileContainer/userSlice";
+import {
+  createPost,
+  getUserPosts,
+} from "../../container/profileContainer/userSlice";
 import Typography from "@material-ui/core/Typography";
 import { useSelector, useDispatch } from "react-redux";
 import PostHeader from "../postHeader";
@@ -23,6 +26,7 @@ export default function UploadButton({ menuItem }) {
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
   const [caption, captionSetter] = useState("");
+  const [loading, loadingSetter] = useState(false);
   const auth = useSelector((state) => state.auth);
 
   const user = useSelector((state) => state.user);
@@ -31,16 +35,36 @@ export default function UploadButton({ menuItem }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (open) {
-      if (user.status === "fullfilled") {
-        toast.success(user.message);
-        handleClose();
-        navigate(`/profile/${auth.userKey}`);
-      } else if (user.status === "rejected") {
-        toast.error(user.message);
-      }
+    if (
+      loading &&
+      user.status === "fullfilled" &&
+      user.createPostStatus !== "loading"
+    ) {
+      dispatch(
+        createPost({
+          userId: auth.userKey,
+          postDetails: {
+            caption,
+            img: previewSource,
+          },
+        })
+      );
     }
   }, [user.status]);
+
+  useEffect(() => {
+    if (open && loading) {
+      if (user.createPostStatus === "fullfilled") {
+        toast.success(user.message);
+        handleClose();
+        loadingSetter(false);
+        navigate(`/profile/${auth.userKey}`);
+      } else if (user.createPostStatus === "rejected") {
+        toast.error(user.message);
+        loadingSetter(false);
+      }
+    }
+  }, [user.createPostStatus]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -105,7 +129,7 @@ export default function UploadButton({ menuItem }) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div  className={classes.paper}>
+        <div className={classes.paper}>
           <Card className={classes.card}>
             <PostHeader userDetails={user.userDetails} />
 
@@ -134,22 +158,24 @@ export default function UploadButton({ menuItem }) {
               color="primary"
               className={classes.button}
               onClick={() => {
-                dispatch(
-                  createPost({
-                    userId: auth.userKey,
-                    postDetails: {
-                      caption,
-                      img: previewSource,
-                    },
-                  })
-                );
+                loadingSetter(true);
+                if (user.userPosts === null) {
+                  let userId = auth.userKey;
+                  dispatch(getUserPosts(userId));
+                } else {
+                  dispatch(
+                    createPost({
+                      userId: auth.userKey,
+                      postDetails: {
+                        caption,
+                        img: previewSource,
+                      },
+                    })
+                  );
+                }
               }}
             >
-              {user.status === "loading" ? (
-                <CircularProgress size={28} color="white" />
-              ) : (
-                "Post"
-              )}
+              {loading ? <CircularProgress size={28} color="white" /> : "Post"}
             </Button>
           </Grid>
         </div>

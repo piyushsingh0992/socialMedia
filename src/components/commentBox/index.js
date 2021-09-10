@@ -11,7 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { addComment } from "../../container/postContainer/postSlice";
 import { updateNewsFeed } from "../../container/newsFeedContainer/newsFeedSlice";
 import { updateUserPosts } from "../../container/profileContainer/userSlice";
-const CommentBox = ({ postId ,setExpanded}) => {
+const CommentBox = ({ postId, setExpanded }) => {
   const classes = useStyles();
   const [text, textSetter] = useState("");
   let post = useSelector((state) => state.newsFeed);
@@ -27,7 +27,7 @@ const CommentBox = ({ postId ,setExpanded}) => {
         dispatch(updateNewsFeed({ post: currentPost.currentPost }));
         dispatch(updateUserPosts({ post: currentPost.currentPost }));
         loaderSetter(false);
-        setExpanded(true);
+        setExpanded && setExpanded(true);
         textSetter("");
       } else if (currentPost.status === "rejected") {
         toast.error(post.message);
