@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem 0",
     padding: 0,
   },
-  content:{
-    padding:"0.6rem",
-    margin:0
+  content: {
+    padding: "0.6rem",
+    margin: 0,
   },
   media: {
     height: 60,
@@ -52,14 +52,10 @@ function notificationText(type, details) {
 }
 
 function mediaType(type, details, classes) {
-  
   switch (type) {
     case "FOLLOW":
       return (
-        <Avatar
-          src={details.userId.profileImage}
-          className={classes.media}
-        />
+        <Avatar src={details.userId.profileImage} className={classes.media} />
       );
 
     case "COMMENT":

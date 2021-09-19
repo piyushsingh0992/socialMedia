@@ -17,7 +17,17 @@ export default function NotificationContainer() {
       notificationArraySetter(null);
       dispatch(getNotififcations());
     } else if (notification.status === "fullfilled") {
-      notificationArraySetter(notification.notifications);
+      let finalNotifications = notification.notifications.filter((item) => {
+        if (
+          item.notificationType === "COMMENT" ||
+          item.notificationType === "LIKE"
+        ) {
+          return item.post ? true : false;
+        }
+        return true;
+      });
+
+      notificationArraySetter(finalNotifications);
     } else if (notification.status === "rejected") {
       notificationArraySetter([]);
     }
